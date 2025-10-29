@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 53bcb426812ccb244ac869c8d55fcc21
+timeCreated: 1529227794
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73426
+  packageName: Blood Gush
+  packageVersion: 1.01
+  assetPath: Assets/BloodDecalsAndEffects/BloodGushFX/brainsAndBlood/Materials/Brains_Material.mat
+  uploadId: 292723

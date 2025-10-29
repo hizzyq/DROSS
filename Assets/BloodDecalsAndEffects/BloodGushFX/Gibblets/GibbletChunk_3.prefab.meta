@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2820e1d6d61f32641bf0fc75480bf03d
+timeCreated: 1530310736
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73426
+  packageName: Blood Gush
+  packageVersion: 1.01
+  assetPath: Assets/BloodDecalsAndEffects/BloodGushFX/Gibblets/GibbletChunk_3.prefab
+  uploadId: 292723

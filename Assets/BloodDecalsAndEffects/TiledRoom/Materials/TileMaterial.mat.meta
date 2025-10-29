@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c21bf17a6d2ca0140a9154a1e740ae60
+timeCreated: 1474314720
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73426
+  packageName: Blood Gush
+  packageVersion: 1.01
+  assetPath: Assets/BloodDecalsAndEffects/TiledRoom/Materials/TileMaterial.mat
+  uploadId: 292723
