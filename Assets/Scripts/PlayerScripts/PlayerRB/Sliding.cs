@@ -13,9 +13,9 @@ public class Sliding : MonoBehaviour
 
     [Header("Sliding")]
     public float slideForce = 200f;
-
     public float slideCounterMovement = 0.2f;
 
+    [Header("Position")]
     public float slideYScalePlayer = 0.5f;
     public float slideYPosCamera = 0.5f;
     private float startYScalePlayer;
@@ -23,7 +23,7 @@ public class Sliding : MonoBehaviour
 
     [Header("Input")]
     public KeyCode slideKey = KeyCode.LeftControl;
-    private float horizontalInput;
+    //private float horizontalInput;
     private float verticalInput;
 
 
@@ -38,11 +38,24 @@ public class Sliding : MonoBehaviour
 
     private void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        //horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Mathf.Clamp(Input.GetAxisRaw("Vertical"), 0, 1);
 
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+        //if (Input.GetKeyDown(slideKey) && (horizontalInput > 0 || verticalInput != 0))
+        //    StartSlide();
+
+        if (Input.GetKeyDown(slideKey) && verticalInput != 0)
             StartSlide();
+
+        //if (pm.sliding && horizontalInput == 0 && verticalInput == 0)
+        //{
+        //    SlideIntoCrouch();
+        //}
+
+        if (pm.sliding && verticalInput == 0)
+        {
+            SlideIntoCrouch();
+        }
 
         if (Input.GetKeyUp(slideKey) && pm.sliding)
             StopSlide();
@@ -65,10 +78,11 @@ public class Sliding : MonoBehaviour
 
     private void SlidingMovement()
     {
-        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        //Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 inputDirection = orientation.forward * verticalInput;
         // sliding normal
-        if(!pm.OnSlope() || rb.linearVelocity.y > -0.1f)
+        if (!pm.OnSlope() || rb.linearVelocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
         }
@@ -78,6 +92,12 @@ public class Sliding : MonoBehaviour
         {
             rb.AddForce(pm.GetSlopeMoveDirection(inputDirection) * slideForce, ForceMode.Force);
         }
+    }
+
+    private void SlideIntoCrouch()
+    {
+        pm.sliding = false;
+        pm.crouching = true;
     }
 
     private void StopSlide()

@@ -5,6 +5,13 @@ using TMPro;
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
+    [Header("References")]
+    public Transform orientation;
+    public Transform playerObj;
+    public Transform cameraObj;
+    private Rigidbody rb;
+    //private PlayerMovementAdvanced pm;
+
     [Header("Movement")]
     private float moveSpeed;
 
@@ -33,9 +40,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Crouching")]
     public float crouchSpeed = 5f;
-    public float crouchYScale = 0.5f;
-    private float startYScale;
+    //public float crouchYScale = 0.5f;
+    //private float startYScale;
     public float slideCounterMovement;
+
+    [Header("Position")]
+    public float slideYScalePlayer = 0.5f;
+    public float slideYPosCamera = 0.5f;
+    private float startYScalePlayer;
+    private float startYPosCamera;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -52,14 +65,14 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private bool exitingSlope;
 
 
-    public Transform orientation;
+    //public Transform orientation;
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+    //Rigidbody rb;
 
     public MovementState state;
     public enum MovementState
@@ -87,7 +100,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         readyToJump = true;
 
-        startYScale = transform.localScale.y;
+        //startYScale = transform.localScale.y;
+        startYScalePlayer = playerObj.localScale.y;
+        startYPosCamera = cameraObj.localPosition.y;
     }
 
     private void Update()
@@ -134,17 +149,20 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // start crouch
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            //transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScalePlayer, playerObj.localScale.z);
+            cameraObj.localPosition = new Vector3(playerObj.localPosition.x, slideYPosCamera, playerObj.localPosition.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
             crouching = true;
         }
 
         // stop crouch
-        if (Input.GetKeyUp(crouchKey))
+        if (Input.GetKeyUp(crouchKey) && crouching)
         {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-
+            //transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer, playerObj.localScale.z);
+            cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera, playerObj.localPosition.z);
             crouching = false;
         }
     }

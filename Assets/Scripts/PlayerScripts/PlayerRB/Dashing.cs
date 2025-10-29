@@ -28,12 +28,15 @@ public class Dashing : MonoBehaviour
 
     [Header("Cooldown")]
     public float dashCd = 0.5f;
+    public float rechargeTime = 1.5f;
+    public int maxCharges = 2;
     private float dashCdTimer;
-    private float curCharges;
+    public float dashChargeTimer;
+    public int curCharges = 2;
     
 
     [Header("Input")]
-    public KeyCode dashKey = KeyCode.E;
+    public KeyCode dashKey = KeyCode.LeftShift;
 
     private void Start()
     {
@@ -43,17 +46,41 @@ public class Dashing : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(dashKey))
+        if (Input.GetKeyDown(dashKey) && curCharges > 0)
+        {
             Dash();
+            curCharges--;
+        }
 
         if (dashCdTimer > 0)
             dashCdTimer -= Time.deltaTime;
+
+        if (curCharges < maxCharges)
+        {
+            dashChargeTimer -= Time.deltaTime;
+            if (dashChargeTimer <= 0f)
+            {
+                curCharges++;
+                dashChargeTimer += rechargeTime; // Сбрасываем таймер
+
+                // Если все еще есть заряды для восстановления, продолжаем отсчет
+                if (curCharges < maxCharges)
+                {
+                    dashChargeTimer = rechargeTime;
+                }
+                else
+                {
+                    dashChargeTimer = 0f; // Все заряды восстановлены
+                }
+            }
+        }
     }
 
     private void Dash()
     {
         if (dashCdTimer > 0) return;
         else dashCdTimer = dashCd;
+        dashChargeTimer += rechargeTime;
 
         pm.dashing = true;
         pm.maxYSpeed = maxDashYSpeed;
