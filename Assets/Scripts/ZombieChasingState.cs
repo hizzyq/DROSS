@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,11 @@ public class ZombieChasingState : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        {
+            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieChase);
+        }
+
         agent.SetDestination(player.position);
         animator.transform.LookAt(player);
 
@@ -35,6 +41,8 @@ public class ZombieChasingState : StateMachineBehaviour
 
         if (distanceFromPlayer < attackingDistance)
         {
+            animator.GetComponentInChildren<SphereCollider>().enabled = true;
+
             animator.SetBool("isAttacking", true);
         }
     }
@@ -43,5 +51,7 @@ public class ZombieChasingState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(animator.transform.position);
+
+        SoundManager.Instance.zombieChannel.Stop();
     }
 }

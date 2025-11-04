@@ -8,6 +8,8 @@ public class GlobalReferences : MonoBehaviour
 
     public GameObject bulletImpactPrefabEffect;
 
+    public GameObject bloodSprayEffect;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 2218472256156033523}
   - component: {fileID: 898201484747720766}
   - component: {fileID: 90174377031468604}
+  - component: {fileID: 1784934334902592995}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -318,6 +319,28 @@ MonoBehaviour:
   mouseSensitivity: 1500
   topClamp: -90
   bottomClamp: 90
+--- !u!95 &1784934334902592995
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307995347168734381}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c590a29c12ee4e04cacc55de75ad7d2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2140557297331383536
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +354,7 @@ GameObject:
   - component: {fileID: 6072993515310791539}
   - component: {fileID: 8581989440765065155}
   - component: {fileID: 4179360262125302803}
+  - component: {fileID: 205227758798610103}
   - component: {fileID: 6428694149398815182}
   m_Layer: 0
   m_Name: Player
@@ -428,6 +452,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   HP: 100
+  bloodyScreen: {fileID: 0}
+  playerHealthUI: {fileID: 0}
+  gameOverUI: {fileID: 0}
+--- !u!114 &205227758798610103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140557297331383536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263235d3484295c49be504b32a00e228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
+  fadeImage: {fileID: 0}
+  fadeDuration: 3
 --- !u!54 &6428694149398815182
 Rigidbody:
   m_ObjectHideFlags: 0

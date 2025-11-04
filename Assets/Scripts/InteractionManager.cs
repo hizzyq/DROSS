@@ -60,15 +60,12 @@ public class InteractionManager : MonoBehaviour
             }
             if (objectHitByRaycast.GetComponent<AmmoBox>())
             {
+                if (hoveredAmmoBox)
+                {
+                    hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                }
                 hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
                 hoveredAmmoBox.GetComponent<Outline>().enabled = true;
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
-                    Destroy(objectHitByRaycast.gameObject);
-                    hoveredAmmoBox = null;
-                }
             }
             else
             {
