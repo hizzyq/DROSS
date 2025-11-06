@@ -101,13 +101,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ZombieHand"))
-        {
-            if (!isDead)
-            {
-                TakeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
-            }
-        }
         if(other.gameObject.GetComponent<AmmoBox>())
         {
             var ammoBox = other.gameObject.GetComponent<AmmoBox>();

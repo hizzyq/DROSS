@@ -41,8 +41,6 @@ public class ZombieChasingState : StateMachineBehaviour
 
         if (distanceFromPlayer < attackingDistance)
         {
-            animator.GetComponentInChildren<SphereCollider>().enabled = true;
-
             animator.SetBool("isAttacking", true);
         }
     }
