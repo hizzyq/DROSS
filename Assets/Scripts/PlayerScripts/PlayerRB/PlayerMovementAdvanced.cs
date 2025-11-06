@@ -9,7 +9,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public Transform orientation;
     public Transform playerObj;
     public Transform cameraObj;
+    public PlayerCam cam;
     private Rigidbody rb;
+    [SerializeField] private CameraSpring cameraSpring;
+    [SerializeField] private CameraLean cameraLean;
 
     [Header("Movement")]
     private float moveSpeed;
@@ -36,6 +39,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.5f;
     bool readyToJump;
+    private bool afterAir;
 
     [Header("Crouching")]
     public float crouchSpeed = 5f;
@@ -90,9 +94,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        afterAir = false;
 
         startYScalePlayer = playerObj.localScale.y;
         startYPosCamera = cameraObj.localPosition.y;
+        
+        cameraSpring.Initialize();
+        cameraLean.Initialize();
     }
 
     private void Update()
@@ -110,6 +118,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
         StateHandler();
 
         rb.linearDamping = 0f;
+
+        // if (afterAir && grounded)
+        // {
+        //     cam.DoLean(-1f);
+        //     cam.DoLean(0f);
+        //     afterAir = false;
+        // }
     }
 
     private void FixedUpdate()
@@ -117,6 +132,12 @@ public class PlayerMovementAdvanced : MonoBehaviour
         MovePlayer();
     }
 
+    private void LateUpdate()
+    {
+        cameraSpring.UpdateSpring(Time.deltaTime, cameraObj.up);
+        cameraLean.UpdateLean(Time.deltaTime, sliding, moveDirection, cameraObj.up);
+    }
+    
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -350,12 +371,18 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         
+        //cam.DoLean(5f);
+
+        afterAir = true;
+        
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {
         readyToJump = true;
 
+        //cam.DoLean(0f);
+        
         exitingSlope = false;
     }
 

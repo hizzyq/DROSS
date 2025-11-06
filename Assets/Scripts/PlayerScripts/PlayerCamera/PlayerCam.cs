@@ -46,4 +46,9 @@ public class PlayerCam : MonoBehaviour
     {
         transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
     }
+
+    public void DoLean(float xTilt)
+    {
+        transform.DOLocalRotate(new Vector3(xTilt, 0, 0), 0.25f);
+    }
 }
