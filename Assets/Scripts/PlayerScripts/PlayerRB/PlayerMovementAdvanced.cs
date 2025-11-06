@@ -10,14 +10,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public Transform playerObj;
     public Transform cameraObj;
     private Rigidbody rb;
-    //private PlayerMovementAdvanced pm;
 
     [Header("Movement")]
     private float moveSpeed;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
-    public float walkSpeed = 10f;
+    public float walkSpeed = 9f;
     public float slideSpeed = 30f;
     public float wallrunSpeed = 8f;
 
@@ -30,7 +29,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float dashSpeed = 15f;
     public float dashSpeedChangeFactor = 40f;
 
-    public float maxYSpeed = 13f;
+    public float maxYSpeed = 8f;
 
     [Header("Jumping")]
     public float jumpForce = 14f;
@@ -40,9 +39,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Crouching")]
     public float crouchSpeed = 5f;
-    //public float crouchYScale = 0.5f;
-    //private float startYScale;
-    public float slideCounterMovement;
 
     [Header("Position")]
     public float slideYScalePlayer = 0.5f;
@@ -60,19 +56,14 @@ public class PlayerMovementAdvanced : MonoBehaviour
     bool grounded;
 
     [Header("Slope Handling")]
-    public float maxSlopeAngle = 35f;
+    public float maxSlopeAngle = 46f;
     private RaycastHit slopeHit;
     private bool exitingSlope;
-
-
-    //public Transform orientation;
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
-
-    //Rigidbody rb;
 
     public MovementState state;
     public enum MovementState
@@ -100,7 +91,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         readyToJump = true;
 
-        //startYScale = transform.localScale.y;
         startYScalePlayer = playerObj.localScale.y;
         startYPosCamera = cameraObj.localPosition.y;
     }
@@ -119,11 +109,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        // handle drag
-        if (state == MovementState.walking || state == MovementState.crouching)
-            rb.linearDamping = groundDrag;
-        else
-            rb.linearDamping = 0;
+        rb.linearDamping = 0f;
     }
 
     private void FixedUpdate()
@@ -137,7 +123,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -149,7 +135,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // start crouch
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
         {
-            //transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScalePlayer, playerObj.localScale.z);
             cameraObj.localPosition = new Vector3(playerObj.localPosition.x, slideYPosCamera, playerObj.localPosition.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -160,7 +145,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // stop crouch
         if (Input.GetKeyUp(crouchKey) && crouching)
         {
-            //transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
             playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer, playerObj.localScale.z);
             cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera, playerObj.localPosition.z);
             crouching = false;
@@ -225,8 +209,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             if (keepMomentum)
             {
-                StopAllCoroutines();
-                StartCoroutine(SmoothlyLerpMoveSpeed());
+                if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(SmoothlyLerpMoveSpeed());
+                }
             }
             else
             {
@@ -236,6 +223,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         lastDesiredMoveSpeed = desiredMoveSpeed;
+        lastState = state;
     }
 
     private float speedChangeFactor;
@@ -248,12 +236,28 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         float boostFactor = speedChangeFactor;
 
+        // while (time < difference)
+        // {
+        //     moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
+        //
+        //     time += Time.deltaTime * boostFactor;
+        //
+        //     yield return null;
+        // }
+
         while (time < difference)
         {
             moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-
-            time += Time.deltaTime * boostFactor;
-
+            
+            if (OnSlope())
+            {
+                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
+        
+                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
+            }
+            else time += Time.deltaTime * boostFactor;
+            
             yield return null;
         }
 
@@ -266,14 +270,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         //Extra gravity
         rb.AddForce(Vector3.down * Time.deltaTime * 10);
-        
+
         if (state == MovementState.dashing) return;
         
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (sliding) {
-            rb.AddForce(moveSpeed * Time.deltaTime * -rb.linearVelocity.normalized * slideCounterMovement);
+            rb.AddForce(moveSpeed * Time.deltaTime * -rb.linearVelocity.normalized);
+            ApplyHorizontalDragIfNeeded();
             return;
         }
         
@@ -296,6 +301,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         // turn gravity off while on slope
         if(!wallrunning) rb.useGravity = !OnSlope();
+
+        ApplyHorizontalDragIfNeeded();
+    }
+
+    private void ApplyHorizontalDragIfNeeded()
+    {
+        if ((state == MovementState.walking || state == MovementState.crouching) && grounded)
+        {
+            Vector3 flat = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            float dragFactor = 1f - groundDrag * Time.fixedDeltaTime;
+            if (dragFactor < 0f) dragFactor = 0f;
+            rb.linearVelocity = new Vector3(flat.x * dragFactor, rb.linearVelocity.y, flat.z * dragFactor);
+        }
     }
 
     private void SpeedControl()
@@ -328,11 +346,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Jump()
     {
         exitingSlope = true;
-
+        
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {

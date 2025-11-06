@@ -61,16 +61,14 @@ public class Dashing : MonoBehaviour
             if (dashChargeTimer <= 0f)
             {
                 curCharges++;
-                dashChargeTimer += rechargeTime; // Сбрасываем таймер
 
-                // Если все еще есть заряды для восстановления, продолжаем отсчет
                 if (curCharges < maxCharges)
                 {
                     dashChargeTimer = rechargeTime;
                 }
                 else
                 {
-                    dashChargeTimer = 0f; // Все заряды восстановлены
+                    dashChargeTimer = 0f;
                 }
             }
         }

@@ -13,7 +13,6 @@ public class Sliding : MonoBehaviour
 
     [Header("Sliding")]
     public float slideForce = 200f;
-    public float slideCounterMovement = 0.2f;
 
     [Header("Position")]
     public float slideYScalePlayer = 0.5f;
@@ -23,7 +22,6 @@ public class Sliding : MonoBehaviour
 
     [Header("Input")]
     public KeyCode slideKey = KeyCode.LeftControl;
-    //private float horizontalInput;
     private float verticalInput;
 
 
@@ -38,19 +36,10 @@ public class Sliding : MonoBehaviour
 
     private void Update()
     {
-        //horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Mathf.Clamp(Input.GetAxisRaw("Vertical"), 0, 1);
-
-        //if (Input.GetKeyDown(slideKey) && (horizontalInput > 0 || verticalInput != 0))
-        //    StartSlide();
 
         if (Input.GetKeyDown(slideKey) && verticalInput != 0)
             StartSlide();
-
-        //if (pm.sliding && horizontalInput == 0 && verticalInput == 0)
-        //{
-        //    SlideIntoCrouch();
-        //}
 
         if (pm.sliding && verticalInput == 0)
         {
@@ -79,7 +68,6 @@ public class Sliding : MonoBehaviour
     private void SlidingMovement()
     {
 
-        //Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         Vector3 inputDirection = orientation.forward * verticalInput;
         // sliding normal
         if (!pm.OnSlope() || rb.linearVelocity.y > -0.1f)
