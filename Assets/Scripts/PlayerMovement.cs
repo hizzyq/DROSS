@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform orientation;
 
-
     private InputAction moveAction;
 
     Vector3 moveDirection;
