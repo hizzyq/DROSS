@@ -24,6 +24,8 @@ public class Door : MonoBehaviour
 
     private Vector3 GetForceDirection()
     {
+        player = GameObject.FindWithTag("Player").transform;
+
         Vector3 toPlayer = player.position - transform.position;
 
         float dotProduct = Vector3.Dot(transform.forward, toPlayer.normalized);
@@ -33,8 +35,8 @@ public class Door : MonoBehaviour
 
     public void ChangeDoorState()
     {
-            Vector3 forceDirection = GetForceDirection();
-            rb.AddForce(forceDirection * doorForce, ForceMode.Impulse);
+        Vector3 forceDirection = GetForceDirection();
+        rb.AddForce(forceDirection * doorForce, ForceMode.Impulse);
 
         if (isOpen)
         {
