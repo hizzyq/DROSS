@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 532c8be46e6660e49a9e48ce60e82441
+timeCreated: 1476036105
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 73426
+  packageName: Blood Gush
+  packageVersion: 1.01
+  assetPath: Assets/BloodDecalsAndEffects/BloodGushFX/BloodSprayFX_Colormodifyable.prefab
+  uploadId: 292723
