@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 416905031434061538}
   - component: {fileID: 5806624118667848796}
   - component: {fileID: 5605634561722215906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MuzzleFlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4798,7 +4798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5025322700095343203}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4832,7 +4832,7 @@ GameObject:
   - component: {fileID: 6191668251333356363}
   - component: {fileID: 5476637509490751595}
   - component: {fileID: 6403110908259680401}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Magazin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4921,7 +4921,7 @@ GameObject:
   - component: {fileID: 2473214924918909594}
   - component: {fileID: 2778343243298314407}
   - component: {fileID: 1620679085630607333}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5010,7 +5010,7 @@ GameObject:
   - component: {fileID: 4248183879217585147}
   - component: {fileID: 5218662760382267911}
   - component: {fileID: 2155543745108268568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5099,7 +5099,7 @@ GameObject:
   - component: {fileID: 718954155813883544}
   - component: {fileID: 3281195804764564099}
   - component: {fileID: 8483583362103626047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5192,7 +5192,7 @@ GameObject:
   - component: {fileID: 3670940565271575566}
   - component: {fileID: 7364318506992790943}
   - component: {fileID: 4949126839015388911}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: M1911
   m_TagString: Untagged
   m_Icon: {fileID: 0}

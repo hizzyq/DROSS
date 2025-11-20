@@ -18,15 +18,7 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            print("hit a wall!");
-
-            CreateBulletImpactEffect(collision);
-
-            Destroy(gameObject);
-        }
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.layer == 3)
         {
             print("hit ground!");
 

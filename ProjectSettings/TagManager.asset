@@ -19,10 +19,9 @@ TagManager:
   - UI
   - whatIsWall
   - Ground
+  - Player
+  - Bullet
   - WeaponRender
-  - 
-  - 
-  - 
   - 
   - 
   - 

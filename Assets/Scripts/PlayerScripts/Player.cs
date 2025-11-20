@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
+    public Camera mainCamera;
 
     public bool isDead;
 
@@ -42,11 +43,14 @@ public class Player : MonoBehaviour
     private void PlayerDead()
     {
         SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerDeath);
-        GetComponent<PlayerMovement>().enabled = false;
-        GetComponent<MouseMovementY>().enabled = false;
-        GetComponentInChildren<MouseMovementX>().enabled = false;
 
-        GetComponentInChildren<Animator>().enabled = true;
+        GetComponent<Dashing>().enabled = false;
+        GetComponent<PlayerMovementAdvanced>().enabled = false;
+        GetComponent<Sliding>().enabled = false;
+        GetComponent<WallRunning>().enabled = false;
+
+        mainCamera.GetComponent<PlayerCam>().enabled = false;
+        mainCamera.GetComponent<Animator>().enabled = true;
 
         playerHealthUI.gameObject.SetActive(false);
 
