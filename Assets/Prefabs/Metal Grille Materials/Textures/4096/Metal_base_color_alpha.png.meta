@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: c110301719dd8be4984aa38c8ac8d8fd
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319256
+  packageName: Metal Grille Materials
+  packageVersion: 1.0
+  assetPath: Assets/Metal Grille Materials/Textures/4096/Metal_base_color_alpha.png
+  uploadId: 754262
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +76,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -128,10 +135,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 319256
-  packageName: Metal Grille Materials
-  packageVersion: 1.0
-  assetPath: Assets/Metal Grille Materials/Textures/4096/Metal_base_color_alpha.png
-  uploadId: 754262
