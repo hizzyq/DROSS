@@ -9,14 +9,14 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public Transform orientation;
     public Transform playerObj;
     public Transform cameraObj;
-    public PlayerCam cam;
     private Rigidbody rb;
     [SerializeField] private CameraSpring cameraSpring;
     [SerializeField] private CameraLean cameraLean;
 
     [Header("Movement")]
-    private float moveSpeed;
+    [SerializeField] private float moveSpeed;
 
+    [SerializeField] private bool isSloped;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
     public float walkSpeed = 9f;
@@ -107,29 +107,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        if (OnSlope())
-        {
-            Debug.Log("Sloped");
-        }
         
         MyInput();
-        SpeedControl();
-        StateHandler();
 
         rb.linearDamping = 0f;
-
-        // if (afterAir && grounded)
-        // {
-        //     cam.DoLean(-1f);
-        //     cam.DoLean(0f);
-        //     afterAir = false;
-        // }
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+        isSloped = OnSlope();
+        if(!wallrunning) rb.useGravity = !isSloped;
+        SpeedControl();
+        StateHandler();
     }
 
     private void LateUpdate()
@@ -224,7 +214,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
-        if (lastState == MovementState.dashing) keepMomentum = true;
+        if (lastState == MovementState.dashing || state == MovementState.sliding) keepMomentum = true;
 
         if (desiredMoveSpeedHasChanged)
         {
@@ -234,6 +224,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
                 {
                     StopAllCoroutines();
                     StartCoroutine(SmoothlyLerpMoveSpeed());
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    moveSpeed = desiredMoveSpeed;
                 }
             }
             else
@@ -256,15 +251,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         float startValue = moveSpeed;
 
         float boostFactor = speedChangeFactor;
-
-        // while (time < difference)
-        // {
-        //     moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-        //
-        //     time += Time.deltaTime * boostFactor;
-        //
-        //     yield return null;
-        // }
 
         while (time < difference)
         {
@@ -321,7 +307,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
-        if(!wallrunning) rb.useGravity = !OnSlope();
+        //if(!wallrunning) rb.useGravity = !isSloped;
 
         ApplyHorizontalDragIfNeeded();
     }
@@ -370,8 +356,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        
-        //cam.DoLean(5f);
 
         afterAir = true;
         
@@ -380,8 +364,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-
-        //cam.DoLean(0f);
         
         exitingSlope = false;
     }
