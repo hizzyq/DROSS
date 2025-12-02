@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UnityTechnologies/EffectExamples.meta
 guid: 6c0b056137d972f46a0312ba21b6263f
+========
+guid: ce6dd7182f4e10f49b43ef439782ffe0
+>>>>>>>> level-mechanics:Assets/Prefabs/TutorialInfo/Scripts/Editor.meta
 folderAsset: yes
 timeCreated: 1473947300
 licenseType: Store

@@ -10,6 +10,9 @@ TagManager:
   - Enemy
   - Waypoints
   - ZombieHand
+  - Door
+  - SlidingDoor
+  - PhysicalButton
   layers:
   - Default
   - TransparentFX
@@ -24,6 +27,13 @@ TagManager:
   - WeaponRender
   - 
   - 
+  - Camera
+  - 
+  - 
+  - 
+  - whatIsGround
+  - elevator
+  - interactable
   - 
   - 
   - 

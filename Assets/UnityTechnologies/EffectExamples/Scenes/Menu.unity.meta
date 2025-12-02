@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UnityTechnologies/EffectExamples/Scenes/Menu.unity.meta
 guid: 01dc19837bbb44ce6a53695fcbb60de3
 timeCreated: 1474536156
+========
+guid: 2b4e822dbf5d53641b37b8dd08191fd0
+timeCreated: 1487337779
+>>>>>>>> level-mechanics:Assets/Prefabs/TutorialInfo/Layout.wlt.meta
 licenseType: Store
 DefaultImporter:
   userData: 

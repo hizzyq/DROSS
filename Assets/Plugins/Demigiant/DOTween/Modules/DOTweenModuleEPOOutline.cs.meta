@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/Demigiant/DOTween/Modules/DOTweenModuleEPOOutline.cs.meta
 guid: e944529dcaee98f4e9498d80e541d93e
 timeCreated: 1602593330
+========
+guid: 0cb65af3566b64944b7cd85d7e6e7b24
+timeCreated: 1484146680
+>>>>>>>> level-mechanics:Assets/Prefabs/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta
 licenseType: Store
 MonoImporter:
   serializedVersion: 2
