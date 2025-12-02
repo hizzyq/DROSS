@@ -1,6 +1,5 @@
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InteractRaycast : MonoBehaviour
 {
@@ -10,10 +9,9 @@ public class InteractRaycast : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            Ray ray = playerCamera.ScreenPointToRay(mousePosition);
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, rayDistance, interactableLayers))

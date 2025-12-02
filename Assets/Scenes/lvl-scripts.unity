@@ -1134,6 +1134,7 @@ MonoBehaviour:
   sensX: 100
   sensY: 100
   orientation: {fileID: 828349724}
+  camHolder: {fileID: 0}
 --- !u!114 &491876369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2161,7 +2162,7 @@ MonoBehaviour:
   rayDistance: 3
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
 --- !u!114 &1345032703
 MonoBehaviour:
   m_ObjectHideFlags: 0
