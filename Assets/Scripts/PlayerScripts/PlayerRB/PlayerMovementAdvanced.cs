@@ -211,6 +211,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
+            if (Physics.Raycast(transform.position, Vector3.forward, 1.5f, whatIsGround))
+            {
+                if (Input.GetKeyDown(jumpKey))
+                {
+                    WallBounce();
+                }
+            }
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
@@ -368,6 +375,18 @@ public class PlayerMovementAdvanced : MonoBehaviour
         exitingSlope = false;
     }
 
+    private void WallBounce()
+    {
+        float wallBounceUpForce = 7;
+        float wallBounceSideForce = 12;
+        Vector3 wallNormal = Vector3.back;
+        Vector3 forceToApply = transform.up * wallBounceUpForce + wallNormal * wallBounceSideForce;
+
+        // reset y velocity and add force
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(forceToApply, ForceMode.Impulse);
+    }
+    
     public bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
@@ -378,7 +397,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         return false;
     }
-
+    
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
