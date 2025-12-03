@@ -15,7 +15,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
-
     [SerializeField] private bool isSloped;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -38,6 +37,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpForce = 14f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.5f;
+    private RaycastHit wallFront;
     bool readyToJump;
     private bool afterAir;
 
@@ -109,7 +109,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         
         MyInput();
-
+        StateHandler();
+        
         rb.linearDamping = 0f;
     }
 
@@ -119,7 +120,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         isSloped = OnSlope();
         if(!wallrunning) rb.useGravity = !isSloped;
         SpeedControl();
-        StateHandler();
     }
 
     private void LateUpdate()
@@ -211,7 +211,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
-            if (Physics.Raycast(transform.position, Vector3.forward, 1.5f, whatIsGround))
+            if (Physics.Raycast(transform.position, orientation.forward, out wallFront, 1f, whatIsGround))
             {
                 if (Input.GetKeyDown(jumpKey))
                 {
@@ -379,7 +379,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         float wallBounceUpForce = 7;
         float wallBounceSideForce = 12;
-        Vector3 wallNormal = Vector3.back;
+        Vector3 wallNormal = wallFront.normal;
         Vector3 forceToApply = transform.up * wallBounceUpForce + wallNormal * wallBounceSideForce;
 
         // reset y velocity and add force
