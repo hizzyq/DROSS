@@ -10,12 +10,14 @@ public class SlidingDoor : MonoBehaviour
     public Transform pairedDoor;
 
     public bool calledByPair = false;
+    public bool locked = false;
 
     [HideInInspector]
     public Vector3 closedPosition;
     [HideInInspector]
     public Vector3 openPosition;
-    private bool isOpen = false;
+    [HideInInspector]
+    public bool isOpen = false;
     private bool isMoving = false;
 
     void Start()
@@ -30,7 +32,10 @@ public class SlidingDoor : MonoBehaviour
         if (!isMoving)
         {
             if (!isOpen)
-                OpenDoor();
+            {
+                if (!locked)
+                    OpenDoor();
+            }
             else
                 CloseDoor();
         }
@@ -42,6 +47,8 @@ public class SlidingDoor : MonoBehaviour
                 SlidingDoor pairedDoorScript = pairedDoor.GetComponent<SlidingDoor>();
                 pairedDoorScript.calledByPair = true;
                 pairedDoorScript.ToggleDoor();
+                if (locked)
+                    pairedDoorScript.locked = true;
             }
         }
     }
