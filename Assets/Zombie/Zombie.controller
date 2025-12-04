@@ -405,8 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ec8848016e33c4ab2e20bc523fdf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  chaseSpeed: 6
-  stopChasingDistance: 21
+  chaseSpeed: 8
+  stopChasingDistance: 101
   attackingDistance: 2.5
 --- !u!1101 &843370762977383948
 AnimatorStateTransition:
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   patrolingTime: 10
-  detectionArea: 18
+  detectionArea: 100
   patrolSpeed: 2
 --- !u!114 &3368686279556746876
 MonoBehaviour:
