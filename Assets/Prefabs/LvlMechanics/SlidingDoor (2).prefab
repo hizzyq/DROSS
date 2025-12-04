@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5125419437221916002
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.62600017
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.626
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5028bbb82f00341b245c0c39f2ff3e, type: 2}
+    - target: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_Name
+      value: SlidingDoor (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      propertyPath: m_TagString
+      value: SlidingDoor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 39217657778202716}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2260436488759167868}
+  m_SourcePrefab: {fileID: 100100000, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+--- !u!1 &5467453525350125619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cf0e9cd26aa8ecb43a72cc76d65b1f84, type: 3}
+  m_PrefabInstance: {fileID: 5125419437221916002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &39217657778202716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467453525350125619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+--- !u!65 &2260436488759167868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467453525350125619}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.125, y: 2.5625, z: 0.03125}
+  m_Center: {x: 0.125, y: 1.28125, z: 0}
