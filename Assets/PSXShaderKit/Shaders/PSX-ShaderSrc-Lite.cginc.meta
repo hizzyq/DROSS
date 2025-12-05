@@ -7,3 +7,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183591
+  packageName: PSX Shader Kit
+  packageVersion: 
+  assetPath: Assets/PSXShaderKit/Shaders/PSX-ShaderSrc-Lite.cginc
+  uploadId: 0

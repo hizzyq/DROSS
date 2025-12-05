@@ -8,3 +8,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183591
+  packageName: PSX Shader Kit
+  packageVersion: 
+  assetPath: Assets/PSXShaderKit/Shaders/ImageEffects/PSX-PostProcess.shader
+  uploadId: 0
