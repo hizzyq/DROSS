@@ -21,16 +21,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float walkSpeed = 9f;
     public float slideSpeed = 30f;
     public float wallrunSpeed = 8f;
-
     public float speedIncreaseMultiplier = 1.5f;
     public float slopeIncreaseMultiplier = 2.5f;
-
     public float groundDrag = 7f;
     
     [Header("Dash")]
     public float dashSpeed = 15f;
     public float dashSpeedChangeFactor = 40f;
-
     public float maxYSpeed = 8f;
 
     [Header("Jumping")]
@@ -39,8 +36,12 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float airMultiplier = 0.5f;
     private RaycastHit wallFront;
     bool readyToJump;
-    private bool afterAir;
 
+    [Header("Wall Bouncing")]
+    [SerializeField] float wallBounceUpForce = 10f;
+    [SerializeField] float wallBounceSideForce = 10f;
+    [SerializeField] private float wallBounceWallDetection = 1f;
+    
     [Header("Crouching")]
     public float crouchSpeed = 5f;
 
@@ -64,12 +65,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
+    //input & direction
     float horizontalInput;
     float verticalInput;
-
     Vector3 moveDirection;
-
+    //states
     public MovementState state;
+    private MovementState lastState;
+    public bool dashing;
+    public bool sliding;
+    public bool crouching;
+    public bool wallrunning;
+    private bool keepMomentum;
+    
     public enum MovementState
     {
         walking,
@@ -79,22 +87,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
         sliding,
         air
     }
-
-    public bool dashing;
-    public bool sliding;
-    public bool crouching;
-    public bool wallrunning;
     
-    private MovementState lastState;
-    private bool keepMomentum;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
         readyToJump = true;
-        afterAir = false;
 
         startYScalePlayer = playerObj.localScale.y;
         startYPosCamera = cameraObj.localPosition.y;
@@ -211,7 +210,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
-            if (Physics.Raycast(transform.position, orientation.forward, out wallFront, 1f, whatIsGround))
+            if (Physics.Raycast(transform.position, orientation.forward, out wallFront, wallBounceWallDetection, whatIsGround))
             {
                 if (Input.GetKeyDown(jumpKey))
                 {
@@ -363,8 +362,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-        afterAir = true;
         
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -377,8 +374,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void WallBounce()
     {
-        float wallBounceUpForce = 7;
-        float wallBounceSideForce = 12;
         Vector3 wallNormal = wallFront.normal;
         Vector3 forceToApply = transform.up * wallBounceUpForce + wallNormal * wallBounceSideForce;
 
