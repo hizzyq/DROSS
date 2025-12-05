@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 49c4b31669070a14c8702b9eabf4f76f
+timeCreated: 1455365204
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63623
+  packageName: Barrels
+  packageVersion: 1.0
+  assetPath: Assets/Barrels/Prefab/Barrels(2).prefab
+  uploadId: 119422
