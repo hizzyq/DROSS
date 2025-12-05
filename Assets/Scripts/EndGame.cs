@@ -17,11 +17,8 @@ public class EndGame : MonoBehaviour
     {
         if (other.CompareTag("BodyPlayer"))
         {
-            // GetComponent<Dashing>().enabled = false;
-            // GetComponent<PlayerMovementAdvanced>().enabled = false;
-            // GetComponent<Sliding>().enabled = false;
-            // GetComponent<WallRunning>().enabled = false;
-
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             playerHealthUI.gameObject.SetActive(false);
             
             screenBlackout.enabled = true;
@@ -30,14 +27,6 @@ public class EndGame : MonoBehaviour
             StartGame(_sceneName);
         }
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Space))
-    //     {
-    //         
-    //     }
-    // }
     
     public void StartGame(string sceneName)
     {

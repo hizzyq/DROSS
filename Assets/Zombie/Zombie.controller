@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   chaseSpeed: 8
-  stopChasingDistance: 101
+  stopChasingDistance: 51
   attackingDistance: 2.5
 --- !u!1101 &843370762977383948
 AnimatorStateTransition:
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   patrolingTime: 10
-  detectionArea: 100
+  detectionArea: 50
   patrolSpeed: 2
 --- !u!114 &3368686279556746876
 MonoBehaviour:
