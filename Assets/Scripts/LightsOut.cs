@@ -18,7 +18,7 @@ public class LightsOut : MonoBehaviour
     [Header("Player camera")]
     public PlayerCam playerCam;
 
-    private PlayerMovement playerMove;
+    private PlayerMovementAdvanced playerMove;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class LightsOut : MonoBehaviour
         {
             if (!hasTriggered)
             {
-                playerMove = other.GetComponentInParent<PlayerMovement>();
+                playerMove = other.GetComponentInParent<PlayerMovementAdvanced>();
                 TriggerLights();
                 hasTriggered = true;
                 Debug.Log($"{playerMove}");

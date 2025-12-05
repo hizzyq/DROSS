@@ -29,4 +29,15 @@ public class ScreenBlackout : MonoBehaviour
         // Ensure the image is completely black at the end.
         fadeImage.color = endColor;
     }
+
+    public void ReverseFade()
+    {
+        StopAllCoroutines();
+        fadeImage.color = new Color(0f, 0f, 0f, 0f); // Мгновенно делаем прозрачным
+    }
+    
+    public void KillFade()
+    {
+        StopAllCoroutines();
+    }
 }

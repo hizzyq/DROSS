@@ -67,4 +67,14 @@ public class SoundManager : MonoBehaviour
                 break;
         }
     }
+
+    public void PlayMusic1()
+    {
+        playerChannel.Play();
+    }
+
+    public void PlayMusic2()
+    {
+        playerChannel.Play();
+    }
 }

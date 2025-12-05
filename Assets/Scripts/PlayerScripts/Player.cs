@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
     public int HP = 100;
 
     public GameObject bloodyScreen;
-
+    public PlayerDeathManager deathManager;
     public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
     public Camera mainCamera;
+    public ScreenBlackout screenBlackout;
 
     public bool isDead;
 
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PlayerDead()
+    public void PlayerDead()
     {
         SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerDeath);
 
@@ -50,12 +51,16 @@ public class Player : MonoBehaviour
         GetComponent<WallRunning>().enabled = false;
 
         mainCamera.GetComponent<PlayerCam>().enabled = false;
-        mainCamera.GetComponent<Animator>().enabled = true;
+        //mainCamera.GetComponent<Animator>().enabled = true;
+        //mainCamera.transform.rotation = Quaternion.Euler(0, 0, 90);
 
         playerHealthUI.gameObject.SetActive(false);
 
-        GetComponent<ScreenBlackout>().StartFade();
+        
+        screenBlackout.enabled = true;
+        screenBlackout.StartFade();
         StartCoroutine(ShowGameOverUI());
+        deathManager.KillPlayer();
     }
 
     private IEnumerator ShowGameOverUI()

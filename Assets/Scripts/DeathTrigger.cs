@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class DeathTrigger : MonoBehaviour
 {
-    public PlayerDeathManager deathManager;
+    //ublic PlayerDeathManager deathManager;
+    public Player player;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("BodyPlayer"))
         {
-            deathManager.KillPlayer();
+            player.PlayerDead();
         }
     }
 }
