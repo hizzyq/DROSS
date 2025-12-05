@@ -8,7 +8,7 @@ public class CameraSpring : MonoBehaviour
     [SerializeField] private float frequency = 18f;
     [Space]
     [SerializeField] private float angularDisplacement = 2f;
-    [SerializeField] private float linearDisplacement = 0.05f;
+    //[SerializeField] private float linearDisplacement = 0.05f;
     private Vector3 _springPosition;
     private Vector3 _springVelocity;
     

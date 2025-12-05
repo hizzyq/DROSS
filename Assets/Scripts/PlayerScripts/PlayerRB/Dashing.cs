@@ -34,7 +34,6 @@ public class Dashing : MonoBehaviour
     public float dashChargeTimer;
     public int curCharges = 2;
     
-
     [Header("Input")]
     public KeyCode dashKey = KeyCode.LeftShift;
 
@@ -141,5 +140,20 @@ public class Dashing : MonoBehaviour
             direction = forwardT.forward;
 
         return direction.normalized;
+    }
+
+    public float getDashRechargeTimer()
+    {
+        return dashChargeTimer;
+    }
+
+    public float getDashCurCharges()
+    {
+        return curCharges;
+    }
+
+    public float getDashCharges()
+    {
+        return maxCharges;
     }
 }
