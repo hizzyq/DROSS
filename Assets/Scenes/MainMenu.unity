@@ -1359,8 +1359,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 10, y: 430}
-  m_SizeDelta: {x: 424.306, y: 57.37201}
+  m_AnchoredPosition: {x: 0, y: 460}
+  m_SizeDelta: {x: 450, y: 57.37201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &418068295
 MonoBehaviour:
@@ -1415,7 +1415,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: perf_level
+          m_StringArgument: PauseMenuScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &418068296
@@ -1468,6 +1468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef90924bfcb10a4cada4992092a828c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverAnimation
+  scaleFactor: 1.2
+  animationDuration: 0.1
 --- !u!1 &660759561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,7 +2753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 189.7952}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 223.1808, y: 58.7185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1012158345
@@ -2860,6 +2862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef90924bfcb10a4cada4992092a828c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverAnimation
+  scaleFactor: 1.2
+  animationDuration: 0.1
 --- !u!1 &1052450521
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,8 +3426,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 320}
-  m_SizeDelta: {x: 367, y: 50}
+  m_AnchoredPosition: {x: 0, y: 330}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1328848013
 MonoBehaviour:
@@ -3531,6 +3535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef90924bfcb10a4cada4992092a828c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverAnimation
+  scaleFactor: 1.2
+  animationDuration: 0.1
 --- !u!1 &1345866752
 GameObject:
   m_ObjectHideFlags: 0
