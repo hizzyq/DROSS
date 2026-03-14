@@ -22,6 +22,17 @@ public class MainMenuController : MonoBehaviour
         if (menuPanel != null) menuPanel.SetActive(true);
         if (settingsPanel != null) settingsPanel.SetActive(false);
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (settingsPanel != null && settingsPanel.activeInHierarchy)
+            {
+                if (settingsPanel != null) settingsPanel.SetActive(false);
+                if (menuPanel != null) menuPanel.SetActive(true);
+            }
+        }
+    }
     //начало игры
     public void StartGame(string sceneName)
     {
