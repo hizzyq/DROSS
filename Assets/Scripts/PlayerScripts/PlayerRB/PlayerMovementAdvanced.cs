@@ -59,6 +59,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float playerHeight = 2f;
     public LayerMask whatIsGround;
     bool grounded;
+    
+    [Header("Coyote Time")]
+    float coyoteTime;
+    public float coyoteTimer;
+    float coyoteTimeCounter;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle = 46f;
@@ -106,6 +111,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        if (grounded)
+            coyoteTimeCounter = coyoteTimer;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
+        
         
         MyInput();
         StateHandler();
@@ -133,7 +143,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && coyoteTimeCounter > 0f && !dashing)
         {
             readyToJump = false;
 
@@ -358,6 +368,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Jump()
     {
+        coyoteTimeCounter = 0f;
+        
         exitingSlope = true;
         
         // reset y velocity

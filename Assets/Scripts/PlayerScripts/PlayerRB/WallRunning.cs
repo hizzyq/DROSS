@@ -56,17 +56,9 @@ public class WallRunning : MonoBehaviour
             WallRunningMovement();
     }
 
-    // Wallrun активируется только по нажатию A (левая стена) или D (правая стена)
     private void HandleWallrunInput()
     {
-        // A - левая стена
-        if (wallLeft && horizontalInput < 0 && verticalInput > 0 && AboveGround() && !exitingWall)
-        {
-            if (!pm.wallrunning)
-                StartWallRun();
-        }
-        // D - правая стена
-        if (wallRight && horizontalInput > 0 && verticalInput > 0 && AboveGround() && !exitingWall)
+        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
         {
             if (!pm.wallrunning)
                 StartWallRun();
