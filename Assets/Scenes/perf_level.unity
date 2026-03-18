@@ -25007,6 +25007,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8625087184842494524}
     - target: {fileID: 7046340929207222150, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: coyoteTimer
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046340929207222150, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cameraSpring
       value: 
       objectReference: {fileID: 4223431821874111882}
