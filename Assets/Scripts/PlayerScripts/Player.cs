@@ -109,4 +109,28 @@ public class Player : MonoBehaviour
             ammoBox = null;
         }
     }
+
+    public void RespawnAtCheckpoint()
+    {
+        CheckpointSaveSystem saveSystem = GetComponent<CheckpointSaveSystem>();
+        if (saveSystem != null)
+        {
+            saveSystem.LoadCheckpoint(this);
+        }
+    }
+
+
+    void Update()
+    {
+        // For testing - Press K to save, L to load
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GetComponent<CheckpointSaveSystem>().SaveCheckpoint(this, "manual_save");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GetComponent<CheckpointSaveSystem>().LoadCheckpoint(this);
+        }
+    }
 }
