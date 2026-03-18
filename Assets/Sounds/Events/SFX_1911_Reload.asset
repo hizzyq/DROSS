@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ca2a460291743db3af7e7427cec33c4, type: 3}
-  m_Name: SFX_Zombie_Walk
+  m_Name: SFX_1911_Reload
   m_EditorClassIdentifier: Assembly-CSharp::SFXEvent
   clips:
-  - {fileID: 8300000, guid: ebb96c703224744479e6294bd49515d9, type: 3}
+  - {fileID: 8300000, guid: 4c8e2f7f96a2b5345a06204b7ae8f39c, type: 3}
   volume: 1
   volumeVariance: 0.05
   pitch: 1

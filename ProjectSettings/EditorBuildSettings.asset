@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/perf_level.unity
     guid: 4ae8421f0abf11347b447cd69f94d68a
+  - enabled: 1
+    path: Assets/Scenes/PauseMenuScene.unity
+    guid: 640a136d557a4b14b800624661431ae8
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
