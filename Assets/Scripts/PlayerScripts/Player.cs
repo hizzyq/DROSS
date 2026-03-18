@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
 
     public bool isDead;
 
+    // ← ДОБАВЛЕНО: два отдельных поля вместо несуществующего sfx
+    [Header("SFX")]
+    [SerializeField] private SFXEvent hurtSFX;
+    [SerializeField] private SFXEvent deathSFX;
+
     private void Start()
     {
         playerHealthUI.text = $"Health: {HP}";
@@ -37,13 +42,13 @@ public class Player : MonoBehaviour
             print("Player hit");
             StartCoroutine(BloodyScreenEffect());
             playerHealthUI.text = $"Health: {HP}";
-            SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerHurt);
+            AudioManager.Play(hurtSFX); // ← БЫЛО: sfx (не объявлен)
         }
     }
 
     public void PlayerDead()
     {
-        SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerDeath);
+        AudioManager.Play(deathSFX); // ← БЫЛО: sfx (не объявлен)
 
         GetComponent<Dashing>().enabled = false;
         GetComponent<PlayerMovementAdvanced>().enabled = false;
@@ -51,12 +56,9 @@ public class Player : MonoBehaviour
         GetComponent<WallRunning>().enabled = false;
 
         mainCamera.GetComponent<PlayerCam>().enabled = false;
-        //mainCamera.GetComponent<Animator>().enabled = true;
-        //mainCamera.transform.rotation = Quaternion.Euler(0, 0, 90);
 
         playerHealthUI.gameObject.SetActive(false);
 
-        
         screenBlackout.enabled = true;
         screenBlackout.StartFade();
         StartCoroutine(ShowGameOverUI());
@@ -72,13 +74,10 @@ public class Player : MonoBehaviour
     private IEnumerator BloodyScreenEffect()
     {
         if (bloodyScreen.activeInHierarchy == false)
-        {
             bloodyScreen.SetActive(true);
-        }
 
         var image = bloodyScreen.GetComponentInChildren<Image>();
 
-        // Set the initial alpha value to 1 (fully visible).
         Color startColor = image.color;
         startColor.a = 1f;
         image.color = startColor;
@@ -88,29 +87,21 @@ public class Player : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            // Calculate the new alpha value using Lerp.
             float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
-
-            // Update the color with the new alpha value.
             Color newColor = image.color;
             newColor.a = alpha;
             image.color = newColor;
-
-            // Increment the elapsed time.
             elapsedTime += Time.deltaTime;
-
-            yield return null; ; // Wait for the next frame.
+            yield return null;
         }
 
         if (bloodyScreen.activeInHierarchy)
-        {
             bloodyScreen.SetActive(false);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<AmmoBox>())
+        if (other.gameObject.GetComponent<AmmoBox>())
         {
             var ammoBox = other.gameObject.GetComponent<AmmoBox>();
             WeaponManager.Instance.PickupAmmo(ammoBox);

@@ -225,6 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   HP: 100
   isDead: 0
+  deathSFX: {fileID: 11400000, guid: de3c96f89a44ab564b4aec837496cc1d, type: 2}
+  hurtSFX: {fileID: 11400000, guid: 053c22d38b06faf169d75efb750cdc43, type: 2}
 --- !u!136 &2228005137105839742
 CapsuleCollider:
   m_ObjectHideFlags: 0

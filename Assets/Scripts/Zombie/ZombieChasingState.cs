@@ -8,25 +8,34 @@ public class ZombieChasingState : StateMachineBehaviour
     Transform player;
 
     public float chaseSpeed = 6f;
-
     public float stopChasingDistance = 21f;
     public float attackingDistance = 2.5f;
 
-    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // ── ИЗМЕНЕНИЕ: вместо SoundManager.zombieChannel ─────────────────────
+    // Назначь ассет в окне Animator, кликнув на State "ZombieChasing"
+    public SFXEvent chaseSFX;
+
+    // Интервал повтора звука погони (подбери под длину клипа)
+    public float soundRepeatInterval = 2.5f;
+    private float _soundTimer;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = animator.GetComponent<NavMeshAgent>();
-
+        agent  = animator.GetComponent<NavMeshAgent>();
         agent.speed = chaseSpeed;
+
+        _soundTimer = soundRepeatInterval; // сыграть сразу при входе
     }
 
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        // ── БЫЛО: if (!zombieChannel.isPlaying) zombieChannel.PlayOneShot(zombieChase)
+        _soundTimer += Time.deltaTime;
+        if (_soundTimer >= soundRepeatInterval)
         {
-            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieChase);
+            _soundTimer = 0f;
+            AudioManager.PlayAttached(chaseSFX, animator.transform);
         }
 
         agent.SetDestination(player.position);
@@ -35,21 +44,18 @@ public class ZombieChasingState : StateMachineBehaviour
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
 
         if (distanceFromPlayer > stopChasingDistance)
-        {
             animator.SetBool("isChasing", false);
-        }
 
         if (distanceFromPlayer < attackingDistance)
-        {
             animator.SetBool("isAttacking", true);
-        }
     }
 
-    //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(animator.transform.position);
 
-        SoundManager.Instance.zombieChannel.Stop();
+        // ── БЫЛО: SoundManager.Instance.zombieChannel.Stop()
+        // Не нужно — звуки из пула доигрывают сами.
+        _soundTimer = soundRepeatInterval;
     }
 }
