@@ -110,4 +110,9 @@ public class HUDManager : MonoBehaviour
         }
         return null;
     }
+
+    public void UpdateGrenadeCount(int count)
+    {
+        lethalAmountUI.text = count.ToString();
+    }
 }

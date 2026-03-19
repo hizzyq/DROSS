@@ -39,6 +39,14 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+        if (collision.gameObject.CompareTag("Barrel"))
+        {
+            var barrel = collision.gameObject.GetComponent<ExplosiveBarrel>();
+            if (barrel != null)
+                barrel.TakeDamage(bulletDamage);
+
+            Destroy(gameObject);
+        }
     }
 
     private void CreateBloodSprayEffect(Collision collision)

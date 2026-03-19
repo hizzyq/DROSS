@@ -10,6 +10,10 @@ public class GlobalReferences : MonoBehaviour
 
     public GameObject bloodSprayEffect;
 
+    public GameObject explosionVFXPrefab;
+
+    public GameObject grenadeExplosionVFXPrefab;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
