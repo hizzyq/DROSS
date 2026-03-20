@@ -14,7 +14,7 @@ public static class Explosion
 
         // Визуал и звук
         if (vfx != null)
-            Object.Instantiate(vfxPrefab, center, Quaternion.identity);
+            Object.Instantiate(vfx, center, Quaternion.identity);
 
         if (sfx != null)
             AudioManager.PlayAt(sfx, center);
@@ -33,9 +33,9 @@ public static class Explosion
                 if (enemy != null && !enemy.isDead)
                     enemy.TakeDamage(damage);
             }
-            else if (col.CompareTag("Player"))
+            else if (col.CompareTag("BodyPlayer"))
             {
-                var player = col.GetComponent<Player>();
+                var player = col.GetComponentInParent<Player>();
                 if (player != null && !player.isDead)
                     player.TakeDamage(damage);
             }

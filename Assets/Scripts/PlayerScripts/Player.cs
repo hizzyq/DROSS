@@ -108,6 +108,12 @@ public class Player : MonoBehaviour
             Destroy(ammoBox.gameObject);
             ammoBox = null;
         }
+        if (other.TryGetComponent<GrenadePickup>(out var grenadePickup))
+        {
+            GetComponent<GrenadeThrow>().grenadeCount += grenadePickup.amount;
+            HUDManager.Instance.UpdateGrenadeCount(GetComponent<GrenadeThrow>().grenadeCount);
+            Destroy(other.gameObject);
+        }
     }
 
     public void RespawnAtCheckpoint()

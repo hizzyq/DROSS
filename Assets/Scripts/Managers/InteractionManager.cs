@@ -11,6 +11,8 @@ public class InteractionManager : MonoBehaviour
     public Weapon hoveredWeapon = null;
     private Weapon lastHoveredWeapon = null;
     private AmmoBox hoveredAmmoBox = null;
+    private GrenadePickup hoveredGrenadePickup = null;
+
 
     private void Awake()
     {
@@ -71,6 +73,28 @@ public class InteractionManager : MonoBehaviour
                     hoveredAmmoBox = null;
                 }
             }
+            if (objectHitByRaycast.CompareTag("GrenadePickup"))
+            {
+                hoveredGrenadePickup = objectHitByRaycast.GetComponent<GrenadePickup>();
+                hoveredGrenadePickup.GetComponent<Outline>().enabled = true;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    GetComponent<GrenadeThrow>().grenadeCount += hoveredGrenadePickup.amount;
+                    HUDManager.Instance.UpdateGrenadeCount(
+                        GetComponent<GrenadeThrow>().grenadeCount);
+                    Destroy(hoveredGrenadePickup.gameObject);
+                    hoveredGrenadePickup = null;
+                }
+            }
+            else
+            {
+                if (hoveredGrenadePickup != null)
+                {
+                    hoveredGrenadePickup.GetComponent<Outline>().enabled = false;
+                    hoveredGrenadePickup = null;
+                }
+            }
         }
         else
         {
@@ -80,6 +104,7 @@ public class InteractionManager : MonoBehaviour
                 hoveredWeapon = null;
                 lastHoveredWeapon = null;
             }
+
         }
     }
 }
