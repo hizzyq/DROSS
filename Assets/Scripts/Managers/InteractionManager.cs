@@ -1,29 +1,23 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-
 
 public class InteractionManager : MonoBehaviour
 {
-    public static InteractionManager Instance { get; set; }
+    public static InteractionManager Instance { get; private set; }
 
-    public Weapon hoveredWeapon = null;
-    private Weapon lastHoveredWeapon = null;
-    private AmmoBox hoveredAmmoBox = null;
-    private GrenadePickup hoveredGrenadePickup = null;
-
+    private Weapon hoveredWeapon;
+    private Weapon lastHoveredWeapon;
+    private AmmoBox hoveredAmmoBox;
+    private GrenadePickup hoveredGrenadePickup;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Update()
