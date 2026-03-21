@@ -45,29 +45,32 @@ public class Dashing : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(dashKey) && curCharges > 0)
+        if (!pm.wallrunning)
         {
-            Dash();
-            curCharges--;
-        }
-
-        if (dashCdTimer > 0)
-            dashCdTimer -= Time.deltaTime;
-
-        if (curCharges < maxCharges)
-        {
-            dashChargeTimer -= Time.deltaTime;
-            if (dashChargeTimer <= 0f)
+            if (Input.GetKeyDown(dashKey) && curCharges > 0)
             {
-                curCharges++;
+                Dash();
+                curCharges--;
+            }
 
-                if (curCharges < maxCharges)
+            if (dashCdTimer > 0)
+                dashCdTimer -= Time.deltaTime;
+
+            if (curCharges < maxCharges)
+            {
+                dashChargeTimer -= Time.deltaTime;
+                if (dashChargeTimer <= 0f)
                 {
-                    dashChargeTimer = rechargeTime;
-                }
-                else
-                {
-                    dashChargeTimer = 0f;
+                    curCharges++;
+
+                    if (curCharges < maxCharges)
+                    {
+                        dashChargeTimer = rechargeTime;
+                    }
+                    else
+                    {
+                        dashChargeTimer = 0f;
+                    }
                 }
             }
         }

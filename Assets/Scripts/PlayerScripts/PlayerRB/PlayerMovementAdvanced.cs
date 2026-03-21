@@ -143,7 +143,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && coyoteTimeCounter > 0f && !dashing)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && coyoteTimeCounter > 0f && !dashing)
         {
             readyToJump = false;
 
