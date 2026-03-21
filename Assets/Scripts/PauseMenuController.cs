@@ -7,6 +7,7 @@ public class PauseMenuController : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject settingsMenuUI;
 
     [Header("Effects")]
     [SerializeField] private Volume blurVolume; 
@@ -21,6 +22,7 @@ public class PauseMenuController : MonoBehaviour
     private void Start()
     {
         if (pauseMenuUI != null) pauseMenuUI.SetActive(false);
+        if (settingsMenuUI != null) settingsMenuUI.SetActive(false);
         if (blurVolume != null) blurVolume.weight = 0;
     }
 
@@ -28,7 +30,11 @@ public class PauseMenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (settingsMenuUI != null && settingsMenuUI.activeInHierarchy)
+            {
+                CloseSettings();
+            }
+            else if (GameIsPaused)
             {
                 Resume();
             }
@@ -41,13 +47,13 @@ public class PauseMenuController : MonoBehaviour
 
     public void Resume()
     {
+        PlayClickSound();
         if (blurVolume != null) blurVolume.weight = 0f;
 
         pauseMenuUI.SetActive(false);
-
+        if (settingsMenuUI != null) settingsMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -55,6 +61,7 @@ public class PauseMenuController : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        if (settingsMenuUI != null) settingsMenuUI.SetActive(false);
         if (blurVolume != null) blurVolume.weight = 1f;
 
         Cursor.lockState = CursorLockMode.None;
@@ -67,8 +74,15 @@ public class PauseMenuController : MonoBehaviour
     public void OpenSettings()
     {
         PlayClickSound();
-        Debug.Log("Открываем настройки");
-        // настройки реализую позже
+        if (pauseMenuUI != null) pauseMenuUI.SetActive(false);
+        if (settingsMenuUI != null) settingsMenuUI.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        PlayClickSound();
+        if (settingsMenuUI != null) settingsMenuUI.SetActive(false);
+        if (pauseMenuUI != null) pauseMenuUI.SetActive(true);
     }
 
     public void LoadMenu()

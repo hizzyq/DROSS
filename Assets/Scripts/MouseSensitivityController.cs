@@ -13,6 +13,7 @@ public class SettingsMenu : MonoBehaviour
         float savedSensitivity = PlayerPrefs.GetFloat("MouseSens", 50f);
         sensitivitySlider.value = savedSensitivity;
         UpdateSensitivityText(savedSensitivity);
+        sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
     }
     // слайдер
     public void SetSensitivity(float sensitivity)
