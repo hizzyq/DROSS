@@ -8,7 +8,7 @@ public class DoorLockCollider : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("BodyPlayer"))
         {
             if (slidingDoor != null)
             {

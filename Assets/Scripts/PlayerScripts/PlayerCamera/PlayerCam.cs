@@ -19,8 +19,16 @@ public class PlayerCam : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        LoadSensitivity();
     }
 
+    private void OnEnable()
+    {
+        // Перечитать при возврате из паузы (если камера отключалась)
+        LoadSensitivity();
+    }
+    
     private void Update()
     {
         // get mouse input
@@ -37,6 +45,15 @@ public class PlayerCam : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
+    private void LoadSensitivity()
+    {
+        float saved = PlayerPrefs.GetFloat("MouseSens", 50f);
+        // Переводим диапазон слайдера (0–100) в реальные значения (10–600)
+        float mapped = Mathf.Lerp(10f, 600f, saved / 100f);
+        sensX = mapped;
+        sensY = mapped;
+    }
+    
     public void DoFov(float endValue)
     {
         GetComponent<Camera>().DOFieldOfView(endValue, 0.25f);
