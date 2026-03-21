@@ -34,8 +34,8 @@ public class PlayerCam : MonoBehaviour
         var s = SettingsManager.Instance.Get();
 
         // get mouse input
-        float mouseX = Input.GetAxis("Mouse X") * s.sensitivityX * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * s.sensitivityY * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * s.RealSensX* Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * s.RealSensY * Time.deltaTime;
 
         if (s.invertY)
             mouseY = -mouseY;

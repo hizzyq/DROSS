@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _NORMALMAP
-  - _SPECULAR_SETUP
   m_InvalidKeywords: []
   m_LightmapFlags: 3
   m_EnableInstancingVariants: 0
@@ -122,7 +121,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.28112555, g: 0.45283002, b: 0.19864711, a: 1}
-    - _Color: {r: 0.28112558, g: 0.45283008, b: 0.19864714, a: 1}
+    - _Color: {r: 0.28112552, g: 0.45282996, b: 0.19864708, a: 1}
     - _EmissionColor: {r: 0.3679245, g: 0.050329305, b: 0.050329305, a: 1}
     - _SpecColor: {r: 0.17528479, g: 0.26045182, b: 0.3679245, a: 1}
   m_BuildTextureStacks: []

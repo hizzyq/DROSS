@@ -13,9 +13,13 @@ public class GameSettings : ScriptableObject
     [Range(0f, 1f)] public float sfxVolume    = 1f;
 
     [Header("Управление")]
-    [Range(50f, 800f)] public float sensitivityX = 300f;
-    [Range(50f, 800f)] public float sensitivityY = 300f;
+    [Range(1f, 100f)] public float sensitivityX = 50f; // ← пользователю показываем 1-100
+    [Range(1f, 100f)] public float sensitivityY = 50f;
     public bool invertY = false;
+
+    // Конвертер: 1-100 → реальное значение для PlayerCam
+    public float RealSensX => sensitivityX * 6f;  // 50 × 6 = 300
+    public float RealSensY => sensitivityY * 6f;
 
     // Сохранить всё в PlayerPrefs
     public void Save()
