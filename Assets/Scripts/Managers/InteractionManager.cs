@@ -1,27 +1,23 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-
 
 public class InteractionManager : MonoBehaviour
 {
-    public static InteractionManager Instance { get; set; }
+    public static InteractionManager Instance { get; private set; }
 
-    public Weapon hoveredWeapon = null;
-    private Weapon lastHoveredWeapon = null;
-    private AmmoBox hoveredAmmoBox = null;
+    private Weapon hoveredWeapon;
+    private Weapon lastHoveredWeapon;
+    private AmmoBox hoveredAmmoBox;
+    private GrenadePickup hoveredGrenadePickup;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Update()
@@ -71,6 +67,28 @@ public class InteractionManager : MonoBehaviour
                     hoveredAmmoBox = null;
                 }
             }
+            if (objectHitByRaycast.CompareTag("GrenadePickup"))
+            {
+                hoveredGrenadePickup = objectHitByRaycast.GetComponent<GrenadePickup>();
+                hoveredGrenadePickup.GetComponent<Outline>().enabled = true;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    GetComponent<GrenadeThrow>().grenadeCount += hoveredGrenadePickup.amount;
+                    HUDManager.Instance.UpdateGrenadeCount(
+                        GetComponent<GrenadeThrow>().grenadeCount);
+                    Destroy(hoveredGrenadePickup.gameObject);
+                    hoveredGrenadePickup = null;
+                }
+            }
+            else
+            {
+                if (hoveredGrenadePickup != null)
+                {
+                    hoveredGrenadePickup.GetComponent<Outline>().enabled = false;
+                    hoveredGrenadePickup = null;
+                }
+            }
         }
         else
         {
@@ -80,6 +98,7 @@ public class InteractionManager : MonoBehaviour
                 hoveredWeapon = null;
                 lastHoveredWeapon = null;
             }
+
         }
     }
 }

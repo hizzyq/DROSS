@@ -33,14 +33,14 @@ public class MainMenuController : MonoBehaviour
             }
         }
     }
-    //начало игры
+    //РЅР°С‡Р°Р»Рѕ РёРіСЂС‹
     public void StartGame(string sceneName)
     {
         PlayClickSound();
         StartCoroutine(FadeAndLoad(sceneName));
     }
 
-    //настройки
+    //РЅР°СЃС‚СЂРѕР№РєРё
     public void OpenSettings()
     {
         PlayClickSound();
@@ -53,23 +53,23 @@ public class MainMenuController : MonoBehaviour
         if (settingsPanel != null) settingsPanel.SetActive(false);
         if (menuPanel != null) menuPanel.SetActive(true);
     }
-    //выход из игры
+    //РІС‹С…РѕРґ РёР· РёРіСЂС‹
     public void ExitGame()
     {
         PlayClickSound();
-        Debug.Log("Выход из игры...");
+        Debug.Log("Р’С‹С…РѕРґ РёР· РёРіСЂС‹...");
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-    //зыук для кнопки
+    //Р·С‹СѓРє РґР»СЏ РєРЅРѕРїРєРё
     private void PlayClickSound()
     {
         if (uiAudio != null && clickSound != null)
             uiAudio.PlayOneShot(clickSound);
     }
-    //затухание экрана при переключении сцен
+    //Р·Р°С‚СѓС…Р°РЅРёРµ СЌРєСЂР°РЅР° РїСЂРё РїРµСЂРµРєР»СЋС‡РµРЅРёРё СЃС†РµРЅ
     private System.Collections.IEnumerator FadeAndLoad(string sceneName)
     {
         float timer = 0f;

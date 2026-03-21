@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    public static HUDManager Instance { get; set; }
+    public static HUDManager Instance { get; private set; }
 
     [Header("Ammo")]
     public TextMeshProUGUI magazineAmmoUI;
@@ -22,92 +18,73 @@ public class HUDManager : MonoBehaviour
     [Header("Throwables")]
     public Image lethalUI;
     public TextMeshProUGUI lethalAmountUI;
-
     public Image tacticallUI;
     public TextMeshProUGUI tacticalAmountUI;
 
     public Sprite emptySlot;
-
     public GameObject middleDot;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        // НЕ DontDestroyOnLoad — Canvas привязан к сцене
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     private void Update()
     {
-        Weapon activeWeapon = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
-        Weapon unActiveWeapon = GetUnActiveWeaponSlot().GetComponentInChildren<Weapon>();
+        // Защита — WeaponManager мог ещё не создаться
+        if (WeaponManager.Instance == null) return;
 
-        if (activeWeapon)
+        Weapon active   = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
+        Weapon unActive = GetUnActiveWeaponSlot()?.GetComponentInChildren<Weapon>();
+
+        if (active)
         {
-            magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
-
-            Weapon.WeaponModel model = activeWeapon.thisWeaponModel;
-
-            ammoTypeUI.sprite = GetAmmoSprite(model);
-
-            activeWeaponUI.sprite = GetWeaponSprite(model);
-
-            if (unActiveWeapon)
-            {
-                unActiveWeaponUI.sprite = GetWeaponSprite(unActiveWeapon.thisWeaponModel);
-            }
+            magazineAmmoUI.text = $"{active.bulletsLeft / active.bulletsPerBurst}";
+            totalAmmoUI.text    = $"{WeaponManager.Instance.CheckAmmoLeftFor(active.thisWeaponModel)}";
+            ammoTypeUI.sprite   = GetAmmoSprite(active.thisWeaponModel);
+            activeWeaponUI.sprite = GetWeaponSprite(active.thisWeaponModel);
+            unActiveWeaponUI.sprite = unActive
+                ? GetWeaponSprite(unActive.thisWeaponModel)
+                : emptySlot;
         }
         else
         {
-            magazineAmmoUI.text = "";
-            totalAmmoUI.text = "";
-
-            ammoTypeUI.sprite = emptySlot;
-            activeWeaponUI.sprite = emptySlot;
+            magazineAmmoUI.text     = "";
+            totalAmmoUI.text        = "";
+            ammoTypeUI.sprite       = emptySlot;
+            activeWeaponUI.sprite   = emptySlot;
             unActiveWeaponUI.sprite = emptySlot;
         }
     }
 
-    private Sprite GetWeaponSprite(Weapon.WeaponModel model)
+    private Sprite GetWeaponSprite(Weapon.WeaponModel model) => model switch
     {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol1911:
-                return Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite;
-            case Weapon.WeaponModel.AK74:
-                return Resources.Load<GameObject>("AK74_Weapon").GetComponent<SpriteRenderer>().sprite;
-            default:
-                return null;
-        }
-    }
+        Weapon.WeaponModel.Pistol1911 => Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite,
+        Weapon.WeaponModel.AK74       => Resources.Load<GameObject>("AK74_Weapon").GetComponent<SpriteRenderer>().sprite,
+        _                             => null
+    };
 
-    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
+    private Sprite GetAmmoSprite(Weapon.WeaponModel model) => model switch
     {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol1911:
-                return Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite;
-            case Weapon.WeaponModel.AK74:
-                return Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite;
-            default:
-                return null;
-        }
-    }
+        Weapon.WeaponModel.Pistol1911 => Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite,
+        Weapon.WeaponModel.AK74       => Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite,
+        _                             => null
+    };
 
     private GameObject GetUnActiveWeaponSlot()
     {
-        foreach (GameObject weaponSlot in WeaponManager.Instance.weaponSlots)
-        {
-            if (weaponSlot != WeaponManager.Instance.activeWeaponSlot)
-            { 
-                return weaponSlot; 
-            }
-        }
+        foreach (var slot in WeaponManager.Instance.weaponSlots)
+            if (slot != WeaponManager.Instance.activeWeaponSlot) return slot;
         return null;
     }
+
+    public void UpdateGrenadeCount(int count)
+        => lethalAmountUI.text = count.ToString();
 }
