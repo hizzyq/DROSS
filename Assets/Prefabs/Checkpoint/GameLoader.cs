@@ -13,6 +13,7 @@ public class GameLoader : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
+            Debug.Log("GameLoader initialized");
         }
         else
         {
@@ -26,22 +27,32 @@ public class GameLoader : MonoBehaviour
         {
             string jsonData = PlayerPrefs.GetString("TempCheckpointData");
             PlayerPrefs.DeleteKey("TempCheckpointData");
-            StartCoroutine(DelayedLoad());
+            StartCoroutine(ApplySaveAfterSceneLoad(jsonData));
         }
     }
 
-    IEnumerator DelayedLoad()
+    IEnumerator ApplySaveAfterSceneLoad(string jsonData)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject == null) yield break;
+
+        Player player = playerObject.GetComponent<Player>();
+        CheckpointSaveSystem saveSystem = playerObject.GetComponent<CheckpointSaveSystem>();
+
+        if (player == null || saveSystem == null) yield break;
+
+        CheckpointSaveSystem.SaveData data = JsonUtility.FromJson<CheckpointSaveSystem.SaveData>(jsonData);
+
+        if (data != null)
         {
-            CheckpointSaveSystem saveSystem = player.GetComponent<CheckpointSaveSystem>();
-            if (saveSystem != null)
-            {
-                saveSystem.LoadCheckpoint(player.GetComponent<Player>());
-            }
+            saveSystem.ApplySaveData(player, data);
+            Debug.Log($"GameLoader: Save applied - Health: {data.health}");
+        }
+        else
+        {
+            Debug.LogError("GameLoader: Failed to parse save data!");
         }
     }
 
