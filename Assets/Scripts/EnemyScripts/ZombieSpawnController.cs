@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,106 +6,225 @@ using Random = UnityEngine.Random;
 
 public class ZombieSpawnController : MonoBehaviour
 {
+    [Header("Wave Settings")]
     public int initialZombiesPerWave = 5;
     public int currentZombiesPerWave;
-
     public float spawnDelay = 0.5f;
+    public int maxWaves = 5;
 
+    [Header("Cooldown Settings")]
     public int currentWave = 0;
-    public float waveCooldown = 10.0f;
+    public float waveCooldown = 10f;
+    public bool inCooldown = false;
+    public float cooldownCounter = 0f;
 
-    public bool inCooldown;
-    public float cooldownCounter = 0;
+    [Header("Trigger Settings")]
+    public Collider playerCapsuleTrigger; // сюда перетащи Capsule игрока
+    private bool wavesStarted = false;
+    private bool allWavesCompleted = false;
 
-    public List<Enemy> currentZombiesAlive;
+    [Header("Buttons To Disable")]
+    public List<PhysicalButton> buttonsToDisable = new List<PhysicalButton>();
 
+    [Header("References")]
     public GameObject zombiePrefab;
-
     public TextMeshProUGUI cooldownCounterUI;
+
+    [Header("Spawn Points")]
+    public List<Transform> spawnPoints = new List<Transform>();
+
+    [Header("Runtime")]
+    public List<Enemy> currentZombiesAlive = new List<Enemy>();
+
+    private bool isSpawningWave = false;
+    private int lastSpawnIndex = -1;
 
     private void Start()
     {
         currentZombiesPerWave = initialZombiesPerWave;
+        cooldownCounter = waveCooldown;
 
-        StartNextWave();
+        if (cooldownCounterUI != null)
+        {
+            cooldownCounterUI.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (wavesStarted || allWavesCompleted)
+            return;
+
+        if (other.transform.root.CompareTag("Player"))
+        {
+            wavesStarted = true;
+
+            SetButtonsState(false); // выключаем кнопки
+
+            StartNextWave();
+        }
     }
 
     private void StartNextWave()
     {
-        currentZombiesAlive.Clear();
+        if (currentWave >= maxWaves)
+        {
+            allWavesCompleted = true;
+            SetButtonsState(true); // включаем кнопки обратно
+            Debug.Log("Все волны завершены.");
+            return;
+        }
+
         currentWave++;
         StartCoroutine(SpawnWave());
     }
 
     private IEnumerator SpawnWave()
     {
+        if (zombiePrefab == null)
+        {
+            Debug.LogError("Zombie Prefab не назначен в инспекторе.");
+            yield break;
+        }
+
+        if (spawnPoints == null || spawnPoints.Count == 0)
+        {
+            Debug.LogError("Список spawnPoints пуст. Добавь точки спавна в инспекторе.");
+            yield break;
+        }
+
+        isSpawningWave = true;
+
         for (int i = 0; i < currentZombiesPerWave; i++)
         {
-            //Generate a random offset within a specified range
-            Vector3 spawnOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-            Vector3 spawnPosition = transform.position + spawnOffset;
+            int randomIndex;
 
-            //Instantiate the zombie
-            var zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
+            do
+            {
+                randomIndex = Random.Range(0, spawnPoints.Count);
+            }
+            while (spawnPoints.Count > 1 && randomIndex == lastSpawnIndex);
 
-            //Get enemy script
+            lastSpawnIndex = randomIndex;
+
+            Transform randomSpawnPoint = spawnPoints[randomIndex];
+
+            GameObject zombie = Instantiate(
+                zombiePrefab,
+                randomSpawnPoint.position,
+                randomSpawnPoint.rotation
+            );
+
             Enemy enemyScript = zombie.GetComponent<Enemy>();
 
-            //Tracks this zombie
-            currentZombiesAlive.Add(enemyScript);
+            if (enemyScript != null)
+            {
+                currentZombiesAlive.Add(enemyScript);
+            }
+            else
+            {
+                Debug.LogWarning("У созданного зомби отсутствует компонент Enemy.");
+            }
 
             yield return new WaitForSeconds(spawnDelay);
         }
+
+        isSpawningWave = false;
     }
 
     private void Update()
     {
-        List<Enemy> zombiesToRemove = new List<Enemy>();
-
-        foreach(Enemy zombie in currentZombiesAlive)
+        for (int i = currentZombiesAlive.Count - 1; i >= 0; i--)
         {
-            if (zombie.isDead)
+            Enemy zombie = currentZombiesAlive[i];
+
+            if (zombie == null || zombie.isDead)
             {
-                zombiesToRemove.Add(zombie);
+                currentZombiesAlive.RemoveAt(i);
             }
         }
 
-        foreach (Enemy zombie in zombiesToRemove)
+        if (!allWavesCompleted && currentZombiesAlive.Count == 0 && !inCooldown && !isSpawningWave && wavesStarted)
         {
-            currentZombiesAlive.Remove(zombie);
-        }
-
-        zombiesToRemove.Clear();
-
-        if (currentZombiesAlive.Count == 0 && inCooldown == false)
-        {
-            StartCoroutine(WaveCooldown());
+            if (currentWave < maxWaves)
+            {
+                StartCoroutine(WaveCooldown());
+            }
+            else
+            {
+                allWavesCompleted = true;
+                SetButtonsState(true); // включаем кнопки обратно
+                Debug.Log("Все волны завершены.");
+            }
         }
 
         if (inCooldown)
         {
             cooldownCounter -= Time.deltaTime;
+
+            if (cooldownCounter < 0f)
+            {
+                cooldownCounter = 0f;
+            }
         }
         else
         {
             cooldownCounter = waveCooldown;
         }
 
-        cooldownCounterUI.text = cooldownCounter.ToString("F1");
+        if (cooldownCounterUI != null)
+        {
+            cooldownCounterUI.text = cooldownCounter.ToString("F1");
+        }
     }
 
     private IEnumerator WaveCooldown()
     {
         inCooldown = true;
-        cooldownCounterUI.gameObject.SetActive(true);
+
+        if (cooldownCounterUI != null)
+        {
+            cooldownCounterUI.gameObject.SetActive(true);
+        }
 
         yield return new WaitForSeconds(waveCooldown);
 
         inCooldown = false;
 
-        cooldownCounterUI.gameObject.SetActive(false);
-        currentZombiesPerWave *= 2; // difficulty increasing by multiplying amount of zombies
+        if (cooldownCounterUI != null)
+        {
+            cooldownCounterUI.gameObject.SetActive(false);
+        }
 
-        StartNextWave();
+        if (currentWave < maxWaves)
+        {
+            currentZombiesPerWave += 2;
+            StartNextWave();
+        }
+        else
+        {
+            allWavesCompleted = true;
+            SetButtonsState(true); 
+            Debug.Log("Все волны завершены.");
+        }
+    }
+
+    private void SetButtonsState(bool state)
+    {
+        for (int i = 0; i < buttonsToDisable.Count; i++)
+        {
+            if (buttonsToDisable[i] != null)
+            {
+                buttonsToDisable[i].enabled = state;
+
+                Collider buttonCollider = buttonsToDisable[i].GetComponent<Collider>();
+                if (buttonCollider != null)
+                {
+                    buttonCollider.enabled = state;
+                }
+
+                Debug.Log(buttonsToDisable[i].name + " enabled = " + state);
+            }
+        }
     }
 }
