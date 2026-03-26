@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public HUDManager hudManager;
     public GameObject bloodyScreen;
     public PlayerDeathManager deathManager;
-    public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
     public Camera mainCamera;
     public ScreenBlackout screenBlackout;
@@ -33,6 +32,8 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
+        if (isDead) return; // Защита от получения урона и двойной смерти
+
         HP -= damageAmount;
 
         if (HUDManager.Instance != null)
@@ -42,35 +43,47 @@ public class Player : MonoBehaviour
         if (HP <= 0)
         {
             print("Player dead");
-            PlayerDead();
             isDead = true;
+            PlayerDead();
         }
         else
         {
             print("Player hit");
             StartCoroutine(BloodyScreenEffect());
-            playerHealthUI.text = $"Health: {HP}";
             AudioManager.Play(hurtSFX); // ← БЫЛО: sfx (не объявлен)
         }
     }
 
     public void PlayerDead()
     {
-        AudioManager.Play(deathSFX); // ← БЫЛО: sfx (не объявлен)
+        AudioManager.Play(deathSFX);
 
-        GetComponent<Dashing>().enabled = false;
-        GetComponent<PlayerMovementAdvanced>().enabled = false;
-        GetComponent<Sliding>().enabled = false;
-        GetComponent<WallRunning>().enabled = false;
+        if (TryGetComponent<Dashing>(out var dashing)) dashing.enabled = false;
+        if (TryGetComponent<PlayerMovementAdvanced>(out var movement)) movement.enabled = false;
+        if (TryGetComponent<Sliding>(out var sliding)) sliding.enabled = false;
+        if (TryGetComponent<WallRunning>(out var wall)) wall.enabled = false;
+        if (TryGetComponent<GrenadeThrow>(out var nades)) nades.enabled = false;
 
-        mainCamera.GetComponent<PlayerCam>().enabled = false;
+        if (mainCamera != null && mainCamera.TryGetComponent<PlayerCam>(out var cam)) cam.enabled = false;
 
-        playerHealthUI.gameObject.SetActive(false);
+        if (WeaponManager.Instance != null) WeaponManager.Instance.enabled = false;
 
-        screenBlackout.enabled = true;
-        screenBlackout.StartFade();
+        if (HUDManager.Instance != null && HUDManager.Instance.gameObject != null)
+        {
+            HUDManager.Instance.ToggleHUD(false);
+            // Если выключить сам gameObject, менеджер перестанет работать, поэтому выключаем только нужные UI-панели
+            // HUDManager.Instance.gameObject.SetActive(false);
+        }
+
+        if (screenBlackout != null)
+        {
+            screenBlackout.enabled = true;
+            screenBlackout.StartFade();
+        }
+
         StartCoroutine(ShowGameOverUI());
-        deathManager.KillPlayer();
+        
+        if (deathManager != null) deathManager.KillPlayer();
     }
 
     private IEnumerator ShowGameOverUI()
@@ -137,7 +150,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // For testing - Press K to save, L to load
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K) && !isDead)
         {
             GetComponent<CheckpointSaveSystem>().SaveCheckpoint(this, "manual_save");
         }

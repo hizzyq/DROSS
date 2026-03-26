@@ -1186,7 +1186,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9000457836236121686}
-  - component: {fileID: 2772885446139596419}
   m_Layer: 5
   m_Name: PlayerHUDPanel
   m_TagString: Untagged
@@ -1214,31 +1213,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &2772885446139596419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4561889939371481550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 666191a57ad0b2043862b5f78302d1ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HUDManager
-  healthBarFill: {fileID: 1334808813730784455}
-  staminaBarFill: {fileID: 7193972853208951717}
-  magazineAmmoUI: {fileID: 0}
-  totalAmmoUI: {fileID: 0}
-  ammoTypeUI: {fileID: 0}
-  activeWeaponUI: {fileID: 0}
-  unActiveWeaponUI: {fileID: 0}
-  lethalUI: {fileID: 0}
-  lethalAmountUI: {fileID: 0}
-  tacticallUI: {fileID: 0}
-  tacticalAmountUI: {fileID: 0}
-  emptySlot: {fileID: 0}
-  middleDot: {fileID: 0}
 --- !u!1 &4696297450978972786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,7 +1916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   HP: 100
   maxHP: 100
-  hudManager: {fileID: 2772885446139596419}
+  hudManager: {fileID: 0}
   bloodyScreen: {fileID: 0}
   deathManager: {fileID: 0}
   playerHealthUI: {fileID: 0}

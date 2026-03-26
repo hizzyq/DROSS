@@ -79,8 +79,9 @@ GameObject:
   - component: {fileID: 83621525332046302}
   - component: {fileID: 8351428414113478886}
   - component: {fileID: 6853428344743915064}
-  - component: {fileID: 9004616570005226815}
   - component: {fileID: 7478310305607540549}
+  - component: {fileID: 3642011880624680526}
+  - component: {fileID: 7360414435495912557}
   m_Layer: 8
   m_Name: Player_p
   m_TagString: Player
@@ -274,8 +275,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   HP: 100
+  maxHP: 100
+  hudManager: {fileID: 0}
   bloodyScreen: {fileID: 0}
-  deathManager: {fileID: 9004616570005226815}
+  deathManager: {fileID: 3642011880624680526}
   playerHealthUI: {fileID: 0}
   gameOverUI: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -314,28 +317,6 @@ MonoBehaviour:
   interactableLayers:
     serializedVersion: 2
     m_Bits: 524288
---- !u!114 &9004616570005226815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4840510415262773233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe87965bf145b747a6d959d7ba75f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathManager
-  playerPrefab: {fileID: 4840510415262773233}
-  currentCheckpoint: {fileID: 0}
-  currentPlayer: {fileID: 4840510415262773233}
-  playerCam: {fileID: 0}
-  camPos: {fileID: 0}
-  mainCamera: {fileID: 0}
-  playerHealthUI: {fileID: 0}
-  gameOverUI: {fileID: 0}
-  player: {fileID: 83621525332046302}
-  screenBlackout: {fileID: 8351428414113478886}
 --- !u!114 &7478310305607540549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +334,37 @@ MonoBehaviour:
   throwForce: 18
   throwUpAngle: 10
   grenadeCount: 3
+--- !u!114 &3642011880624680526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4840510415262773233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734d2e2e50cb66a43bd4a4efb71c9dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathManager
+  player: {fileID: 83621525332046302}
+  gameOverUI: {fileID: 0}
+  screenBlackout: {fileID: 8351428414113478886}
+--- !u!114 &7360414435495912557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4840510415262773233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c11005546dfb15409ed23ebf2b7a207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointSaveSystem
+  reloadSceneOnLoad: 1
+  reloadDelay: 0.05
+  pistolPrefab: {fileID: 0}
+  riflePrefab: {fileID: 0}
 --- !u!1 &6159070343810677627
 GameObject:
   m_ObjectHideFlags: 0

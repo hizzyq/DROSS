@@ -25,6 +25,12 @@ public class HUDManager : MonoBehaviour
     public Image tacticallUI;
     public TextMeshProUGUI tacticalAmountUI;
 
+    [Header("Icons")]
+    public Sprite pistolSprite;
+    public Sprite rifleSprite;
+    public Sprite pistolAmmoSprite;
+    public Sprite rifleAmmoSprite;
+
     public Sprite emptySlot;
     public GameObject middleDot;
 
@@ -70,15 +76,15 @@ public class HUDManager : MonoBehaviour
 
     private Sprite GetWeaponSprite(Weapon.WeaponModel model) => model switch
     {
-        Weapon.WeaponModel.Pistol1911 => Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite,
-        Weapon.WeaponModel.AK74       => Resources.Load<GameObject>("AK74_Weapon").GetComponent<SpriteRenderer>().sprite,
+        Weapon.WeaponModel.Pistol1911 => pistolSprite,
+        Weapon.WeaponModel.AK74       => rifleSprite,
         _                             => null
     };
 
     private Sprite GetAmmoSprite(Weapon.WeaponModel model) => model switch
     {
-        Weapon.WeaponModel.Pistol1911 => Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite,
-        Weapon.WeaponModel.AK74       => Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite,
+        Weapon.WeaponModel.Pistol1911 => pistolAmmoSprite,
+        Weapon.WeaponModel.AK74       => rifleAmmoSprite,
         _                             => null
     };
 
@@ -105,6 +111,26 @@ public class HUDManager : MonoBehaviour
         if (staminaBarFill != null && maxStamina > 0)
         {
             staminaBarFill.fillAmount = currentStamina / maxStamina;
+        }
+    }
+
+    public void ToggleHUD(bool show)
+    {
+        if (healthBarFill != null && healthBarFill.canvas != null)
+        {
+            Transform hudPanel = healthBarFill.canvas.transform.Find("PlayerHUDPanel");
+            if (hudPanel != null) hudPanel.gameObject.SetActive(show);
+        }
+
+        if (activeWeaponUI != null && activeWeaponUI.canvas != null)
+        {
+            Transform wpnPanel = activeWeaponUI.canvas.transform.Find("WeaponPanel");
+            if (wpnPanel != null) wpnPanel.gameObject.SetActive(show);
+        }
+
+        if (middleDot != null)
+        {
+            middleDot.SetActive(show);
         }
     }
 }

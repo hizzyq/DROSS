@@ -1681,6 +1681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2fd16a2f32b7f4389c1dda0ee1bfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPad
+  deathManager: {fileID: 8266201802253080387}
 --- !u!1 &178360790
 GameObject:
   m_ObjectHideFlags: 0
@@ -21404,9 +21405,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 659549148581178043, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1435208654765189617, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
       propertyPath: m_Name
-      value: WaterGunfinPistol
+      value: WaterGunfin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2784156638660641478, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443074040539680186, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502373560163754442, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8299724544819539810, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21453,11 +21478,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
---- !u!1 &2850235646140930940 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
-  m_PrefabInstance: {fileID: 2850235646140930939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2907817022618618012
 Transform:
   m_ObjectHideFlags: 0
@@ -22215,8 +22235,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8172137174462712756, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
@@ -22864,10 +22883,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9201550691515571139}
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: hudManager
-      value: 
-      objectReference: {fileID: 5602689029206842718}
-    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 940807745650037650}
@@ -22875,14 +22890,14 @@ PrefabInstance:
       propertyPath: bloodyScreen
       value: 
       objectReference: {fileID: 8324224753160370311}
+    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: playerHealthUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2557879951093909676, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 3139144203140044537}
-    - target: {fileID: 3642011880624680526, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: gameOverUI
-      value: 
-      objectReference: {fileID: 9201550691515571139}
     - target: {fileID: 4840510415262773233, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_Name
       value: Player_p
@@ -22899,10 +22914,6 @@ PrefabInstance:
       propertyPath: cameraSpring
       value: 
       objectReference: {fileID: 4223431821874111882}
-    - target: {fileID: 7360414435495912557, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: pistolPrefab
-      value: 
-      objectReference: {fileID: 2850235646140930940}
     - target: {fileID: 7478310305607540549, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: throwOrigin
       value: 
@@ -22959,6 +22970,30 @@ PrefabInstance:
       propertyPath: fadeImage
       value: 
       objectReference: {fileID: 5995894492375605785}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: camPos
+      value: 
+      objectReference: {fileID: 8353200322718731286}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 3139144203140044537}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 9201550691515571139}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 940807745650037650}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: playerHealthUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: currentCheckpoint
+      value: 
+      objectReference: {fileID: 25515452}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23095,17 +23130,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
---- !u!114 &5602689029206842718 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
-  m_PrefabInstance: {fileID: 5602689029206842717}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 666191a57ad0b2043862b5f78302d1ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &5729681771339202688
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24218,6 +24242,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e574af00325e7414a8acc7d777cc90df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!114 &8266201802253080387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9004616570005226815, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+  m_PrefabInstance: {fileID: 5162784227211906465}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe87965bf145b747a6d959d7ba75f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathManager
 --- !u!1 &8272766802499056067
 GameObject:
   m_ObjectHideFlags: 0
@@ -24262,6 +24297,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8470560837252941515, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
   m_PrefabInstance: {fileID: 4055664800485822388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8353200322718731286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8016302887952840003, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+  m_PrefabInstance: {fileID: 4051489030007301394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752873b16d8ae74696c766f55e00b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraPosition
 --- !u!4 &8353206060479188194
 Transform:
   m_ObjectHideFlags: 0

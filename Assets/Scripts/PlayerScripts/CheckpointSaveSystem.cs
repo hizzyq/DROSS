@@ -31,7 +31,8 @@ public class CheckpointSaveSystem : MonoBehaviour
     [System.Serializable]
     public class WeaponSaveData
     {
-        public string weaponType;
+        public bool isEmpty;
+        public Weapon.WeaponModel weaponType;
         public int bulletsInMagazine;
         public int slotIndex;
     }
@@ -43,6 +44,7 @@ public class CheckpointSaveSystem : MonoBehaviour
         public int activeWeaponIndex;
         public int totalRifleAmmo;
         public int totalPistolAmmo;
+        public int grenadeCount;
     }
 
     void Awake()
@@ -51,8 +53,38 @@ public class CheckpointSaveSystem : MonoBehaviour
         Debug.Log("Saving to: " + savePath);
     }
 
+    void Start()
+    {
+        // Проверяем, есть ли данные чекпоинта для загрузки после перезапуска сцены
+        if (PlayerPrefs.HasKey("TempCheckpointData"))
+        {
+            Debug.Log("Found temp checkpoint data. Applying after scene load...");
+            string json = PlayerPrefs.GetString("TempCheckpointData");
+
+            // Обязательно удаляем ключ, чтобы не грузить чекпоинт при обычном рестарте уровня
+            PlayerPrefs.DeleteKey("TempCheckpointData");
+
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            if (data != null)
+            {
+                Player player = GetComponent<Player>();
+                if (player != null)
+                {
+                    // Применяем данные
+                    StartCoroutine(ApplyLoadedDataSmooth(player, data));
+                }
+            }
+        }
+    }
+
     public void SaveCheckpoint(Player player, string checkpointID)
     {
+        if (player.isDead) 
+        {
+            Debug.LogWarning("Cannot save checkpoint while dead.");
+            return;
+        }
+
         SaveData data = new SaveData
         {
             health = player.HP,
@@ -141,10 +173,11 @@ public class CheckpointSaveSystem : MonoBehaviour
 
         player.HP = data.health;
 
-        if (player.playerHealthUI != null)
+        if (HUDManager.Instance != null && HUDManager.Instance.gameObject != null)
         {
-            player.playerHealthUI.text = $"Health: {data.health}";
-            player.playerHealthUI.gameObject.SetActive(true);
+            HUDManager.Instance.gameObject.SetActive(true);
+            HUDManager.Instance.ToggleHUD(true);
+            HUDManager.Instance.UpdateHealthBar(player.HP, player.maxHP);
         }
 
         player.isDead = false;
@@ -188,6 +221,14 @@ public class CheckpointSaveSystem : MonoBehaviour
         var wallRunning = player.GetComponent<WallRunning>();
         if (wallRunning != null) wallRunning.enabled = !disable;
 
+        var nades = player.GetComponent<GrenadeThrow>();
+        if (nades != null) nades.enabled = !disable;
+
+        if (WeaponManager.Instance != null)
+        {
+            WeaponManager.Instance.enabled = !disable;
+        }
+
         if (player.mainCamera != null)
         {
             var playerCam = player.mainCamera.GetComponent<PlayerCam>();
@@ -220,46 +261,54 @@ public class CheckpointSaveSystem : MonoBehaviour
         PlayerWeaponSaveData weaponData = new PlayerWeaponSaveData();
 
         WeaponManager weaponManager = WeaponManager.Instance;
-        if (weaponManager == null) return weaponData;
-
-        weaponData.totalRifleAmmo = weaponManager.totalRifleAmmo;
-        weaponData.totalPistolAmmo = weaponManager.totalPistolAmmo;
-
-        for (int i = 0; i < weaponManager.weaponSlots.Count; i++)
+        if (weaponManager != null) 
         {
-            if (weaponManager.weaponSlots[i] == weaponManager.activeWeaponSlot)
+            weaponData.totalRifleAmmo = weaponManager.totalRifleAmmo;
+            weaponData.totalPistolAmmo = weaponManager.totalPistolAmmo;
+
+            for (int i = 0; i < weaponManager.weaponSlots.Count; i++)
             {
-                weaponData.activeWeaponIndex = i;
-                break;
+                if (weaponManager.weaponSlots[i] == weaponManager.activeWeaponSlot)
+                {
+                    weaponData.activeWeaponIndex = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < weaponManager.weaponSlots.Count; i++)
+            {
+                GameObject weaponSlot = weaponManager.weaponSlots[i];
+                if (weaponSlot.transform.childCount > 0)
+                {
+                    Weapon weapon = weaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+                    if (weapon != null)
+                    {
+                        WeaponSaveData weaponSave = new WeaponSaveData
+                        {
+                            isEmpty = false,
+                            weaponType = weapon.thisWeaponModel,
+                            bulletsInMagazine = weapon.bulletsLeft,
+                            slotIndex = i
+                        };
+                        weaponData.ownedWeapons.Add(weaponSave);
+                    }
+                }
+                else
+                {
+                    weaponData.ownedWeapons.Add(new WeaponSaveData
+                    {
+                        isEmpty = true,
+                        bulletsInMagazine = 0,
+                        slotIndex = i
+                    });
+                }
             }
         }
 
-        for (int i = 0; i < weaponManager.weaponSlots.Count; i++)
+        GrenadeThrow grenadeThrow = FindObjectOfType<GrenadeThrow>();
+        if (grenadeThrow != null)
         {
-            GameObject weaponSlot = weaponManager.weaponSlots[i];
-            if (weaponSlot.transform.childCount > 0)
-            {
-                Weapon weapon = weaponSlot.transform.GetChild(0).GetComponent<Weapon>();
-                if (weapon != null)
-                {
-                    WeaponSaveData weaponSave = new WeaponSaveData
-                    {
-                        weaponType = weapon.thisWeaponModel.ToString(),
-                        bulletsInMagazine = weapon.bulletsLeft,
-                        slotIndex = i
-                    };
-                    weaponData.ownedWeapons.Add(weaponSave);
-                }
-            }
-            else
-            {
-                weaponData.ownedWeapons.Add(new WeaponSaveData
-                {
-                    weaponType = "Empty",
-                    bulletsInMagazine = 0,
-                    slotIndex = i
-                });
-            }
+            weaponData.grenadeCount = grenadeThrow.grenadeCount;
         }
 
         return weaponData;
@@ -267,63 +316,78 @@ public class CheckpointSaveSystem : MonoBehaviour
 
     private void RestoreWeaponState(PlayerWeaponSaveData weaponData)
     {
-        WeaponManager weaponManager = WeaponManager.Instance;
-        if (weaponManager == null) return;
+        WeaponManager wm = WeaponManager.Instance;
+    if (wm == null) return;
 
-        weaponManager.totalRifleAmmo = weaponData.totalRifleAmmo;
-        weaponManager.totalPistolAmmo = weaponData.totalPistolAmmo;
+    // 1. КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Сразу назначаем активный слот из данных сохранения.
+    // Это нужно, чтобы HUDManager не пытался обратиться к пустому или неверному слоту в первом же кадре.
+    if (weaponData.activeWeaponIndex >= 0 && weaponData.activeWeaponIndex < wm.weaponSlots.Count)
+    {
+        wm.activeWeaponSlot = wm.weaponSlots[weaponData.activeWeaponIndex];
+    }
 
-        // Clear all existing weapons
-        foreach (GameObject weaponSlot in weaponManager.weaponSlots)
+    wm.totalPistolAmmo = weaponData.totalPistolAmmo;
+    wm.totalRifleAmmo = weaponData.totalRifleAmmo;
+
+    // Очищаем старые объекты оружия в слотах
+    foreach (var slot in wm.weaponSlots)
+    {
+        foreach (Transform child in slot.transform)
         {
-            if (weaponSlot.transform.childCount > 0)
-            {
-                DestroyImmediate(weaponSlot.transform.GetChild(0).gameObject);
-            }
-        }
-
-        // Restore weapons
-        foreach (WeaponSaveData savedWeapon in weaponData.ownedWeapons)
-        {
-            if (savedWeapon.weaponType != "Empty" && savedWeapon.slotIndex < weaponManager.weaponSlots.Count)
-            {
-                GameObject targetSlot = weaponManager.weaponSlots[savedWeapon.slotIndex];
-                GameObject weaponPrefab = GetWeaponPrefab(savedWeapon.weaponType);
-
-                if (weaponPrefab != null)
-                {
-                    GameObject newWeapon = Instantiate(weaponPrefab, targetSlot.transform);
-                    Weapon weapon = newWeapon.GetComponent<Weapon>();
-
-                    if (weapon != null)
-                    {
-                        weapon.bulletsLeft = savedWeapon.bulletsInMagazine;
-                        weapon.isActiveWeapon = false;
-
-                        MeshCollider meshCollider = weapon.GetComponent<MeshCollider>();
-                        if (meshCollider != null) meshCollider.enabled = false;
-                        if (weapon.animator != null) weapon.animator.enabled = true;
-
-                        newWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
-                        newWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
-                    }
-                }
-            }
-        }
-
-        // Restore active weapon
-        if (weaponData.activeWeaponIndex < weaponManager.weaponSlots.Count)
-        {
-            weaponManager.SwitchActiveSlot(weaponData.activeWeaponIndex);
+            Destroy(child.gameObject);
         }
     }
 
-    private GameObject GetWeaponPrefab(string weaponType)
+    // Спавним оружие в нужные слоты
+    foreach (var wData in weaponData.ownedWeapons)
     {
-        if (weaponType == "Pistol1911")
-            return pistolPrefab;
-        else if (weaponType == "AK74")
-            return riflePrefab;
+        if (wData.isEmpty) continue;
+
+        GameObject prefab = GetWeaponPrefab(wData.weaponType);
+        if (prefab != null)
+        {
+            // Спавним пушку как дочерний объект слота
+            GameObject newWp = Instantiate(prefab, wm.weaponSlots[wData.slotIndex].transform);
+            Weapon w = newWp.GetComponent<Weapon>();
+
+            w.bulletsLeft = wData.bulletsInMagazine;
+
+            // Настраиваем локальную позицию/вращение из префаба или настроек оружия
+            newWp.transform.localPosition = w.spawnPosition;
+            newWp.transform.localRotation = Quaternion.Euler(w.spawnRotation);
+
+            // 2. ИСПРАВЛЕНИЕ: Устанавливаем флаг активности скрипту оружия сразу
+            w.isActiveWeapon = (wData.slotIndex == weaponData.activeWeaponIndex);
+        }
+    }
+
+    // Финальное обновление состояния слотов через WeaponManager
+    wm.SwitchActiveSlot(weaponData.activeWeaponIndex);
+
+    // Восстанавливаем гранаты
+    GrenadeThrow gt = GetComponent<GrenadeThrow>();
+    if (gt != null)
+    {
+        gt.grenadeCount = weaponData.grenadeCount;
+        if (HUDManager.Instance != null) HUDManager.Instance.UpdateGrenadeCount(gt.grenadeCount);
+    }
+        
+        Debug.Log($"Restored resources: Grenades={weaponData.grenadeCount}, Pistol Ammo={weaponData.totalPistolAmmo}, Rifle Ammo={weaponData.totalRifleAmmo}");
+    }
+
+    private GameObject GetWeaponPrefab(Weapon.WeaponModel weaponType)
+    {
+        if (weaponType == Weapon.WeaponModel.Pistol1911)
+        {
+            if (pistolPrefab != null) return pistolPrefab;
+            return Resources.Load<GameObject>("Pistol1911_Weapon");
+        }
+        else if (weaponType == Weapon.WeaponModel.AK74)
+        {
+            if (riflePrefab != null) return riflePrefab;
+            return Resources.Load<GameObject>("AK74_Weapon");
+        }
         return null;
     }
 }
+

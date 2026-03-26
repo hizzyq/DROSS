@@ -29,6 +29,27 @@ public class GameLoader : MonoBehaviour
             PlayerPrefs.DeleteKey("TempCheckpointData");
             StartCoroutine(ApplySaveAfterSceneLoad(jsonData));
         }
+        else
+        {
+            StartCoroutine(SaveDefaultCheckpointDelay());
+        }
+    }
+
+    IEnumerator SaveDefaultCheckpointDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject == null) yield break;
+
+        Player player = playerObject.GetComponent<Player>();
+        CheckpointSaveSystem saveSystem = playerObject.GetComponent<CheckpointSaveSystem>();
+
+        if (player != null && saveSystem != null && !player.isDead)
+        {
+            saveSystem.SaveCheckpoint(player, "Level_Start");
+            Debug.Log("Default checkpoint saved for level start.");
+        }
     }
 
     IEnumerator ApplySaveAfterSceneLoad(string jsonData)
