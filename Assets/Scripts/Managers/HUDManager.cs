@@ -6,6 +6,10 @@ public class HUDManager : MonoBehaviour
 {
     public static HUDManager Instance { get; private set; }
 
+    [Header("Player Stats (Bars)")]
+    public Image healthBarFill;
+    public Image staminaBarFill;
+
     [Header("Ammo")]
     public TextMeshProUGUI magazineAmmoUI;
     public TextMeshProUGUI totalAmmoUI;
@@ -87,4 +91,20 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateGrenadeCount(int count)
         => lethalAmountUI.text = count.ToString();
+
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
+    {
+        if (healthBarFill != null && maxHealth > 0)
+        {
+            healthBarFill.fillAmount = currentHealth / maxHealth;
+        }
+    }
+
+    public void UpdateStaminaBar(float currentStamina, float maxStamina)
+    {
+        if (staminaBarFill != null && maxStamina > 0)
+        {
+            staminaBarFill.fillAmount = currentStamina / maxStamina;
+        }
+    }
 }

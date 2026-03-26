@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public int HP = 100;
-
+    public int maxHP = 100;
+    public HUDManager hudManager;
     public GameObject bloodyScreen;
     public PlayerDeathManager deathManager;
     public TextMeshProUGUI playerHealthUI;
@@ -24,13 +25,20 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        playerHealthUI.text = $"Health: {HP}";
+        if (HUDManager.Instance != null)
+        {
+            HUDManager.Instance.UpdateHealthBar(HP, maxHP);
+        }
     }
 
     public void TakeDamage(int damageAmount)
     {
         HP -= damageAmount;
 
+        if (HUDManager.Instance != null)
+        {
+            HUDManager.Instance.UpdateHealthBar(HP, maxHP);
+        }
         if (HP <= 0)
         {
             print("Player dead");

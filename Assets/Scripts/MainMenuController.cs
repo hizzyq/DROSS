@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -11,16 +12,28 @@ public class MainMenuController : MonoBehaviour
     public GameObject menuPanel;
     public GameObject settingsPanel;
 
+    [Header("UI Elements")]
+    public Button continueButton;
+
     [Header("Scene Transition Settings")]
     public Image fadePanel;
     public float fadeDuration = 1f;
     public AudioSource uiAudio;
     public AudioClip clickSound;
 
+    private string saveFilePath;
+
     private void Start()
     {
+        saveFilePath = Application.persistentDataPath + "/checkpoint.json";
+
         if (menuPanel != null) menuPanel.SetActive(true);
         if (settingsPanel != null) settingsPanel.SetActive(false);
+
+        if (continueButton != null)
+        {
+            continueButton.interactable = File.Exists(saveFilePath);
+        }
     }
     void Update()
     {
@@ -37,9 +50,25 @@ public class MainMenuController : MonoBehaviour
     public void StartGame(string sceneName)
     {
         PlayClickSound();
+        if (File.Exists(saveFilePath)) File.Delete(saveFilePath);
         StartCoroutine(FadeAndLoad(sceneName));
     }
+    public void ContinueGame()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            PlayClickSound();
 
+            string json = File.ReadAllText(saveFilePath);
+
+            CheckpointSaveSystem.SaveData data = JsonUtility.FromJson<CheckpointSaveSystem.SaveData>(json);
+
+            PlayerPrefs.SetString("TempCheckpointData", json);
+            PlayerPrefs.Save();
+
+            StartCoroutine(FadeAndLoad(data.currentScene));
+        }
+    }
     //настройки
     public void OpenSettings()
     {
