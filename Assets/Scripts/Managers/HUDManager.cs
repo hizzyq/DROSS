@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    public static HUDManager Instance { get; set; }
+    public static HUDManager Instance { get; private set; }
+
+    [Header("Player Stats (Bars)")]
+    public Image healthBarFill;
+    public Image staminaBarFill;
 
     [Header("Ammo")]
     public TextMeshProUGUI magazineAmmoUI;
@@ -22,92 +22,115 @@ public class HUDManager : MonoBehaviour
     [Header("Throwables")]
     public Image lethalUI;
     public TextMeshProUGUI lethalAmountUI;
-
     public Image tacticallUI;
     public TextMeshProUGUI tacticalAmountUI;
 
-    public Sprite emptySlot;
+    [Header("Icons")]
+    public Sprite pistolSprite;
+    public Sprite rifleSprite;
+    public Sprite pistolAmmoSprite;
+    public Sprite rifleAmmoSprite;
 
+    public Sprite emptySlot;
     public GameObject middleDot;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        // НЕ DontDestroyOnLoad — Canvas привязан к сцене
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     private void Update()
     {
-        Weapon activeWeapon = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
-        Weapon unActiveWeapon = GetUnActiveWeaponSlot().GetComponentInChildren<Weapon>();
+        // Защита — WeaponManager мог ещё не создаться
+        if (WeaponManager.Instance == null) return;
 
-        if (activeWeapon)
+        Weapon active   = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
+        Weapon unActive = GetUnActiveWeaponSlot()?.GetComponentInChildren<Weapon>();
+
+        if (active)
         {
-            magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
-
-            Weapon.WeaponModel model = activeWeapon.thisWeaponModel;
-
-            ammoTypeUI.sprite = GetAmmoSprite(model);
-
-            activeWeaponUI.sprite = GetWeaponSprite(model);
-
-            if (unActiveWeapon)
-            {
-                unActiveWeaponUI.sprite = GetWeaponSprite(unActiveWeapon.thisWeaponModel);
-            }
+            magazineAmmoUI.text = $"{active.bulletsLeft / active.bulletsPerBurst}";
+            totalAmmoUI.text    = $"{WeaponManager.Instance.CheckAmmoLeftFor(active.thisWeaponModel)}";
+            ammoTypeUI.sprite   = GetAmmoSprite(active.thisWeaponModel);
+            activeWeaponUI.sprite = GetWeaponSprite(active.thisWeaponModel);
+            unActiveWeaponUI.sprite = unActive
+                ? GetWeaponSprite(unActive.thisWeaponModel)
+                : emptySlot;
         }
         else
         {
-            magazineAmmoUI.text = "";
-            totalAmmoUI.text = "";
-
-            ammoTypeUI.sprite = emptySlot;
-            activeWeaponUI.sprite = emptySlot;
+            magazineAmmoUI.text     = "";
+            totalAmmoUI.text        = "";
+            ammoTypeUI.sprite       = emptySlot;
+            activeWeaponUI.sprite   = emptySlot;
             unActiveWeaponUI.sprite = emptySlot;
         }
     }
 
-    private Sprite GetWeaponSprite(Weapon.WeaponModel model)
+    private Sprite GetWeaponSprite(Weapon.WeaponModel model) => model switch
     {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol1911:
-                return Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite;
-            case Weapon.WeaponModel.AK74:
-                return Resources.Load<GameObject>("AK74_Weapon").GetComponent<SpriteRenderer>().sprite;
-            default:
-                return null;
-        }
-    }
+        Weapon.WeaponModel.Pistol1911 => pistolSprite,
+        Weapon.WeaponModel.AK74       => rifleSprite,
+        _                             => null
+    };
 
-    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
+    private Sprite GetAmmoSprite(Weapon.WeaponModel model) => model switch
     {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol1911:
-                return Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite;
-            case Weapon.WeaponModel.AK74:
-                return Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite;
-            default:
-                return null;
-        }
-    }
+        Weapon.WeaponModel.Pistol1911 => pistolAmmoSprite,
+        Weapon.WeaponModel.AK74       => rifleAmmoSprite,
+        _                             => null
+    };
 
     private GameObject GetUnActiveWeaponSlot()
     {
-        foreach (GameObject weaponSlot in WeaponManager.Instance.weaponSlots)
-        {
-            if (weaponSlot != WeaponManager.Instance.activeWeaponSlot)
-            { 
-                return weaponSlot; 
-            }
-        }
+        foreach (var slot in WeaponManager.Instance.weaponSlots)
+            if (slot != WeaponManager.Instance.activeWeaponSlot) return slot;
         return null;
+    }
+
+    public void UpdateGrenadeCount(int count)
+        => lethalAmountUI.text = count.ToString();
+
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
+    {
+        if (healthBarFill != null && maxHealth > 0)
+        {
+            healthBarFill.fillAmount = currentHealth / maxHealth;
+        }
+    }
+
+    public void UpdateStaminaBar(float currentStamina, float maxStamina)
+    {
+        if (staminaBarFill != null && maxStamina > 0)
+        {
+            staminaBarFill.fillAmount = currentStamina / maxStamina;
+        }
+    }
+
+    public void ToggleHUD(bool show)
+    {
+        if (healthBarFill != null && healthBarFill.canvas != null)
+        {
+            Transform hudPanel = healthBarFill.canvas.transform.Find("PlayerHUDPanel");
+            if (hudPanel != null) hudPanel.gameObject.SetActive(show);
+        }
+
+        if (activeWeaponUI != null && activeWeaponUI.canvas != null)
+        {
+            Transform wpnPanel = activeWeaponUI.canvas.transform.Find("WeaponPanel");
+            if (wpnPanel != null) wpnPanel.gameObject.SetActive(show);
+        }
+
+        if (middleDot != null)
+        {
+            middleDot.SetActive(show);
+        }
     }
 }

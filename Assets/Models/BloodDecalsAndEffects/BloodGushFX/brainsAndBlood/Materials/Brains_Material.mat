@@ -2,25 +2,43 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Brains_Material
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _EMISSION
+  - _METALLICSPECGLOSSMAP
+  - _NORMALMAP
+  - _OCCLUSIONMAP
+  - _PARALLAXMAP
+  - _SPECGLOSSMAP
+  - _SPECULAR_SETUP
+  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo_MaskA:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 204abc37f1ef2084c8551a7afbe60edc, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _BaseSpecColGlossa:
         m_Texture: {fileID: 2800000, guid: 3d94dcdf086297049943a0b0e7566fad, type: 3}
@@ -56,7 +74,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 4, y: 4}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
@@ -99,8 +117,8 @@ Material:
         m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 204abc37f1ef2084c8551a7afbe60edc, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMixerrgb_AOa:
         m_Texture: {fileID: 2800000, guid: 16c53fef92528674fbf2fab05e0bf9a7, type: 3}
@@ -146,19 +164,41 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AO_boost: 1
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
     - _Base_Gloss: 0.5555561
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _BottomBumpScale: 1
     - _BottomEmissionScaleUI: 0
     - _BottomGlossiness: 0.5
     - _BottomMultiplier: 0
     - _BottomUsingSpecGlossMap: 0
     - _BumpScale: 1.46
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _Detail1_strength: 0.5631068
     - _Detail2_strength: 0.5
     - _Detail3_strength: 0.8241895
+    - _DetailAlbedoMapScale: 1
     - _DetailGloss1: 0.6407767
     - _DetailGloss2: 0.7112322
     - _DetailGloss3: 0.4144778
@@ -166,7 +206,9 @@ Material:
     - _Dirt_Gloss: 0.1
     - _Dirt_Top: 0
     - _DstBlend: 0
+    - _DstBlendAlpha: 0
     - _EmissionScaleUI: 0.48
+    - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -177,9 +219,14 @@ Material:
     - _Norm3Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
     - _SwitchUpDown: 0
     - _TexPower: 10
     - _TopBumpScale: 1
@@ -191,8 +238,11 @@ Material:
     - _UVSec: 0
     - _UsingSpecGlossMap: 1
     - _VertexColorStrength: 1
+    - _WorkflowMode: 0
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
+    - _BaseColor: {r: 1, g: 0.63235295, b: 0.63235295, a: 1}
     - _Base_Color: {r: 33333, g: 1, b: 1, a: 1}
     - _Base_Color_Tint: {r: 0.8, g: 0.7, b: 0.5, a: 1}
     - _Base_SpecColor: {r: 0, g: 0, b: 0, a: 0}
@@ -200,7 +250,7 @@ Material:
     - _BottomEmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _BottomEmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _BottomSpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _Color: {r: 1, g: 0.63235295, b: 0.63235295, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailSpecCol1: {r: 1, g: 1, b: 1, a: 1}
     - _DetailSpecCol2: {r: 0.1172414, g: 1, b: 0, a: 1}
     - _DetailSpecCol3: {r: 0, g: 0, b: 1, a: 1}
@@ -217,3 +267,18 @@ Material:
     - _TopEmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _TopEmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _TopSpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &1702529777865621590
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10

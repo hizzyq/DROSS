@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     public bool isActiveWeapon;
+    private bool _wasActiveWeapon; // Для отслеживания смены состояния и экономии ресурсов
+
     public int weaponDamage;
 
     [Header("Shooting")]
@@ -15,14 +16,13 @@ public class Weapon : MonoBehaviour
     public float shootingDelay = 2f;
 
     [Header("Burst")]
-    public int bulletsPerBurst = 1; // at least 1 bcuz else ammo left display will divide by zero
+    public int bulletsPerBurst = 1;
     public int burstBulletsLeft;
 
     [Header("Spread")]
     public float hipSpreadIntensity;
-    public float adsSpreadIntensity;
     private float spreadIntensity;
-    
+
     [Header("Bullet")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject muzzleEffect;
 
-    internal Animator animator; //for usage in code, but not in editor
+    internal Animator animator;
 
     [Header("Loading")]
     public float reloadTime;
@@ -42,173 +42,159 @@ public class Weapon : MonoBehaviour
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
 
-    public bool isADS;
-
-    public enum WeaponModel
-    {
-        Pistol1911,
-        AK74
-    }
-
+    public enum WeaponModel { Pistol1911, AK74 }
     public WeaponModel thisWeaponModel;
 
-    public enum ShootingMode
-    {
-        Single,
-        Burst,
-        Auto
-    }
-
+    public enum ShootingMode { Single, Burst, Auto }
     public ShootingMode currentShootingMode;
+
+    [Header("SFX")]
+    [SerializeField] private SFXEvent shotSFX;
+    [SerializeField] private SFXEvent reloadSFX;
+    [SerializeField] private SFXEvent emptySFX;
+
+    // Кэшируем ссылки, чтобы не искать их каждый кадр
+    private Player _player;
+    private Outline _outline;
 
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         animator = GetComponent<Animator>();
-
         bulletsLeft = magazineSize;
-
         spreadIntensity = hipSpreadIntensity;
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        _player = FindObjectOfType<Player>();
+        _outline = GetComponent<Outline>();
+
+        // Принудительно обновляем визуал при старте
+        _wasActiveWeapon = !isActiveWeapon;
+    }
+
     void Update()
     {
+        if (_player != null && _player.isDead) return;
+
+        // Обновляем слои и обводку ТОЛЬКО в момент смены оружия, а не каждый кадр
+        if (isActiveWeapon != _wasActiveWeapon)
+        {
+            _wasActiveWeapon = isActiveWeapon;
+            UpdateWeaponVisuals(isActiveWeapon);
+        }
+
         if (isActiveWeapon)
         {
-            GetComponent<Outline>().enabled = false;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
-            }
-            transform.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
-            if (Input.GetMouseButtonDown(1))
-            {
-                EnterADS();
-            }
-            if (Input.GetMouseButtonUp(1))
-            {
-                ExitADS();
-            }
             if (currentShootingMode == ShootingMode.Auto)
-            {
                 isShooting = Input.GetKey(KeyCode.Mouse0);
-            }
             else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
-            {
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
-            }
+
             if (readyToShoot && isShooting && bulletsLeft > 0 && !isReloading)
             {
                 burstBulletsLeft = bulletsPerBurst;
                 FireWeapon();
             }
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading &&
+                WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
             {
                 Reload();
             }
-            if (readyToShoot == false && isReloading == false && bulletsLeft <= 0 && WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+
+            if (!readyToShoot && !isReloading && bulletsLeft <= 0 &&
+                WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
             {
                 Reload();
             }
-            if (bulletsLeft == 0 && isShooting)
-            {   
-                SoundManager.Instance.emptyMagazine1911.Play();
-            }
-        }
-        else
-        {
-            foreach (Transform child in transform)
+
+            // Звук пустого магазина только при клике, чтобы не спамить в режиме Auto
+            if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0) && !isReloading)
             {
-                child.gameObject.layer = LayerMask.NameToLayer("Default");
+                AudioManager.Play(emptySFX);
             }
-            transform.gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 
-    private void EnterADS()
+    private void UpdateWeaponVisuals(bool active)
     {
-        animator.SetTrigger("enterADS");
-        isADS = true;
-        HUDManager.Instance.middleDot.SetActive(false);
-        spreadIntensity = adsSpreadIntensity;
-    }
-    private void ExitADS()
-    {
-        animator.SetTrigger("exitADS");
-        isADS = false;
-        HUDManager.Instance.middleDot.SetActive(true);
-        spreadIntensity = hipSpreadIntensity;
+        if (_outline != null)
+            _outline.enabled = !active;
+
+        string targetLayer = active ? "WeaponRender" : "Default";
+        int layerIndex = LayerMask.NameToLayer(targetLayer);
+
+        gameObject.layer = layerIndex;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = layerIndex;
+        }
     }
 
     private void FireWeapon()
     {
         bulletsLeft--;
 
-        muzzleEffect.GetComponent<ParticleSystem>().Play();
-        
-        if (isADS)
-        {
-            //RECOIL ADS animator.SetTrigger("recoilADS");
-        }
-        else
-        {
-            animator.SetTrigger("RECOIL"); 
-        }
+        if (muzzleEffect != null)
+            muzzleEffect.GetComponent<ParticleSystem>().Play();
 
-        SoundManager.Instance.PlayShootingSound(thisWeaponModel);
+        animator.SetTrigger("RECOIL");
+        AudioManager.PlayAt(shotSFX, transform.position);
 
         readyToShoot = false;
 
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
 
-        bullet.GetComponent<Bullet>().bulletDamage = weaponDamage;
+        if (bullet.TryGetComponent<Bullet>(out var bulletComp))
+        {
+            bulletComp.bulletDamage = weaponDamage;
+        }
 
-        bullet.transform.forward = shootingDirection;
-
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        if (bullet.TryGetComponent<Rigidbody>(out var rb))
+        {
+            bullet.transform.forward = shootingDirection;
+            rb.AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        }
 
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
 
         if (allowReset)
         {
-            Invoke("ResetShot", shootingDelay);
+            Invoke(nameof(ResetShot), shootingDelay);
             allowReset = false;
         }
 
         if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
         {
             burstBulletsLeft--;
-            Invoke("FireWeapon", shootingDelay);
+            Invoke(nameof(FireWeapon), shootingDelay);
         }
     }
 
     private void Reload()
     {
-        SoundManager.Instance.PlayReloadingSound(thisWeaponModel);
-
+        AudioManager.PlayAt(reloadSFX, transform.position);
         animator.SetTrigger("RELOAD");
-        
         isReloading = true;
-        
-        Invoke("ReloadCompleted", reloadTime);
+        Invoke(nameof(ReloadCompleted), reloadTime);
     }
 
     private void ReloadCompleted()
     {
-        if (WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > magazineSize)
-        {
-            WeaponManager.Instance.DecreaseTotalAmmo(magazineSize - bulletsLeft, thisWeaponModel);
-            bulletsLeft = magazineSize;
-        }
-        else
-        {
-            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
-            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeaponModel);
-        }
+        // Правильная математика дозарядки магазина
+        int bulletsNeeded = magazineSize - bulletsLeft;
+        int ammoAvailable = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
+
+        // Берем ровно столько, сколько нужно, но не больше, чем есть в запасе
+        int ammoToTake = Mathf.Min(bulletsNeeded, ammoAvailable);
+
+        bulletsLeft += ammoToTake;
+        WeaponManager.Instance.DecreaseTotalAmmo(ammoToTake, thisWeaponModel);
+
         isReloading = false;
     }
 
@@ -221,18 +207,7 @@ public class Weapon : MonoBehaviour
     private Vector3 CalculateDirectionAndSpread()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(100);
-        }
-
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit) ? hit.point : ray.GetPoint(100);
         Vector3 direction = targetPoint - bulletSpawn.position;
 
         float z = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
@@ -244,6 +219,6 @@ public class Weapon : MonoBehaviour
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(bullet);
+        if (bullet != null) Destroy(bullet);
     }
 }
