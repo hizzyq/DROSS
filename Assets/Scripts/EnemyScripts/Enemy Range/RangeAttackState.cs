@@ -29,7 +29,7 @@ public class RangeAttackState : StateMachineBehaviour
     {
         player  = GameObject.FindGameObjectWithTag("Player").transform;
         agent   = animator.GetComponent<NavMeshAgent>();
-        _weapon = GameObject.Find("weapon").GetComponent<RangeWeapon>();
+        _weapon = animator.GetComponentInChildren<RangeWeapon>();
 
         agent.isStopped = true;
 

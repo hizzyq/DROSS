@@ -19,7 +19,6 @@ public class ZombieSpawnController : MonoBehaviour
     public float cooldownCounter = 0f;
 
     [Header("Trigger Settings")]
-    public Collider playerCapsuleTrigger; // сюда перетащи Capsule игрока
     private bool wavesStarted = false;
     private bool allWavesCompleted = false;
 
@@ -59,7 +58,7 @@ public class ZombieSpawnController : MonoBehaviour
         {
             wavesStarted = true;
 
-            SetButtonsState(false); // выключаем кнопки
+            SetButtonsState(false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
             StartNextWave();
         }
@@ -70,8 +69,8 @@ public class ZombieSpawnController : MonoBehaviour
         if (currentWave >= maxWaves)
         {
             allWavesCompleted = true;
-            SetButtonsState(true); // включаем кнопки обратно
-            Debug.Log("Все волны завершены.");
+            SetButtonsState(true); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            Debug.Log("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
             return;
         }
 
@@ -83,13 +82,13 @@ public class ZombieSpawnController : MonoBehaviour
     {
         if (zombiePrefab == null)
         {
-            Debug.LogError("Zombie Prefab не назначен в инспекторе.");
+            Debug.LogError("Zombie Prefab пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
             yield break;
         }
 
         if (spawnPoints == null || spawnPoints.Count == 0)
         {
-            Debug.LogError("Список spawnPoints пуст. Добавь точки спавна в инспекторе.");
+            Debug.LogError("пїЅпїЅпїЅпїЅпїЅпїЅ spawnPoints пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
             yield break;
         }
 
@@ -123,7 +122,7 @@ public class ZombieSpawnController : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("У созданного зомби отсутствует компонент Enemy.");
+                Debug.LogWarning("пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Enemy.");
             }
 
             yield return new WaitForSeconds(spawnDelay);
@@ -153,8 +152,8 @@ public class ZombieSpawnController : MonoBehaviour
             else
             {
                 allWavesCompleted = true;
-                SetButtonsState(true); // включаем кнопки обратно
-                Debug.Log("Все волны завершены.");
+                SetButtonsState(true); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                Debug.Log("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
             }
         }
 
@@ -205,7 +204,7 @@ public class ZombieSpawnController : MonoBehaviour
         {
             allWavesCompleted = true;
             SetButtonsState(true); 
-            Debug.Log("Все волны завершены.");
+            Debug.Log("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         }
     }
 
