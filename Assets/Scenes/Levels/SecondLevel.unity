@@ -658,7 +658,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 1602740374}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -986,9 +986,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.x
+      value: 6.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.y
+      value: 6.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Center.y
+      value: 2.92
+      objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.69
+      value: -24.77
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5321,7 +5333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 1267738633}
 --- !u!65 &236972254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9086,7 +9099,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 492375098}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -10899,6 +10912,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5eb136664f5a7c84eac7889650963fd2, type: 3}
   m_PrefabInstance: {fileID: 425746384}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &445976940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445976941}
+  m_Layer: 0
+  m_Name: pointforelev2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445976941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445976940}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -45, y: 48.11, z: -4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451048033
 GameObject:
   m_ObjectHideFlags: 0
@@ -11528,7 +11572,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 1496270068}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -12332,7 +12376,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 371453517}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -13952,7 +13996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 1602740369}
 --- !u!65 &539669883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17208,10 +17253,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93ea7aa45a5254b8318f604bec20db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawnController
-  initialZombiesPerWave: 4
+  initialZombiesPerWave: 6
   currentZombiesPerWave: 0
   spawnDelay: 0.5
-  maxWaves: 2
+  maxWaves: 3
   currentWave: 0
   waveCooldown: 10
   inCooldown: 0
@@ -17224,6 +17269,8 @@ MonoBehaviour:
   - {fileID: 1200390899}
   - {fileID: 21961473}
   - {fileID: 672063016}
+  - {fileID: 1656717220}
+  - {fileID: 1804605047}
   currentZombiesAlive: []
 --- !u!4 &634699752
 Transform:
@@ -19562,7 +19609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 1602740369}
 --- !u!65 &712180181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26439,6 +26487,8 @@ Transform:
   - {fileID: 1200390899}
   - {fileID: 21961473}
   - {fileID: 672063016}
+  - {fileID: 1656717220}
+  - {fileID: 1804605047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &983825935
@@ -30789,6 +30839,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5eb136664f5a7c84eac7889650963fd2, type: 3}
   m_PrefabInstance: {fileID: 1154035498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1155073483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155073484}
+  m_Layer: 0
+  m_Name: pointforelev1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155073484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155073483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -45, y: 23.435, z: -4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1155959044
 GameObject:
   m_ObjectHideFlags: 0
@@ -34696,10 +34777,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a9f0a47f741da4b9455246573f16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElevatorCabin
-  moveDuration: 0
-  elevatorDoors: {fileID: 0}
-  point1: {fileID: 0}
-  point2: {fileID: 0}
+  moveDuration: 10
+  elevatorDoors: {fileID: 492375100}
+  point1: {fileID: 1155073484}
+  point2: {fileID: 445976941}
 --- !u!1001 &1269094664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38053,7 +38134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 464155335}
 --- !u!65 &1369902252
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41238,7 +41320,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 464155340}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -44223,7 +44305,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 29573243}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -45934,6 +46016,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5eb136664f5a7c84eac7889650963fd2, type: 3}
   m_PrefabInstance: {fileID: 1656716864}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1656717219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656717220}
+  m_Layer: 0
+  m_Name: SpawnPoint (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656717220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656717219}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.94, y: -0.1800003, z: 2.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 983571491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1659219390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49977,6 +50090,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5eb136664f5a7c84eac7889650963fd2, type: 3}
   m_PrefabInstance: {fileID: 1800298219}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1804605046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804605047}
+  m_Layer: 0
+  m_Name: SpawnPoint (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804605047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804605046}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1424303, y: -0.1800003, z: 1.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 983571491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1807002393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53093,6 +53237,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.y
+      value: 6.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.z
+      value: 14.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Center.y
+      value: 3.03
+      objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.12
@@ -53103,7 +53259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 110.71
+      value: 109.46
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53639,7 +53795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 464155335}
 --- !u!65 &1921116797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60752,3 +60909,5 @@ SceneRoots:
   - {fileID: 1768801920}
   - {fileID: 3907498219691805553}
   - {fileID: 1384781895}
+  - {fileID: 1155073484}
+  - {fileID: 445976941}

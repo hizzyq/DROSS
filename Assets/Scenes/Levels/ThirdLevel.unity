@@ -3449,10 +3449,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a9f0a47f741da4b9455246573f16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElevatorCabin
-  moveDuration: 0
-  elevatorDoors: {fileID: 0}
-  point1: {fileID: 0}
-  point2: {fileID: 0}
+  moveDuration: 10
+  elevatorDoors: {fileID: 777920593}
+  point1: {fileID: 794318796}
+  point2: {fileID: 1055663090}
 --- !u!1001 &142962420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10945,7 +10945,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 777920591}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -12300,7 +12300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 2044064517}
 --- !u!65 &515280542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19222,7 +19223,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 458217792}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -19641,6 +19642,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91b089cd3d47b7a4eb85a4e17d15f43b, type: 3}
+--- !u!1 &794318795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 794318796}
+  m_Layer: 0
+  m_Name: pointforelev1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &794318796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794318795}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.77, y: -0.08, z: 41.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &794623257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20756,7 +20788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 138468169}
 --- !u!65 &830597389
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22818,7 +22851,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 1368059253}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -25126,6 +25159,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b940a1dc8613fdf41874cc66de2943c2, type: 3}
   m_PrefabInstance: {fileID: 1052217496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1055663089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1055663090}
+  m_Layer: 0
+  m_Name: pointforelev1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1055663090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055663089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.77, y: 19.46, z: 41.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1063403160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30902,7 +30966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 2044064517}
 --- !u!65 &1289058853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32239,7 +32304,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 959068318}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -35171,9 +35236,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.x
+      value: 6.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Size.y
+      value: 6.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532518712114997825, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
+      propertyPath: m_Center.y
+      value: 2.97
+      objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.0280075
+      value: 11.09
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35181,7 +35258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.15228
+      value: 31.83
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -41646,7 +41723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 1368059248}
 --- !u!65 &1841923182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42320,7 +42398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
-  connectedObjects: []
+  connectedObjects:
+  - {fileID: 1368059248}
 --- !u!65 &1883358674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45558,7 +45637,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 2044064522}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -46073,7 +46152,7 @@ MonoBehaviour:
   slideDistance: 2
   slideDuration: 1
   slideDirection: {x: 1, y: 0, z: 0}
-  pairedDoor: {fileID: 0}
+  pairedDoor: {fileID: 2028136799}
   calledByPair: 0
   locked: 0
   closedPosition: {x: 0, y: 0, z: 0}
@@ -48023,3 +48102,5 @@ SceneRoots:
   - {fileID: 744345078}
   - {fileID: 383719333}
   - {fileID: 970842453}
+  - {fileID: 794318796}
+  - {fileID: 1055663090}
