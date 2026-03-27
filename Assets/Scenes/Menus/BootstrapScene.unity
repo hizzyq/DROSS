@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlobalReferences
   bulletImpactPrefabEffect: {fileID: 7613279719852705251, guid: 89608b75b1a401e4d8337ac03c95604d, type: 3}
   bloodSprayEffect: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
-  explosionVFXPrefab: {fileID: 0}
-  grenadeExplosionVFXPrefab: {fileID: 0}
+  explosionVFXPrefab: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
+  grenadeExplosionVFXPrefab: {fileID: 100008, guid: 7075bd5fe1480184695a32611c15da57, type: 3}
 --- !u!114 &1954311992
 MonoBehaviour:
   m_ObjectHideFlags: 0
