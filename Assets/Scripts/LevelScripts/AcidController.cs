@@ -8,7 +8,7 @@ public class AcidController : MonoBehaviour
 
     [Header("Урон")]
     public int damagePerSecond = 10;
-    private float _damageTimer = 0f;
+    [SerializeField]private float _damageTimer = 0f;
     public float damageInterval = 0.5f;
 
     [Header("Настройки старта")]
@@ -19,6 +19,11 @@ public class AcidController : MonoBehaviour
     public float acceleration = 0f;
     public float maxSpeed = 6f;
     
+    [Header("Ссылки")]
+    public Transform acid;
+    public Player player;
+    
+    bool  _submerged;
     private bool _isRising = false;
     private float _currentSpeed;
 
@@ -26,8 +31,6 @@ public class AcidController : MonoBehaviour
     {
         _damageTimer = damageInterval;
         _currentSpeed = riseSpeed;
-        if (startOnAwake)
-            Invoke(nameof(StartRising), startDelay);
     }
 
     void Update()
@@ -37,12 +40,9 @@ public class AcidController : MonoBehaviour
 
         _currentSpeed = Mathf.Min(_currentSpeed + acceleration * Time.deltaTime, maxSpeed);
         transform.position += Vector3.up * _currentSpeed * Time.deltaTime;
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        Player player = other.GetComponentInParent<Player>();
-        if (player != null)
+        
+        _submerged = player.transform.position.y < acid.transform.position.y;
+        if (_submerged)
         {
             _damageTimer -= Time.deltaTime;
             if (_damageTimer <= 0f)
@@ -52,6 +52,22 @@ public class AcidController : MonoBehaviour
             }
         }
     }
+
+    // void OnTriggerStay(Collider other)
+    // {
+    //     Debug.Log($"{other.name}");
+    //     Player player = other.GetComponentInParent<Player>();
+    //     
+    //     if (player != null)
+    //     {
+    //         _damageTimer -= Time.deltaTime;
+    //         if (_damageTimer <= 0f)
+    //         {
+    //             _damageTimer = damageInterval;
+    //             player.TakeDamage(damagePerSecond);
+    //         }
+    //     }
+    // }
 
     public void StartRising() => _isRising = true;
     public void StopRising()  => _isRising = false;
