@@ -180,7 +180,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 75d0f9ea84c52ba4faa9e79ea1bc7c5d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   HP: 100
+  destroyDelay: 3
   isDead: 0
   deathSFX: {fileID: 11400000, guid: de3c96f89a44ab564b4aec837496cc1d, type: 2}
   hurtSFX: {fileID: 11400000, guid: 053c22d38b06faf169d75efb750cdc43, type: 2}

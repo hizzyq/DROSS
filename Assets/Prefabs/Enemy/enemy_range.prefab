@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   HP: 75
+  destroyDelay: 3
   isDead: 0
   deathSFX: {fileID: 0}
   hurtSFX: {fileID: 0}
