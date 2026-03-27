@@ -37,6 +37,8 @@ public class RangeChaseState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (!agent.isOnNavMesh) return;
+        
         // Звук погони
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)
@@ -88,9 +90,11 @@ public class RangeChaseState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(animator.transform.position);
-        agent.isStopped = true;
-        _soundTimer = soundRepeatInterval;
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.SetDestination(animator.transform.position);
+            agent.isStopped = true;
+        }
     }
 
     private bool HasLineOfSight(Transform self)

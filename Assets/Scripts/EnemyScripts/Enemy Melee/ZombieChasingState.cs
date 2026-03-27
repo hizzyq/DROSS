@@ -31,6 +31,8 @@ public class ZombieChasingState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // ── БЫЛО: if (!zombieChannel.isPlaying) zombieChannel.PlayOneShot(zombieChase)
+        if (agent == null || !agent.isOnNavMesh) return;
+
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)
         {
@@ -52,10 +54,9 @@ public class ZombieChasingState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(animator.transform.position);
+        if (agent != null && agent.isOnNavMesh)
+            agent.SetDestination(animator.transform.position);
 
-        // ── БЫЛО: SoundManager.Instance.zombieChannel.Stop()
-        // Не нужно — звуки из пула доигрывают сами.
         _soundTimer = soundRepeatInterval;
     }
 }

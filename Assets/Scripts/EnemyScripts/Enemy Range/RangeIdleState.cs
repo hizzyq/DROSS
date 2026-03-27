@@ -2,31 +2,31 @@ using UnityEngine;
 
 public class RangeIdleState : StateMachineBehaviour
 {
-
     float timer;
     public float idleTime = 0f;
-
     Transform player;
-
     public float detectionAreaRadius = 18f;
+    
+    private Enemy _enemy; // Ссылка на скрипт врага
 
-    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        _enemy = animator.GetComponent<Enemy>();
     }
 
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //To patrol state
+        // Если враг мертв, выходим из логики
+        if (_enemy != null && _enemy.isDead) return;
+
         timer += Time.deltaTime;
         if (timer > idleTime)
         {
             animator.SetBool("isPatroling", true);
         }
-        //To chase state
+
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
         if (distanceFromPlayer < detectionAreaRadius)
         {

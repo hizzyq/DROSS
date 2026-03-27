@@ -39,6 +39,8 @@ public class RangeAttackState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (!agent.isOnNavMesh) return;
+        
         LookAtPlayer(animator.transform);
 
         float dist = Vector3.Distance(player.position, animator.transform.position);
@@ -81,18 +83,26 @@ public class RangeAttackState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.isStopped = false;
-        _fireTimer  = fireRate;
-        _soundTimer = soundRepeatInterval;
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = false;
+            _fireTimer = fireRate;
+            _soundTimer = soundRepeatInterval;
+        }
     }
 
     private void LookAtPlayer(Transform self)
     {
-        Vector3 dir = player.position - self.position;
-        dir.y = 0f;
+        Vector3 targetPos = player.position + Vector3.up * 1.2f; // Целимся в корпус
+        Vector3 dir = targetPos - self.position;
+    
+        // Если нужно, чтобы враг НЕ падал (стоял ровно), 
+        // но голова/оружие смотрели вверх:
         if (dir != Vector3.zero)
-            self.rotation = Quaternion.Slerp(self.rotation,
-                Quaternion.LookRotation(dir), Time.deltaTime * 10f);
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            self.rotation = Quaternion.Slerp(self.rotation, targetRot, Time.deltaTime * 10f);
+        }
     }
 
     private bool HasLineOfSight(Transform self)

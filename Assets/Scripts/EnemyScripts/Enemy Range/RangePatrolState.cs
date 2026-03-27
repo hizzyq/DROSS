@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,17 +6,13 @@ public class RangePatrolState : StateMachineBehaviour
 {
     float timer;
     public float patrolingTime = 10f;
-
     Transform player;
     NavMeshAgent agent;
-
     public float detectionArea = 18f;
     public float patrolSpeed = 2f;
 
     List<Transform> waypointsList = new List<Transform>();
-
     public SFXEvent walkSFX;
-
     public float soundRepeatInterval = 3.0f;
     private float _soundTimer;
 
@@ -25,20 +20,32 @@ public class RangePatrolState : StateMachineBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent  = animator.GetComponent<NavMeshAgent>();
-        agent.speed = patrolSpeed;
-        timer = 0;
+        
+        // Проверка перед настройкой агента
+        if (agent == null || !agent.isOnNavMesh) return;
 
+        agent.speed = patrolSpeed;
+        agent.isStopped = false; // На всякий случай сбрасываем стоп
+        timer = 0;
         _soundTimer = soundRepeatInterval - 1f;
 
         GameObject waypointCluster = GameObject.FindGameObjectWithTag("Waypoints");
-        foreach (Transform t in waypointCluster.transform)
-            waypointsList.Add(t);
+        if (waypointCluster != null)
+        {
+            waypointsList.Clear();
+            foreach (Transform t in waypointCluster.transform)
+                waypointsList.Add(t);
+        }
 
-        agent.SetDestination(waypointsList[Random.Range(0, waypointsList.Count)].position);
+        if (waypointsList.Count > 0)
+            agent.SetDestination(waypointsList[Random.Range(0, waypointsList.Count)].position);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // САМАЯ ВАЖНАЯ ПРОВЕРКА
+        if (agent == null || !agent.isOnNavMesh) return;
+
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)
         {
@@ -47,7 +54,10 @@ public class RangePatrolState : StateMachineBehaviour
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance)
-            agent.SetDestination(waypointsList[Random.Range(0, waypointsList.Count)].position);
+        {
+            if (waypointsList.Count > 0)
+                agent.SetDestination(waypointsList[Random.Range(0, waypointsList.Count)].position);
+        }
 
         timer += Time.deltaTime;
         if (timer > patrolingTime)
@@ -60,8 +70,11 @@ public class RangePatrolState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(agent.transform.position);
-
+        // Проверка перед остановкой
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.SetDestination(agent.transform.position);
+        }
         _soundTimer = soundRepeatInterval;
     }
 }

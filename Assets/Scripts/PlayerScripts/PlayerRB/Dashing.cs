@@ -29,10 +29,10 @@ public class Dashing : MonoBehaviour
     [Header("Cooldown")]
     public float dashCd = 0.5f;
     public float rechargeTime = 1.5f;
-    public int maxCharges = 2;
+    public int maxCharges = 4;
     private float dashCdTimer;
     public float dashChargeTimer;
-    public int curCharges = 2;
+    public int curCharges = 4;
     
     [Header("Input")]
     public KeyCode dashKey = KeyCode.LeftShift;

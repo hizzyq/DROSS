@@ -49,6 +49,8 @@ public class ZombiePatrolingState : StateMachineBehaviour
         //       zombieChannel.clip = zombieWalking;
         //       zombieChannel.PlayDelayed(1f);
         //   }
+        if (agent == null || !agent.isOnNavMesh) return; 
+
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)
         {
@@ -70,9 +72,10 @@ public class ZombiePatrolingState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(agent.transform.position);
+        // ПРОВЕРКА перед выходом
+        if (agent != null && agent.isOnNavMesh)
+            agent.SetDestination(agent.transform.position);
 
-        // ── БЫЛО: SoundManager.Instance.zombieChannel.Stop()
         _soundTimer = soundRepeatInterval;
     }
 }
