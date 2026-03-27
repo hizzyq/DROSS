@@ -364,7 +364,7 @@ MonoBehaviour:
   reloadSceneOnLoad: 1
   reloadDelay: 0.05
   pistolPrefab: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
-  riflePrefab: {fileID: 0}
+  riflePrefab: {fileID: 8274396351807507323, guid: 866faa88afee4fa3281c6d36c3b109dc, type: 3}
 --- !u!1 &6159070343810677627
 GameObject:
   m_ObjectHideFlags: 0

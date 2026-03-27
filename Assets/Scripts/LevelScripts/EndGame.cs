@@ -39,7 +39,7 @@ public class EndGame : MonoBehaviour
         gameOverUI.gameObject.SetActive(true);
     }
     
-    private System.Collections.IEnumerator FadeAndLoad(string sceneName)
+    private IEnumerator FadeAndLoad(string sceneName)
     {
         float timer = 0f;
         while (timer < fadeDuration)
