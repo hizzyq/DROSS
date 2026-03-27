@@ -3521,7 +3521,7 @@ GameObject:
   - component: {fileID: 146128630}
   - component: {fileID: 146128629}
   - component: {fileID: 146128628}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6575,7 +6575,7 @@ GameObject:
   - component: {fileID: 273702288}
   - component: {fileID: 273702287}
   - component: {fileID: 273702286}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6998,7 +6998,7 @@ GameObject:
   - component: {fileID: 282633430}
   - component: {fileID: 282633429}
   - component: {fileID: 282633428}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9098,7 +9098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
   slideDistance: 2
   slideDuration: 1
-  slideDirection: {x: 1, y: 0, z: 0}
+  slideDirection: {x: 0, y: 0, z: 1}
   pairedDoor: {fileID: 492375098}
   calledByPair: 0
   locked: 0
@@ -9173,7 +9173,7 @@ GameObject:
   - component: {fileID: 371554760}
   - component: {fileID: 371554759}
   - component: {fileID: 371554758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9363,7 +9363,7 @@ GameObject:
   - component: {fileID: 380488196}
   - component: {fileID: 380488195}
   - component: {fileID: 380488194}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10099,7 +10099,7 @@ GameObject:
   - component: {fileID: 411735347}
   - component: {fileID: 411735346}
   - component: {fileID: 411735345}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11571,7 +11571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
   slideDistance: 2
   slideDuration: 1
-  slideDirection: {x: 1, y: 0, z: 0}
+  slideDirection: {x: 0, y: 0, z: 1}
   pairedDoor: {fileID: 1496270068}
   calledByPair: 0
   locked: 0
@@ -12375,7 +12375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
   slideDistance: 2
   slideDuration: 1
-  slideDirection: {x: 1, y: 0, z: 0}
+  slideDirection: {x: 0, y: 0, z: 1}
   pairedDoor: {fileID: 371453517}
   calledByPair: 0
   locked: 0
@@ -14337,7 +14337,7 @@ GameObject:
   - component: {fileID: 546868834}
   - component: {fileID: 546868833}
   - component: {fileID: 546868832}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15559,7 +15559,7 @@ GameObject:
   - component: {fileID: 580706373}
   - component: {fileID: 580706372}
   - component: {fileID: 580706371}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17796,8 +17796,8 @@ GameObject:
   - component: {fileID: 658630601}
   - component: {fileID: 658630600}
   - component: {fileID: 658630599}
+  - component: {fileID: 658630602}
   - component: {fileID: 658630598}
-  - component: {fileID: 658630597}
   m_Layer: 0
   m_Name: Acid (1)
   m_TagString: Untagged
@@ -17805,29 +17805,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &658630597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658630596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 695ce0bfc75bc2d4c9ed4421ee9dc7b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AcidController
-  riseSpeed: 0
-  maxHeight: 0
-  damagePerSecond: 20
-  _damageTimer: 0
-  damageInterval: 1
-  startDelay: 3
-  startOnAwake: 1
-  acceleration: 0
-  maxSpeed: 6
-  acid: {fileID: 1580950921}
-  player: {fileID: 960033636}
 --- !u!65 &658630598
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17921,6 +17898,29 @@ Transform:
   - {fileID: 1580950921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658630602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658630596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac8e71b9d5587f43bf24726f35beb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AcidControllerr
+  riseSpeed: 0
+  maxHeight: 0
+  damagePerSecond: 20
+  _damageTimer: 0
+  damageInterval: 0.5
+  startDelay: 3
+  startOnAwake: 1
+  acceleration: 0
+  maxSpeed: 6
+  acid: {fileID: 1580950921}
+  player: {fileID: 960033636}
 --- !u!1 &661729288
 GameObject:
   m_ObjectHideFlags: 0
@@ -17933,7 +17933,7 @@ GameObject:
   - component: {fileID: 661729291}
   - component: {fileID: 661729290}
   - component: {fileID: 661729289}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20894,7 +20894,7 @@ GameObject:
   - component: {fileID: 755897432}
   - component: {fileID: 755897431}
   - component: {fileID: 755897430}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28053,7 +28053,7 @@ GameObject:
   - component: {fileID: 1060125708}
   - component: {fileID: 1060125707}
   - component: {fileID: 1060125706}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31256,7 +31256,7 @@ GameObject:
   - component: {fileID: 1165727076}
   - component: {fileID: 1165727075}
   - component: {fileID: 1165727074}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33242,7 +33242,7 @@ GameObject:
   - component: {fileID: 1233675300}
   - component: {fileID: 1233675299}
   - component: {fileID: 1233675298}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40972,7 +40972,7 @@ GameObject:
   - component: {fileID: 1485561628}
   - component: {fileID: 1485561627}
   - component: {fileID: 1485561626}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41319,7 +41319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
   slideDistance: 2
   slideDuration: 1
-  slideDirection: {x: 1, y: 0, z: 0}
+  slideDirection: {x: 0, y: 0, z: 1}
   pairedDoor: {fileID: 464155340}
   calledByPair: 0
   locked: 0
@@ -42337,7 +42337,7 @@ GameObject:
   - component: {fileID: 1537666793}
   - component: {fileID: 1537666792}
   - component: {fileID: 1537666791}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43431,7 +43431,7 @@ Transform:
   m_GameObject: {fileID: 1580950920}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4966, z: 0}
+  m_LocalPosition: {x: 0, y: 0.621, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48492,7 +48492,7 @@ GameObject:
   - component: {fileID: 1758816096}
   - component: {fileID: 1758816095}
   - component: {fileID: 1758816094}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49835,7 +49835,7 @@ GameObject:
   - component: {fileID: 1798943743}
   - component: {fileID: 1798943742}
   - component: {fileID: 1798943741}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54113,7 +54113,7 @@ GameObject:
   - component: {fileID: 1931015085}
   - component: {fileID: 1931015084}
   - component: {fileID: 1931015083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56333,7 +56333,7 @@ GameObject:
   - component: {fileID: 2006511748}
   - component: {fileID: 2006511747}
   - component: {fileID: 2006511746}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

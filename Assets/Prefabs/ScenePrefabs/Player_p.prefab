@@ -258,10 +258,10 @@ MonoBehaviour:
   disableGravity: 1
   resetVel: 1
   dashCd: 0.5
-  rechargeTime: 1.5
-  maxCharges: 2
+  rechargeTime: 1
+  maxCharges: 4
   dashChargeTimer: 0
-  curCharges: 2
+  curCharges: 4
   dashKey: 304
 --- !u!114 &83621525332046302
 MonoBehaviour:

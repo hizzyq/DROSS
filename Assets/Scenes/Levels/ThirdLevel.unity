@@ -17382,7 +17382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &719775256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17395,7 +17395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93ea7aa45a5254b8318f604bec20db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawnController
-  initialZombiesPerWave: 5
+  initialZombiesPerWave: 4
   currentZombiesPerWave: 0
   spawnDelay: 0.5
   maxWaves: 5
@@ -35956,7 +35956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1561666879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35969,7 +35969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93ea7aa45a5254b8318f604bec20db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawnController
-  initialZombiesPerWave: 5
+  initialZombiesPerWave: 6
   currentZombiesPerWave: 0
   spawnDelay: 0.5
   maxWaves: 5
