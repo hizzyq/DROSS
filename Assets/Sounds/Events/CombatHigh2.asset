@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e12f75ac0ef5341d9221c09b78466a5, type: 3}
+  m_Name: CombatHigh2
+  m_EditorClassIdentifier: Assembly-CSharp::MusicTrack
+  intro: {fileID: 8300000, guid: 32203027fc47f7d8380ac2cbfe2f3817, type: 3}
+  loop: {fileID: 8300000, guid: 6e4fbfb1a52245d6b8fb5a4ba373fdad, type: 3}
+  outro: {fileID: 8300000, guid: 344b74e13230dc2d695af0b4aed2a486, type: 3}
+  stems: []
+  crossfadeDuration: 1
+  allowImmediateInterrupt: 1

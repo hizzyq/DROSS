@@ -655,6 +655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &29573246
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2886,6 +2895,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a9f0a47f741da4b9455246573f16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElevatorCabin
+  moveDuration: 0
+  elevatorDoors: {fileID: 0}
+  point1: {fileID: 0}
+  point2: {fileID: 0}
 --- !u!1001 &126919909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5239,6 +5252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &236972254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8938,6 +8952,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &371453520
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11371,6 +11394,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &464155338
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11778,6 +11810,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &479962689
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12157,6 +12198,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &492375101
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13702,6 +13752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &539669883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15644,17 +15695,17 @@ PrefabInstance:
       propertyPath: bloodyScreen
       value: 
       objectReference: {fileID: 2098106626}
+    - target: {fileID: 2557879951093909676, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2005872984}
+    - target: {fileID: 3642011880624680526, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 1652684448}
     - target: {fileID: 4840510415262773233, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_Name
       value: Player_p
-      objectReference: {fileID: 0}
-    - target: {fileID: 6571145370984785430, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853428344743915064, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: interactableLayers.m_Bits
-      value: 524288
       objectReference: {fileID: 0}
     - target: {fileID: 7046340929207222150, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cameraLean
@@ -15664,6 +15715,14 @@ PrefabInstance:
       propertyPath: cameraSpring
       value: 
       objectReference: {fileID: 1863739464}
+    - target: {fileID: 7611465207089901687, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2005872984}
+    - target: {fileID: 7611465207089901687, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 2005872985}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.72
@@ -16894,7 +16953,6 @@ MonoBehaviour:
   waveCooldown: 10
   inCooldown: 0
   cooldownCounter: 0
-  playerCapsuleTrigger: {fileID: 1296615432}
   buttonsToDisable: []
   zombiePrefab: {fileID: 855890911615679318, guid: b8468ba37de091c4f8313e0cf5ee06a4, type: 3}
   cooldownCounterUI: {fileID: 0}
@@ -18211,13 +18269,45 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: lethalUI
+      value: 
+      objectReference: {fileID: 1652684450}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: middleDot
+      value: 
+      objectReference: {fileID: 1652684456}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: ammoTypeUI
+      value: 
+      objectReference: {fileID: 1652684453}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: totalAmmoUI
+      value: 
+      objectReference: {fileID: 1652684454}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: healthBarFill
       value: 
       objectReference: {fileID: 1618384181}
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: activeWeaponUI
+      value: 
+      objectReference: {fileID: 1652684452}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: lethalAmountUI
+      value: 
+      objectReference: {fileID: 1652684449}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: magazineAmmoUI
+      value: 
+      objectReference: {fileID: 1652684455}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: staminaBarFill
       value: 
       objectReference: {fileID: 731170969}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: unActiveWeaponUI
+      value: 
+      objectReference: {fileID: 1652684451}
     - target: {fileID: 8703127812090816092, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: m_Name
       value: HUDManager
@@ -19300,6 +19390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &712180181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28372,7 +28463,6 @@ MonoBehaviour:
   waveCooldown: 10
   inCooldown: 0
   cooldownCounter: 0
-  playerCapsuleTrigger: {fileID: 1207630152}
   buttonsToDisable: []
   zombiePrefab: {fileID: 855890911615679318, guid: b8468ba37de091c4f8313e0cf5ee06a4, type: 3}
   cooldownCounterUI: {fileID: 0}
@@ -28636,6 +28726,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &1094790134
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34131,6 +34230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a9f0a47f741da4b9455246573f16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElevatorCabin
+  moveDuration: 0
+  elevatorDoors: {fileID: 0}
+  point1: {fileID: 0}
+  point2: {fileID: 0}
 --- !u!1001 &1269094664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35595,6 +35698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &1302235782
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37474,6 +37578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &1369902252
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40550,6 +40655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &1496270071
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43526,6 +43640,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4508c435765ef8244a74c432f006d0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  slideDistance: 2
+  slideDuration: 1
+  slideDirection: {x: 1, y: 0, z: 0}
+  pairedDoor: {fileID: 0}
+  calledByPair: 0
+  locked: 0
+  closedPosition: {x: 0, y: 0, z: 0}
+  openPosition: {x: 0, y: 0, z: 0}
+  isOpen: 0
 --- !u!23 &1602740372
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -45066,6 +45189,93 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+--- !u!1 &1652684448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3279810305544083219, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652684449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5944710659425248875, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5418758230648308996, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7854562429701268229, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7018392390269202084, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 614380137590712550, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6052912730179472623, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1652684455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7681781047064550724, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1652684456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3376516688456518774, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1652684447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1656716864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52271,7 +52481,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.718525
+      value: -15.12
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -52279,7 +52489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 126.67639
+      value: 110.71
       objectReference: {fileID: 0}
     - target: {fileID: 6801700592449121840, guid: c6579d272ef8a8446b244e7644a6ffff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -52815,6 +53025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed490cc0a58ce7748b4b725dc35ac2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
+  connectedObjects: []
 --- !u!65 &1921116797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55173,6 +55384,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+--- !u!114 &2005872984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1752493909714973139, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+  m_PrefabInstance: {fileID: 2005872983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fb14430bef6c7429afb869cb08dd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCam
+--- !u!4 &2005872985 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1612358726013342563, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+  m_PrefabInstance: {fileID: 2005872983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2006065411
 PrefabInstance:
   m_ObjectHideFlags: 0

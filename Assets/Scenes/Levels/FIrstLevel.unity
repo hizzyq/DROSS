@@ -1631,6 +1631,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137638233}
   m_Mesh: {fileID: -5668833170292645477, guid: 26873163a8305bd4bba52a09e37ffb9d, type: 3}
+--- !u!1 &162091549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162091550}
+  m_Layer: 0
+  m_Name: NextLevelCoords
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &162091550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162091549}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -25, y: 12.7, z: 127}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178360790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,9 +1707,9 @@ GameObject:
   m_Component:
   - component: {fileID: 185628471}
   - component: {fileID: 185628470}
-  - component: {fileID: 185628472}
+  - component: {fileID: 185628473}
   m_Layer: 0
-  m_Name: EndGameCol
+  m_Name: Level2TransitionCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1720,7 +1751,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &185628472
+--- !u!114 &185628473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1729,15 +1760,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 185628469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0267917c0c84a3c40ba808e31070e043, type: 3}
+  m_Script: {fileID: 11500000, guid: 363a323782e44083ba0ff04e402bf97e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  screenBlackout: {fileID: 4134431326762646527}
-  gameOverUI: {fileID: 636531963}
-  playerHealthUI: {fileID: 0}
-  fadePanel: {fileID: 5995894492375605785}
-  fadeDuration: 1
-  _sceneName: MainMenu
+  m_EditorClassIdentifier: Assembly-CSharp::LevelExitTrigger
+  nextSceneName: SecondLevel
+  nextLevelSpawnPoint: {fileID: 162091550}
+  waitBeforeLoad: 1
 --- !u!1 &189903396
 GameObject:
   m_ObjectHideFlags: 0
@@ -5609,11 +5637,6 @@ Transform:
   - {fileID: 1692512918}
   m_Father: {fileID: 1069283739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &636531963 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3279810305544083219, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 4055664800485822388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637099431
 GameObject:
   m_ObjectHideFlags: 0
@@ -22018,10 +22041,6 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 9027002170362008277}
-    - target: {fileID: 3970402313981539631, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4636598004149990865, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
       propertyPath: m_Name
       value: CameraHolder
@@ -22087,10 +22106,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 3811639465588339396, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-      propertyPath: hudManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7830512096331566477, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 75.19297
@@ -22132,8 +22147,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8172137174462712756, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
@@ -22220,17 +22234,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84590aaa3830ade428c611b4f659feef, type: 3}
---- !u!114 &4134431326762646527 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8351428414113478886, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-  m_PrefabInstance: {fileID: 5162784227211906465}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263235d3484295c49be504b32a00e228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
 --- !u!33 &4167582850127988498
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25102,6 +25105,7 @@ SceneRoots:
   - {fileID: 421518880}
   - {fileID: 1913004017}
   - {fileID: 293325137}
+  - {fileID: 162091550}
   - {fileID: 185628471}
   - {fileID: 2013923791}
   - {fileID: 45663698}

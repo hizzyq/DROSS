@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Explore
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrack
   intro: {fileID: 0}
-  loop: {fileID: 8300000, guid: 25694d5aacecdef40b956fd3205a3738, type: 3}
+  loop: {fileID: 8300000, guid: 4c2f41af753499534878855fec75cdf2, type: 3}
   outro: {fileID: 0}
   stems: []
   crossfadeDuration: 1

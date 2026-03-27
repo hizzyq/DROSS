@@ -389,5 +389,29 @@ public class CheckpointSaveSystem : MonoBehaviour
         }
         return null;
     }
+
+    public void TransitionToLevel(Player player, string targetScene, Vector3 spawnPos, float spawnRotY)
+    {
+        // Генерируем данные, но подменяем сцену и координаты на входные для нового уровня
+        SaveData data = new SaveData
+        {
+            health = player.HP,
+            posX = spawnPos.x,
+            posY = spawnPos.y,
+            posZ = spawnPos.z,
+            rotY = spawnRotY,
+            lastCheckpointID = "level_start",
+            currentScene = targetScene,
+            weaponData = CaptureWeaponState() // Используем твой существующий метод сбора оружия
+        };
+
+        string json = JsonUtility.ToJson(data, true);
+
+        // Сохраняем в PlayerPrefs, чтобы Start() в новой сцене это подхватил
+        PlayerPrefs.SetString("TempCheckpointData", json);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(targetScene);
+    }
 }
 

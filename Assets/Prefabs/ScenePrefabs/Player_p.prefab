@@ -209,6 +209,7 @@ MonoBehaviour:
   jumpKey: 32
   wallCheckDistance: 0.7
   minJumpHeight: 2
+  exitWallTime: 0.2
   useGravity: 0
   gravityCounterForce: 20
   orientation: {fileID: 8238243823499288496}
@@ -279,7 +280,6 @@ MonoBehaviour:
   hudManager: {fileID: 0}
   bloodyScreen: {fileID: 0}
   deathManager: {fileID: 3642011880624680526}
-  playerHealthUI: {fileID: 0}
   gameOverUI: {fileID: 0}
   mainCamera: {fileID: 0}
   screenBlackout: {fileID: 8351428414113478886}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeThrow
   grenadePrefab: {fileID: 4112929449272318432, guid: a8d7e5b258a94f78aa69e8d03cfa0108, type: 3}
-  throwOrigin: {fileID: 0}
+  throwOrigin: {fileID: 7704467288093954143}
   throwForce: 18
   throwUpAngle: 10
   grenadeCount: 3
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointSaveSystem
   reloadSceneOnLoad: 1
   reloadDelay: 0.05
-  pistolPrefab: {fileID: 0}
+  pistolPrefab: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
   riflePrefab: {fileID: 0}
 --- !u!1 &6159070343810677627
 GameObject:

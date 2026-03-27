@@ -271,7 +271,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 5995497055066863179}
   bulletVelocity: 500
   bulletPrefabLifetime: 3
-  muzzleEffect: {fileID: 7443074040539680186}
+  muzzleEffect: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
   reloadTime: 1.5
   magazineSize: 7
   bulletsLeft: 0
