@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zatvor.001_Final_Zatvor
+  m_Name: bottle_Final_Zatvor
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -36,7 +36,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: zatvor.001
+    path: bottle
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -45,45 +45,45 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.00018798954, y: 0, z: 0}
-        inSlope: {x: -6.2435336, y: -0, z: -0}
-        outSlope: {x: -6.2435336, y: -0, z: -0}
+        value: {x: 0.00018798954, y: 1.7638278, z: -0.51273596}
+        inSlope: {x: -6.2435336, y: 2.842171e-14, z: -3.5527137e-15}
+        outSlope: {x: -6.2435336, y: 2.842171e-14, z: -3.5527137e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.041666668
-        value: {x: -0.25995928, y: 0, z: 0}
-        inSlope: {x: -6.2435336, y: -0, z: -0}
-        outSlope: {x: 0.975552, y: -0, z: -0}
+        value: {x: -0.25995928, y: 1.7638278, z: -0.51273596}
+        inSlope: {x: -6.2435336, y: 1.2180733e-14, z: -1.5225916e-15}
+        outSlope: {x: 0.975552, y: 2.842171e-14, z: -3.5527137e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.083333336
-        value: {x: -0.21931127, y: 0, z: 0}
-        inSlope: {x: 0.975552, y: -0, z: -0}
-        outSlope: {x: 2.1462152, y: -0, z: -0}
+        value: {x: -0.21931127, y: 1.7638278, z: -0.51273596}
+        inSlope: {x: 0.975552, y: 1.2180733e-14, z: -1.5225916e-15}
+        outSlope: {x: 2.1462152, y: 2.842171e-14, z: -3.5527137e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.16666667
-        value: {x: -0.040460017, y: 0, z: 0}
-        inSlope: {x: 2.1462145, y: -0, z: -0}
-        outSlope: {x: 0.97555244, y: -0, z: -0}
+        value: {x: -0.040460017, y: 1.7638278, z: -0.51273596}
+        inSlope: {x: 2.1462145, y: 1.2180731e-14, z: -1.5225914e-15}
+        outSlope: {x: 0.97555244, y: 2.8421716e-14, z: -3.5527145e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.20833333
-        value: {x: 0.00018798954, y: 0, z: 0}
-        inSlope: {x: 0.97555244, y: -0, z: -0}
-        outSlope: {x: 0.97555244, y: -0, z: -0}
+        value: {x: 0.00018798954, y: 1.7638278, z: -0.51273596}
+        inSlope: {x: 0.97555244, y: 1.2180736e-14, z: -1.522592e-15}
+        outSlope: {x: 0.97555244, y: 1.2180736e-14, z: -1.522592e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -91,7 +91,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: zatvor.001
+    path: bottle
   m_ScaleCurves:
   - curve:
       serializedVersion: 2
@@ -117,7 +117,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: zatvor.001
+    path: bottle
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 24

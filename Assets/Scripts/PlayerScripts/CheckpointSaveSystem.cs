@@ -317,62 +317,79 @@ public class CheckpointSaveSystem : MonoBehaviour
     private void RestoreWeaponState(PlayerWeaponSaveData weaponData)
     {
         WeaponManager wm = WeaponManager.Instance;
-    if (wm == null) return;
-
-    // 1. КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Сразу назначаем активный слот из данных сохранения.
-    // Это нужно, чтобы HUDManager не пытался обратиться к пустому или неверному слоту в первом же кадре.
-    if (weaponData.activeWeaponIndex >= 0 && weaponData.activeWeaponIndex < wm.weaponSlots.Count)
-    {
-        wm.activeWeaponSlot = wm.weaponSlots[weaponData.activeWeaponIndex];
-    }
-
-    wm.totalPistolAmmo = weaponData.totalPistolAmmo;
-    wm.totalRifleAmmo = weaponData.totalRifleAmmo;
-
-    // Очищаем старые объекты оружия в слотах
-    foreach (var slot in wm.weaponSlots)
-    {
-        foreach (Transform child in slot.transform)
+        if (wm == null)
         {
-            Destroy(child.gameObject);
+            Debug.LogError("WeaponManager.Instance is null! Невозможно восстановить оружие.");
+            return;
+        }
+
+        // Назначаем активный слот
+        if (weaponData.activeWeaponIndex >= 0 && weaponData.activeWeaponIndex < wm.weaponSlots.Count)
+        {
+            wm.activeWeaponSlot = wm.weaponSlots[weaponData.activeWeaponIndex];
+        }
+
+        wm.totalPistolAmmo = weaponData.totalPistolAmmo;
+        wm.totalRifleAmmo = weaponData.totalRifleAmmo;
+
+        // 1. ПРАВИЛЬНАЯ ОЧИСТКА: моментально убираем старое оружие из иерархии слота
+        foreach (var slot in wm.weaponSlots)
+        {
+            // Идем с конца списка дочерних объектов для безопасного удаления
+            for (int i = slot.transform.childCount - 1; i >= 0; i--)
+            {
+                Transform child = slot.transform.GetChild(i);
+                child.gameObject.SetActive(false); // Отключаем сразу
+                child.SetParent(null);             // Отвязываем от слота
+                Destroy(child.gameObject);         // Уничтожаем
+            }
+        }
+
+        // Спавним оружие в нужные слоты
+        foreach (var wData in weaponData.ownedWeapons)
+        {
+            if (wData.isEmpty) continue;
+
+            GameObject prefab = GetWeaponPrefab(wData.weaponType);
+            if (prefab != null)
+            {
+                GameObject newWp = Instantiate(prefab, wm.weaponSlots[wData.slotIndex].transform);
+                Weapon w = newWp.GetComponent<Weapon>();
+
+                // 2. ЗАЩИТА ПАТРОНОВ: Устанавливаем патроны с задержкой
+                StartCoroutine(ApplyWeaponDataAfterStart(w, wData));
+
+                newWp.transform.localPosition = w.spawnPosition;
+                newWp.transform.localRotation = Quaternion.Euler(w.spawnRotation);
+                w.isActiveWeapon = (wData.slotIndex == weaponData.activeWeaponIndex);
+            }
+            else
+            {
+                Debug.LogError($"[SaveSystem] Префаб для {wData.weaponType} не найден! Назначь его в инспекторе на новой сцене или помести в папку Resources.");
+            }
+        }
+
+        // Финальное обновление состояния
+        wm.SwitchActiveSlot(weaponData.activeWeaponIndex);
+
+        // Восстанавливаем гранаты
+        GrenadeThrow gt = GetComponent<GrenadeThrow>();
+        if (gt != null)
+        {
+            gt.grenadeCount = weaponData.grenadeCount;
+            if (HUDManager.Instance != null) HUDManager.Instance.UpdateGrenadeCount(gt.grenadeCount);
         }
     }
 
-    // Спавним оружие в нужные слоты
-    foreach (var wData in weaponData.ownedWeapons)
+    // Корутина: ждем конца кадра, чтобы Start() внутри скрипта Weapon отработал и не стер наши данные
+    private IEnumerator ApplyWeaponDataAfterStart(Weapon w, WeaponSaveData wData)
     {
-        if (wData.isEmpty) continue;
+        yield return new WaitForEndOfFrame();
 
-        GameObject prefab = GetWeaponPrefab(wData.weaponType);
-        if (prefab != null)
-        {
-            // Спавним пушку как дочерний объект слота
-            GameObject newWp = Instantiate(prefab, wm.weaponSlots[wData.slotIndex].transform);
-            Weapon w = newWp.GetComponent<Weapon>();
+        w.bulletsLeft = wData.bulletsInMagazine;
 
-            w.bulletsLeft = wData.bulletsInMagazine;
-
-            // Настраиваем локальную позицию/вращение из префаба или настроек оружия
-            newWp.transform.localPosition = w.spawnPosition;
-            newWp.transform.localRotation = Quaternion.Euler(w.spawnRotation);
-
-            // 2. ИСПРАВЛЕНИЕ: Устанавливаем флаг активности скрипту оружия сразу
-            w.isActiveWeapon = (wData.slotIndex == weaponData.activeWeaponIndex);
-        }
-    }
-
-    // Финальное обновление состояния слотов через WeaponManager
-    wm.SwitchActiveSlot(weaponData.activeWeaponIndex);
-
-    // Восстанавливаем гранаты
-    GrenadeThrow gt = GetComponent<GrenadeThrow>();
-    if (gt != null)
-    {
-        gt.grenadeCount = weaponData.grenadeCount;
-        if (HUDManager.Instance != null) HUDManager.Instance.UpdateGrenadeCount(gt.grenadeCount);
-    }
-        
-        Debug.Log($"Restored resources: Grenades={weaponData.grenadeCount}, Pistol Ammo={weaponData.totalPistolAmmo}, Rifle Ammo={weaponData.totalRifleAmmo}");
+        // Если у тебя пушка обновляет интерфейс патронов в момент доставания,
+        // имеет смысл принудительно обновить HUD здесь для активного оружия.
     }
 
     private GameObject GetWeaponPrefab(Weapon.WeaponModel weaponType)

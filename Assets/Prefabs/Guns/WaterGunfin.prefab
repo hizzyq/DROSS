@@ -238,7 +238,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e5d4385e0dfaf3b9f91cf1dcde7d8062, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   magazineSize: 7
   bulletsLeft: 0
   isReloading: 0
-  spawnPosition: {x: 0.82, y: -0.33, z: 1.12}
+  spawnPosition: {x: 0.82, y: -0.66, z: 1.12}
   spawnRotation: {x: 0, y: -90, z: 0}
   thisWeaponModel: 0
   currentShootingMode: 0
