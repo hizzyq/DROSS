@@ -17403,7 +17403,9 @@ MonoBehaviour:
   waveCooldown: 10
   inCooldown: 0
   cooldownCounter: 0
-  buttonsToDisable: []
+  buttonsToDisable:
+  - {fileID: 1841923181}
+  - {fileID: 1289058852}
   zombiePrefab: {fileID: 3454729515500278325, guid: 84590aaa3830ade428c611b4f659feef, type: 3}
   cooldownCounterUI: {fileID: 0}
   spawnPoints:
@@ -35977,7 +35979,9 @@ MonoBehaviour:
   waveCooldown: 10
   inCooldown: 0
   cooldownCounter: 0
-  buttonsToDisable: []
+  buttonsToDisable:
+  - {fileID: 1841923181}
+  - {fileID: 1289058852}
   zombiePrefab: {fileID: 855890911615679318, guid: b8468ba37de091c4f8313e0cf5ee06a4, type: 3}
   cooldownCounterUI: {fileID: 0}
   spawnPoints:

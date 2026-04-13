@@ -13130,6 +13130,18 @@ PrefabInstance:
       propertyPath: 'spawnPoints.Array.data[9]'
       value: 
       objectReference: {fileID: 670095284}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: buttonsToDisable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: 'buttonsToDisable.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1319482434087001399}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: 'buttonsToDisable.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1319482434085080613}
     - target: {fileID: 7034441543364334252, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: m_Name
       value: ZombieSpawner
