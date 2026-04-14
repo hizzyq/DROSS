@@ -19,6 +19,8 @@ public class InteractionManager : MonoBehaviour
 
     private void Start()
     {
+   
+
         if (grenadeThrow == null)
             grenadeThrow = FindFirstObjectByType<GrenadeThrow>();
     }

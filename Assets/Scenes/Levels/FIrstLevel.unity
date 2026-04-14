@@ -21947,6 +21947,10 @@ PrefabInstance:
       value: WaterGunfinPistol
       objectReference: {fileID: 0}
     - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
       propertyPath: outlineMode
       value: 1
       objectReference: {fileID: 0}
@@ -23457,11 +23461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.74
+      value: 7.74
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.21
+      value: 6.21
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalRotation.w
