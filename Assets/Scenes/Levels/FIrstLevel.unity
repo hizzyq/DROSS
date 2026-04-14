@@ -3070,6 +3070,11 @@ Transform:
   - {fileID: 1245259574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &307788154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4388655725608949501, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+  m_PrefabInstance: {fileID: 4051489030007301394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &309028441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5789,6 +5794,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 438858022}
     m_Modifications:
+    - target: {fileID: 2360260812868413138, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500185795635392109, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
+      propertyPath: outlineMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4112929449272318432, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
       propertyPath: m_Name
       value: GrenadePickupPrefab
@@ -7303,6 +7316,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 438858022}
     m_Modifications:
+    - target: {fileID: 2360260812868413138, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4112929449272318432, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
       propertyPath: m_Name
       value: GrenadePickupPrefab (2)
@@ -17572,6 +17589,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 438858022}
     m_Modifications:
+    - target: {fileID: 2360260812868413138, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4112929449272318432, guid: da54a2aa1f21e7893b040fbfeb7301eb, type: 3}
       propertyPath: m_Name
       value: GrenadePickupPrefab (1)
@@ -21925,6 +21946,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGunfinPistol
       objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: outlineMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: outlineWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: precomputeOutline
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507731336309398223, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8299724544819539810, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36.775
@@ -22029,7 +22070,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1752493909714973139, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
   m_PrefabInstance: {fileID: 4051489030007301394}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 307788154}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70fb14430bef6c7429afb869cb08dd31, type: 3}
@@ -22741,7 +22782,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4388655725608949501, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7634154591473316868}
   m_SourcePrefab: {fileID: 100100000, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
 --- !u!1001 &4055664800485822388
 PrefabInstance:
@@ -23395,6 +23439,10 @@ PrefabInstance:
       propertyPath: throwOrigin
       value: 
       objectReference: {fileID: 3157151574003926891}
+    - target: {fileID: 7478310305607540549, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: grenadeCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7611465207089901687, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 
@@ -24002,6 +24050,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1612358726013342563, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
   m_PrefabInstance: {fileID: 4051489030007301394}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7634154591473316868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307788154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51c25d2bdf35de4a95bfae7dba018cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponAimOutline
+  playerCamera: {fileID: 0}
+  distance: 4
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &7673090084273866904
 GameObject:
   m_ObjectHideFlags: 0
