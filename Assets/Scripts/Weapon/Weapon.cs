@@ -121,8 +121,7 @@ public class Weapon : MonoBehaviour
 
     private void UpdateWeaponVisuals(bool active)
     {
-        // На старте и при смене состояния не включаем outline автоматически.
-        // Outline должен включаться только через InteractionManager при наведении.
+        
         if (_outline != null)
             _outline.enabled = false;
 
