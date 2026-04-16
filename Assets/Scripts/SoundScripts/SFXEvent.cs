@@ -19,7 +19,7 @@ public class SFXEvent : ScriptableObject
     [Tooltip("Разброс громкости ±")]
     [Range(0f, 0.5f)] public float volumeVariance = 0.05f;
 
-    [Range(0.1f, 3f)]  public float pitch = 1f;
+    [Range(0.1f, 3f)] public float pitch = 1f;
 
     [Tooltip("Разброс питча ±")]
     [Range(0f, 0.5f)] public float pitchVariance = 0.05f;
@@ -37,6 +37,16 @@ public class SFXEvent : ScriptableObject
     [Header("Приоритет")]
     [Range(0, 256)] public int priority = 128;
 
+    [Header("Anti-overlap")]
+    [Tooltip("Если включено — для этого звука будет ограничение от наслоения.")]
+    public bool limitOverlap = false;
+
+    [Tooltip("Минимальный интервал между одинаковыми проигрываниями этого события.")]
+    [Min(0f)] public float minInterval = 0f;
+
+    [Tooltip("Максимум одновременно играющих копий этого события.")]
+    [Min(1)] public int maxVoices = 8;
+
     // ── Вспомогательные методы ──────────────────────────────────────────
 
     public AudioClip GetRandomClip()
@@ -46,5 +56,5 @@ public class SFXEvent : ScriptableObject
     }
 
     public float GetVolume() => Mathf.Clamp01(volume + Random.Range(-volumeVariance, volumeVariance));
-    public float GetPitch()  => pitch + Random.Range(-pitchVariance, pitchVariance);
+    public float GetPitch() => pitch + Random.Range(-pitchVariance, pitchVariance);
 }

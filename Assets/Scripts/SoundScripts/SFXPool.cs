@@ -2,12 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Пул AudioSource для воспроизведения звуковых эффектов без лишних аллокаций.
+/// Пул AudioSource для воспроизведения звуковых эффектов без аллокаций.
 /// Поддерживает 2D, 3D (в точке) и 3D (привязанный к трансформу).
-/// 
-/// Дополнительно:
-/// - ограничивает слишком частый запуск одного и того же SFXEvent
-/// - ограничивает количество одновременно играющих копий одного и того же SFXEvent
+///
+/// Ограничение от наслоения применяется только к зомбиным звукам:
+/// - SFX_Zombie_Attack
+/// - SFX_Zombie_Chase
+/// - SFX_Zombie_Death
+/// - SFX_Zombie_Hurt
+/// - SFX_Zombie_Walk
+///
+/// Остальные звуки (оружие, игрок и т.д.) не ограничиваются.
 /// </summary>
 public class SFXPool : MonoBehaviour
 {
@@ -18,40 +23,42 @@ public class SFXPool : MonoBehaviour
     [Tooltip("Разрешить рост пула сверх initialSize при нехватке.")]
     [SerializeField] private bool allowGrowth = true;
 
-    [Header("Защита от наслоения одинаковых звуков")]
-    [Tooltip("Минимальный глобальный интервал между одинаковыми SFXEvent.")]
-    [SerializeField] private float sameEventInterval = 0.2f;
-
-    [Tooltip("Максимум одновременно играющих копий одного и того же SFXEvent.")]
-    [SerializeField] private int maxSameEventVoices = 1;
-
-    // ─── Внутреннее состояние пула ───────────────────────────────────────
-
     private readonly Queue<AudioSource> _free = new Queue<AudioSource>();
     private readonly List<AudioSource> _busy = new List<AudioSource>();
 
-    // Когда конкретный SFXEvent запускался в последний раз
-    private readonly Dictionary<SFXEvent, float> _lastPlayTimeByEvent = new Dictionary<SFXEvent, float>();
+    // Время последнего проигрывания группы
+    private readonly Dictionary<string, float> _lastPlayTimeByKey = new Dictionary<string, float>();
 
-    // Сколько копий конкретного SFXEvent сейчас играет
-    private readonly Dictionary<SFXEvent, int> _activeVoicesByEvent = new Dictionary<SFXEvent, int>();
+    // Сколько копий группы сейчас играет
+    private readonly Dictionary<string, int> _activeVoicesByKey = new Dictionary<string, int>();
 
-    // Какой SFXEvent привязан к конкретному AudioSource
-    // Нужен, чтобы при возврате источника в пул уменьшить счётчик активных голосов
-    private readonly Dictionary<AudioSource, SFXEvent> _eventBySource = new Dictionary<AudioSource, SFXEvent>();
+    // Какая группа была назначена конкретному source
+    private readonly Dictionary<AudioSource, string> _keyBySource = new Dictionary<AudioSource, string>();
 
-    void Awake()
+    // Лимиты только для зомбиных групп
+    private readonly Dictionary<string, (float minInterval, int maxVoices)> _groupLimits =
+        new Dictionary<string, (float minInterval, int maxVoices)>
+        {
+            { "zombie_attack", (0.08f, 3) },
+            { "zombie_chase",  (2f, 2) },
+            { "zombie_hurt",   (3f, 2) },
+            { "zombie_walk",   (0.12f, 2) },
+            { "zombie_death",  (0.05f, 4) },
+            { "zombie_other",  (2f, 2) },
+        };
+
+    private void Awake()
     {
         for (int i = 0; i < initialSize; i++)
             _free.Enqueue(CreateSource());
     }
 
-    void Update()
+    private void Update()
     {
-        // Возвращаем в пул те, что доиграли
         for (int i = _busy.Count - 1; i >= 0; i--)
         {
             var src = _busy[i];
+
             if (src == null)
             {
                 _busy.RemoveAt(i);
@@ -59,30 +66,30 @@ public class SFXPool : MonoBehaviour
             }
 
             if (!src.isPlaying)
-            {
                 ReleaseSource(src, i);
-            }
         }
     }
 
-    // ─── Публичный API ───────────────────────────────────────────────────
-
-    /// <summary>2D-звук (UI, шаги, интерфейс и т.п.).</summary>
+    /// <summary>2D-звук.</summary>
     public void Play(SFXEvent sfx)
     {
         if (sfx == null) return;
 
-        // Если одинаковый звук недавно уже запускался
-        // или уже достигнут лимит одновременных копий — не играем его повторно
-        if (!CanPlay(sfx)) return;
+        string overlapKey = GetZombieOverlapKey(sfx);
+        if (!CanPlay(overlapKey)) return;
 
         var src = Rent();
         if (src == null) return;
 
-        Configure(src, sfx);
+        if (!Configure(src, sfx))
+        {
+            ReleaseUnconfiguredSource(src);
+            return;
+        }
+
         src.spatialBlend = 0f; // Принудительно 2D
 
-        RegisterPlay(src, sfx);
+        RegisterPlay(src, overlapKey);
         src.Play();
     }
 
@@ -90,15 +97,23 @@ public class SFXPool : MonoBehaviour
     public void PlayAt(SFXEvent sfx, Vector3 worldPos)
     {
         if (sfx == null) return;
-        if (!CanPlay(sfx)) return;
+
+        string overlapKey = GetZombieOverlapKey(sfx);
+        if (!CanPlay(overlapKey)) return;
 
         var src = Rent();
         if (src == null) return;
 
-        Configure(src, sfx);
+        if (!Configure(src, sfx))
+        {
+            ReleaseUnconfiguredSource(src);
+            return;
+        }
+
+        src.transform.SetParent(transform, false);
         src.transform.position = worldPos;
 
-        RegisterPlay(src, sfx);
+        RegisterPlay(src, overlapKey);
         src.Play();
     }
 
@@ -106,16 +121,24 @@ public class SFXPool : MonoBehaviour
     public void PlayAttached(SFXEvent sfx, Transform parent)
     {
         if (sfx == null) return;
-        if (!CanPlay(sfx)) return;
+        if (parent == null) return;
+
+        string overlapKey = GetZombieOverlapKey(sfx);
+        if (!CanPlay(overlapKey)) return;
 
         var src = Rent();
         if (src == null) return;
 
-        Configure(src, sfx);
-        src.transform.SetParent(parent);
+        if (!Configure(src, sfx))
+        {
+            ReleaseUnconfiguredSource(src);
+            return;
+        }
+
+        src.transform.SetParent(parent, false);
         src.transform.localPosition = Vector3.zero;
 
-        RegisterPlay(src, sfx);
+        RegisterPlay(src, overlapKey);
         src.Play();
     }
 
@@ -132,82 +155,111 @@ public class SFXPool : MonoBehaviour
         }
     }
 
-    // ─── Логика защиты от наслоения ──────────────────────────────────────
+    /// <summary>
+    /// Возвращает ключ группы только для зомбиных звуков.
+    /// Для остальных возвращает null, и ограничения не применяются.
+    /// </summary>
+    private string GetZombieOverlapKey(SFXEvent sfx)
+    {
+        if (sfx == null)
+            return null;
+
+        string sfxName = sfx.name.ToLowerInvariant();
+
+        if (!sfxName.Contains("zombie"))
+            return null;
+
+        if (sfxName.Contains("attack"))
+            return "zombie_attack";
+
+        if (sfxName.Contains("chase"))
+            return "zombie_chase";
+
+        if (sfxName.Contains("hurt"))
+            return "zombie_hurt";
+
+        if (sfxName.Contains("walk"))
+            return "zombie_walk";
+
+        if (sfxName.Contains("death"))
+            return "zombie_death";
+
+        return "zombie_other";
+    }
 
     /// <summary>
-    /// Проверяет, можно ли сейчас запускать этот SFXEvent.
+    /// Если overlapKey == null, ограничение не применяется.
     /// </summary>
-    private bool CanPlay(SFXEvent sfx)
+    private bool CanPlay(string overlapKey)
     {
-        // 1. Проверяем глобальный интервал для одинакового SFXEvent
-        if (_lastPlayTimeByEvent.TryGetValue(sfx, out float lastPlayTime))
+        if (string.IsNullOrEmpty(overlapKey))
+            return true;
+
+        if (!_groupLimits.TryGetValue(overlapKey, out var limits))
+            return true;
+
+        float minInterval = limits.minInterval;
+        int maxVoices = Mathf.Max(1, limits.maxVoices);
+
+        if (_lastPlayTimeByKey.TryGetValue(overlapKey, out float lastPlayTime))
         {
-            if (Time.time - lastPlayTime < sameEventInterval)
+            if (Time.time - lastPlayTime < minInterval)
                 return false;
         }
 
-        // 2. Проверяем лимит одновременно играющих копий
-        if (_activeVoicesByEvent.TryGetValue(sfx, out int activeVoices))
+        if (_activeVoicesByKey.TryGetValue(overlapKey, out int activeVoices))
         {
-            if (activeVoices >= maxSameEventVoices)
+            if (activeVoices >= maxVoices)
                 return false;
         }
 
         return true;
     }
 
-    /// <summary>
-    /// Регистрирует запуск звука:
-    /// - запоминает время запуска
-    /// - увеличивает число активных копий
-    /// - связывает AudioSource с SFXEvent
-    /// </summary>
-    private void RegisterPlay(AudioSource src, SFXEvent sfx)
+    private void RegisterPlay(AudioSource src, string overlapKey)
     {
-        _lastPlayTimeByEvent[sfx] = Time.time;
+        if (string.IsNullOrEmpty(overlapKey))
+            return;
 
-        if (_activeVoicesByEvent.ContainsKey(sfx))
-            _activeVoicesByEvent[sfx]++;
+        _lastPlayTimeByKey[overlapKey] = Time.time;
+
+        if (_activeVoicesByKey.ContainsKey(overlapKey))
+            _activeVoicesByKey[overlapKey]++;
         else
-            _activeVoicesByEvent[sfx] = 1;
+            _activeVoicesByKey[overlapKey] = 1;
 
-        _eventBySource[src] = sfx;
+        _keyBySource[src] = overlapKey;
     }
 
-    /// <summary>
-    /// Возвращает AudioSource в пул и снимает его с учёта.
-    /// </summary>
     private void ReleaseSource(AudioSource src, int busyIndex)
     {
-        // Если знаем, какой SFXEvent играл на этом source —
-        // уменьшаем счётчик активных копий
-        if (_eventBySource.TryGetValue(src, out var sfx))
+        if (_keyBySource.TryGetValue(src, out var overlapKey))
         {
-            if (_activeVoicesByEvent.TryGetValue(sfx, out int activeVoices))
+            if (_activeVoicesByKey.TryGetValue(overlapKey, out int activeVoices))
             {
                 activeVoices--;
 
                 if (activeVoices <= 0)
-                    _activeVoicesByEvent.Remove(sfx);
+                    _activeVoicesByKey.Remove(overlapKey);
                 else
-                    _activeVoicesByEvent[sfx] = activeVoices;
+                    _activeVoicesByKey[overlapKey] = activeVoices;
             }
 
-            _eventBySource.Remove(src);
+            _keyBySource.Remove(src);
         }
 
-        // Сброс состояния источника перед возвратом в пул
-        src.Stop();
-        src.clip = null;
-        src.transform.SetParent(transform);
-        src.transform.localPosition = Vector3.zero;
-        src.gameObject.SetActive(false);
+        ResetSource(src);
 
         _busy.RemoveAt(busyIndex);
         _free.Enqueue(src);
     }
 
-    // ─── Вспомогательные методы ──────────────────────────────────────────
+    private void ReleaseUnconfiguredSource(AudioSource src)
+    {
+        ResetSource(src);
+        _busy.Remove(src);
+        _free.Enqueue(src);
+    }
 
     private AudioSource Rent()
     {
@@ -233,9 +285,12 @@ public class SFXPool : MonoBehaviour
         return src;
     }
 
-    private static void Configure(AudioSource src, SFXEvent sfx)
+    private static bool Configure(AudioSource src, SFXEvent sfx)
     {
         src.clip = sfx.GetRandomClip();
+        if (src.clip == null)
+            return false;
+
         src.volume = sfx.GetVolume();
         src.pitch = sfx.GetPitch();
         src.spatialBlend = sfx.spatialBlend;
@@ -244,12 +299,23 @@ public class SFXPool : MonoBehaviour
         src.priority = sfx.priority;
         src.outputAudioMixerGroup = sfx.mixerGroup;
         src.loop = false;
+
+        return true;
+    }
+
+    private void ResetSource(AudioSource src)
+    {
+        src.Stop();
+        src.clip = null;
+        src.transform.SetParent(transform, false);
+        src.transform.localPosition = Vector3.zero;
+        src.gameObject.SetActive(false);
     }
 
     private AudioSource CreateSource()
     {
         var go = new GameObject("SFX_PooledSource");
-        go.transform.SetParent(transform);
+        go.transform.SetParent(transform, false);
         go.SetActive(false);
         return go.AddComponent<AudioSource>();
     }
