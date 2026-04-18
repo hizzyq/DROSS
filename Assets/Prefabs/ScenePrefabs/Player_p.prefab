@@ -330,10 +330,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeThrow
   grenadePrefab: {fileID: 4112929449272318432, guid: a8d7e5b258a94f78aa69e8d03cfa0108, type: 3}
-  throwOrigin: {fileID: 7704467288093954143}
+  throwOrigin: {fileID: 0}
   throwForce: 18
   throwUpAngle: 10
-  grenadeCount: 3
+  grenadeCount: 0
+  maxGrenades: 10
 --- !u!114 &3642011880624680526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointSaveSystem
   reloadSceneOnLoad: 1
   reloadDelay: 0.05
-  pistolPrefab: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
+  pistolPrefab: {fileID: 0}
   riflePrefab: {fileID: 8274396351807507323, guid: 866faa88afee4fa3281c6d36c3b109dc, type: 3}
 --- !u!1 &6159070343810677627
 GameObject:
