@@ -33,6 +33,12 @@ public class SettingsUI : MonoBehaviour
 
     private void OnEnable()
     {
+        // Обновляем UI каждый раз, когда открываем меню настроек
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
         if (SettingsManager.Instance == null) return;
         _s = SettingsManager.Instance.Get();
 
@@ -133,6 +139,12 @@ public class SettingsUI : MonoBehaviour
             label.text = Mathf.RoundToInt(value * 100f) + "%";
         else
             label.text = Mathf.RoundToInt(value).ToString();
+    }
+
+    private void Start()
+    {
+        // Гарантируем, что UI обновится при старте сцены
+        RefreshUI();
     }
 
     private void OnSave()

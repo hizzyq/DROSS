@@ -24,7 +24,6 @@ public class SettingsManager : MonoBehaviour
             if (f is PixelationFeature pf) { _pixelationFeature = pf; break; }
 
         settings.Load();
-        Apply();
     }
 
     // Применить все настройки сразу
@@ -33,6 +32,12 @@ public class SettingsManager : MonoBehaviour
         ApplyGraphics();
         ApplyAudio();
         // Чувствительность читается напрямую через settings в PlayerCam
+    }
+
+    private void Start()
+    {
+        // В Start() AudioMixer уже полностью готов принимать значения громкости.
+        Apply();
     }
 
     public void ApplyGraphics()
