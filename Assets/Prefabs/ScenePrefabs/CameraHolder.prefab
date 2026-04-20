@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c568ff18839e6834daab6af21aa557d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSpring
-  halflife: 0.075
-  frequency: 18
+  halflife: 0.05
+  frequency: 25
   angularDisplacement: 2
 --- !u!1 &6926167493926903530
 GameObject:
@@ -659,10 +659,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7e720a259ca5f47b91876d1e691146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLean
-  attackDamping: 0.5
-  decayDamping: 0.3
-  walkStrength: 1
+  attackDamping: 0.3
+  decayDamping: 0.15
+  walkStrength: 0.75
   slideStrength: 0.6
-  strengthResponse: 3
-  maxLeanAcceleration: 4
-  clampSoftness: 3
+  strengthResponse: 10
+  maxLeanAcceleration: 7
+  clampSoftness: 5

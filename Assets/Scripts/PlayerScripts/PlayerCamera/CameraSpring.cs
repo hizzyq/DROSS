@@ -37,8 +37,8 @@ public class CameraSpring : MonoBehaviour
         float hoo = timeStep * oo;
         float hhoo = timeStep * hoo;
         float detInv = 1.0f / (f + hhoo);
-        Vector2 detX = f * current + timeStep * velocity + hhoo * target;
-        Vector2 detV = velocity + hoo * (target - current);
+        Vector3 detX = f * current + timeStep * velocity + hhoo * target;
+        Vector3 detV = velocity + hoo * (target - current);
         current = detX * detInv;
         velocity = detV * detInv;
     }

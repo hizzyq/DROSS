@@ -24,6 +24,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float speedIncreaseMultiplier = 1.5f;
     public float slopeIncreaseMultiplier = 2.5f;
     public float groundDrag = 7f;
+    private Vector3 _previousVelocity;
+    private Vector3 _acceleration;
     
     [Header("Dash")]
     public float dashSpeed = 15f;
@@ -133,8 +135,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void LateUpdate()
     {
+        _acceleration = (rb.linearVelocity - _previousVelocity) / Time.deltaTime;
+        _previousVelocity = rb.linearVelocity;
+
         cameraSpring.UpdateSpring(Time.deltaTime, cameraObj.up);
-        cameraLean.UpdateLean(Time.deltaTime, sliding, moveDirection, cameraObj.up);
+        cameraLean.UpdateLean(Time.deltaTime, sliding, _acceleration, cameraObj.up);
     }
     
     private void MyInput()
