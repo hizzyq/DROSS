@@ -188,6 +188,12 @@ public class CheckpointSaveSystem : MonoBehaviour
         if (player.screenBlackout != null)
             player.screenBlackout.enabled = false;
 
+        // Возвращаем курсор в игровой режим после загрузки
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+        PauseMenuController.GameIsPaused = false;
+
         if (data.weaponData != null)
         {
             RestoreWeaponState(data.weaponData);

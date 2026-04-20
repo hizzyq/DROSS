@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &87721115709484098
+--- !u!1 &2692831307553946850
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,70 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8413833402169463766}
-  - component: {fileID: 2523182908555416930}
-  - component: {fileID: 5541615283506168276}
-  - component: {fileID: 6156176073721187599}
-  - component: {fileID: 4814907111976524141}
+  - component: {fileID: 3802195324466057493}
+  - component: {fileID: 7070770568537171540}
+  - component: {fileID: 992421354090650274}
+  - component: {fileID: 5131307116927356246}
   m_Layer: 0
-  m_Name: SettingsManager
+  m_Name: SettingsPanelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8413833402169463766
+--- !u!4 &3802195324466057493
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87721115709484098}
+  m_GameObject: {fileID: 2692831307553946850}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 978.93427, y: 414.96634, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2523182908555416930
+--- !u!114 &7070770568537171540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87721115709484098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f01783833132341809977aae0b04fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VolumeController
-  audioMixer: {fileID: 24100000, guid: b0a4fd18542f28846bdeb6e44e1dd6f1, type: 2}
-  volumeSlider: {fileID: 0}
-  volumeText: {fileID: 0}
-  mixerParameter: MasterVolume
---- !u!114 &5541615283506168276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87721115709484098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc18a8e78ef85384288027979d7a415c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SettingsMenu
-  sensitivitySlider: {fileID: 0}
-  sensitivityValueText: {fileID: 0}
---- !u!114 &6156176073721187599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87721115709484098}
+  m_GameObject: {fileID: 2692831307553946850}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 090afa03c780caf4889c1655ab56eb91, type: 3}
@@ -79,20 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TabSettingsMenu
   soundTabButton: {fileID: 0}
   controlsTabButton: {fileID: 0}
+  graphicsTabButton: {fileID: 0}
   soundTabContent: {fileID: 0}
   controlsTabContent: {fileID: 0}
-  uiAudio: {fileID: 4814907111976524141}
+  graphicsTabContent: {fileID: 0}
+  uiAudio: {fileID: 992421354090650274}
   clickSound: {fileID: 8300000, guid: a1bb14b57667b0d4e89fb427f372cc97, type: 3}
---- !u!82 &4814907111976524141
+--- !u!82 &992421354090650274
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87721115709484098}
+  m_GameObject: {fileID: 2692831307553946850}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: b0a4fd18542f28846bdeb6e44e1dd6f1, type: 2}
+  OutputAudioMixerGroup: {fileID: 984847867427519809, guid: 8d5a0f141f58a3b7ea0ed151c9318f7e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a1bb14b57667b0d4e89fb427f372cc97, type: 3}
   m_PlayOnAwake: 0
@@ -180,3 +151,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5131307116927356246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692831307553946850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c597232ced228e6579a9890f1bf2dbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsUI
+  masterSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  masterValueText: {fileID: 0}
+  musicValueText: {fileID: 0}
+  sfxValueText: {fileID: 0}
+  sensXValueText: {fileID: 0}
+  sensYValueText: {fileID: 0}
+  pixelationValueText: {fileID: 0}
+  sensXSlider: {fileID: 0}
+  sensYSlider: {fileID: 0}
+  invertYToggle: {fileID: 0}
+  pixelationSlider: {fileID: 0}
+  saveButton: {fileID: 0}
+  resetButton: {fileID: 0}
