@@ -37,7 +37,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.5f;
     private RaycastHit wallFront;
-    bool readyToJump;
+    [SerializeField] bool readyToJump;
 
     [Header("Wall Bouncing")]
     [SerializeField] float wallBounceUpForce = 10f;
@@ -48,8 +48,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float crouchSpeed = 5f;
 
     [Header("Position")]
-    public float slideYScalePlayer = 0.5f;
-    public float slideYPosCamera = 0.5f;
+    public float slideYScalePlayer = 0.7f;
+    public float slideYPosCamera = 0.7f;
     private float startYScalePlayer;
     private float startYPosCamera;
 
@@ -57,15 +57,16 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode crouchKey = KeyCode.LeftControl;
 
-    [Header("Ground Check")]
-    public float playerHeight = 2f;
+    [Header("Ground Check")] 
+    private float playerHeightStart = 2f;
+    public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    [SerializeField] bool grounded;
     
     [Header("Coyote Time")]
     float coyoteTime;
     public float coyoteTimer;
-    float coyoteTimeCounter;
+    [SerializeField] float coyoteTimeCounter;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle = 46f;
@@ -97,6 +98,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     
     private void Start()
     {
+        playerHeight = playerHeightStart;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -160,10 +162,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // start crouch
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
         {
-            playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScalePlayer, playerObj.localScale.z);
-            cameraObj.localPosition = new Vector3(playerObj.localPosition.x, slideYPosCamera, playerObj.localPosition.z);
+            playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer * slideYScalePlayer, playerObj.localScale.z);
+            cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera * slideYPosCamera, playerObj.localPosition.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
+            playerHeight = playerHeight * 0.5f;
             crouching = true;
         }
 
@@ -172,6 +175,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer, playerObj.localScale.z);
             cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera, playerObj.localPosition.z);
+
+            playerHeight = playerHeightStart;
             crouching = false;
         }
     }

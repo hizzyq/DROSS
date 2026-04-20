@@ -15,8 +15,8 @@ public class Sliding : MonoBehaviour
     public float slideForce = 200f;
 
     [Header("Position")]
-    public float slideYScalePlayer = 0.5f;
-    public float slideYPosCamera = 0.5f;
+    public float slideYScalePlayer = 0.7f;
+    public float slideYPosCamera = 0.7f;
     private float startYScalePlayer;
     private float startYPosCamera;
 
@@ -60,8 +60,8 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = true;
 
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScalePlayer, playerObj.localScale.z);
-        cameraObj.localPosition = new Vector3(playerObj.localPosition.x, slideYPosCamera, playerObj.localPosition.z);
+        playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer * slideYScalePlayer, playerObj.localScale.z);
+        cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera * slideYPosCamera, playerObj.localPosition.z);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
     }
 

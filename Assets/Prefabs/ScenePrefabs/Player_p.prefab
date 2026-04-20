@@ -166,6 +166,7 @@ MonoBehaviour:
   jumpForce: 14
   jumpCooldown: 0.25
   airMultiplier: 0.4
+  readyToJump: 0
   wallBounceUpForce: 10
   wallBounceSideForce: 10
   wallBounceWallDetection: 1
@@ -178,7 +179,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 72
+  grounded: 0
   coyoteTimer: 0.2
+  coyoteTimeCounter: 0
   maxSlopeAngle: 50
   state: 0
   dashing: 0
@@ -425,8 +428,8 @@ Transform:
   m_GameObject: {fileID: 7261281061104520745}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.83, z: 0}
-  m_LocalScale: {x: 1, y: 1.3, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8159021594781268202}
