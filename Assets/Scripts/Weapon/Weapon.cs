@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
 
-    public enum WeaponModel { Pistol1911, AK74 }
+    public enum WeaponModel { Pistol1911, AK74, Shotgun }
     public WeaponModel thisWeaponModel;
 
     public enum ShootingMode { Single, Burst, Auto }

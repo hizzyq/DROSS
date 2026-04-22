@@ -12,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     [Header("Ammo")]
     public int totalRifleAmmo  = 0;
     public int totalPistolAmmo = 0;
+    public int totalShotgunAmmo = 0;
 
     private void Awake()
     {
@@ -89,8 +90,9 @@ public class WeaponManager : MonoBehaviour
     {
         switch (ammoBox.ammoType)
         {
-            case AmmoBox.AmmoType.RifleAmmo:  totalRifleAmmo  += ammoBox.ammoAmount; break;
-            case AmmoBox.AmmoType.PistolAmmo: totalPistolAmmo += ammoBox.ammoAmount; break;
+            case AmmoBox.AmmoType.RifleAmmo:   totalRifleAmmo   += ammoBox.ammoAmount; break;
+            case AmmoBox.AmmoType.PistolAmmo:  totalPistolAmmo  += ammoBox.ammoAmount; break;
+            case AmmoBox.AmmoType.ShotgunAmmo: totalShotgunAmmo += ammoBox.ammoAmount; break;
         }
     }
 
@@ -100,6 +102,7 @@ public class WeaponManager : MonoBehaviour
         {
             case WeaponModel.Pistol1911: return totalPistolAmmo;
             case WeaponModel.AK74:       return totalRifleAmmo;
+            case WeaponModel.Shotgun:    return totalShotgunAmmo;
             default:                     return 0;
         }
     }
@@ -110,6 +113,7 @@ public class WeaponManager : MonoBehaviour
         {
             case WeaponModel.Pistol1911: totalPistolAmmo -= amount; break;
             case WeaponModel.AK74:       totalRifleAmmo  -= amount; break;
+            case WeaponModel.Shotgun:    totalShotgunAmmo -= amount; break;
         }
     }
 }

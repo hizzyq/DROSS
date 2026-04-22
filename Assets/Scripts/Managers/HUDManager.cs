@@ -49,7 +49,7 @@ public class HUDManager : MonoBehaviour
     private void Update()
     {
         // Защита — WeaponManager мог ещё не создаться
-        if (WeaponManager.Instance == null) return;
+        if (WeaponManager.Instance == null || WeaponManager.Instance.activeWeaponSlot == null) return;
 
         Weapon active   = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
         Weapon unActive = GetUnActiveWeaponSlot()?.GetComponentInChildren<Weapon>();

@@ -36,6 +36,11 @@ public class PauseMenuController : MonoBehaviour
 
     private void Start()
     {
+        if (blurVolume != null)
+        {
+            blurVolume.gameObject.SetActive(true);
+            blurVolume.weight = 0f;
+        }
         ResetMenuState();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -108,9 +113,9 @@ public class PauseMenuController : MonoBehaviour
     public void Resume()
     {
         PlayClickSound();
-        if (blurVolume != null) blurVolume.weight = 0f;
-
         pauseMenuUI.SetActive(false);
+
+        if (blurVolume != null) blurVolume.weight = 0f;
         if (settingsMenuUI != null) settingsMenuUI.SetActive(false);
 
         Time.timeScale = 1f;
