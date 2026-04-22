@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -128,6 +129,18 @@ public class Player : MonoBehaviour
             WeaponManager.Instance.PickupAmmo(ammoBox);
             Destroy(ammoBox.gameObject);
             ammoBox = null;
+        }
+
+        if (other.gameObject.GetComponent<HealBox>())
+        {
+            var healBox = other.gameObject.GetComponent<HealBox>();
+            if (HP != 100)
+            {
+                HP = HP + healBox.gameObject.GetComponent<HealBox>().HealAmount();
+                if (HP > maxHP) HP = maxHP;
+                Destroy(healBox.gameObject);
+                healBox = null;
+            }
         }
     }
 
