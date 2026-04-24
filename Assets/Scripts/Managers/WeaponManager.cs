@@ -42,7 +42,24 @@ public class WeaponManager : MonoBehaviour
     }
 
     public void PickUpWeapon(GameObject pickedUpWeapon)
-        => AddWeaponIntoActiveSlot(pickedUpWeapon);
+    {
+        // Если в текущем активном слоте уже есть оружие, ищем пустой слот
+        if (activeWeaponSlot.transform.childCount > 0)
+        {
+            for (int i = 0; i < weaponSlots.Count; i++)
+            {
+                if (weaponSlots[i].transform.childCount == 0)
+                {
+                    // Нашли пустой слот — переключаемся на него
+                    SwitchActiveSlot(i);
+                    break;
+                }
+            }
+        }
+
+        // Подбираем оружие в текущий слот (теперь это либо найденный пустой, либо старый, если пустых нет)
+        AddWeaponIntoActiveSlot(pickedUpWeapon);
+    }
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
