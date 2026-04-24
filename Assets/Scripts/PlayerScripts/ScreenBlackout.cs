@@ -5,11 +5,38 @@ using System.Collections;
 public class ScreenBlackout : MonoBehaviour
 {
     public Image fadeImage;
-    public float fadeDuration = 7.0f;
+    public float fadeDuration = 7.0f; // Для ухода в темноту
+    public float fadeInDuration = 2.0f; // Для появления уровня при загрузке
+
+    private void Start()
+    {
+        // При старте уровня автоматически осветляем экран
+        StartCoroutine(FadeIn());
+    }
 
     public void StartFade()
     {
+        // Останавливаем осветление, если оно еще шло, чтобы смерть/смена уровня сработали надежно
+        StopAllCoroutines();
         StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float timer = 0f;
+        Color startColor = new Color(0f, 0f, 0f, 1f); // Черный
+        Color endColor = new Color(0f, 0f, 0f, 0f);   // Прозрачный
+
+        fadeImage.color = startColor;
+
+        while (timer < fadeInDuration)
+        {
+            fadeImage.color = Color.Lerp(startColor, endColor, timer / fadeInDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeImage.color = endColor;
     }
 
     private IEnumerator FadeOut()
@@ -20,13 +47,11 @@ public class ScreenBlackout : MonoBehaviour
 
         while (timer < fadeDuration)
         {
-            // Interpolate the color between start and end over time.
             fadeImage.color = Color.Lerp(startColor, endColor, timer / fadeDuration);
             timer += Time.deltaTime;
             yield return null;
         }
 
-        // Ensure the image is completely black at the end.
         fadeImage.color = endColor;
     }
 

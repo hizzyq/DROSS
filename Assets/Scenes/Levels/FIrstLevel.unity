@@ -24860,11 +24860,11 @@ PrefabInstance:
       objectReference: {fileID: 7634154591473316863}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -147.13
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.41
+      value: 3.236
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24902,6 +24902,10 @@ PrefabInstance:
       propertyPath: fadeImage
       value: 
       objectReference: {fileID: 5995894492375605785}
+    - target: {fileID: 8351428414113478886, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: fadeDuration
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

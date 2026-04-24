@@ -26,15 +26,19 @@ public class LevelExitTrigger : MonoBehaviour
         Player player = playerObj.GetComponentInParent<Player>();
         CheckpointSaveSystem saveSystem = playerObj.GetComponentInParent<CheckpointSaveSystem>();
 
+        float waitTime = waitBeforeLoad;
+
         // 1. Запускаем твой ScreenBlackout
         if (player.screenBlackout != null)
         {
             player.screenBlackout.enabled = true;
-            player.screenBlackout.StartFade(); // Твой метод из ScreenBlackout.cs
+            player.screenBlackout.StartFade();
+            // Берем длительность фейда напрямую из скрипта блэкаута
+            waitTime = player.screenBlackout.fadeDuration;
         }
 
-        // 2. Небольшая пауза, чтобы экран успел потемнеть
-        yield return new WaitForSeconds(waitBeforeLoad);
+        // 2. Ждем, пока экран полностью потемнеет
+        yield return new WaitForSeconds(waitTime);
 
         // 3. Вызываем переход
         Vector3 pos = nextLevelSpawnPoint != null ? nextLevelSpawnPoint.position : Vector3.zero;
