@@ -9,6 +9,7 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private Rigidbody rb;
     private PlayerMovementAdvanced pm;
+    [SerializeField] public SFXEvent dashSFX;
 
     [Header("Dashing")]
     public float dashForce = 20f;
@@ -85,6 +86,8 @@ public class Dashing : MonoBehaviour
         pm.dashing = true;
         pm.maxYSpeed = maxDashYSpeed;
 
+        AudioManager.PlayAt(dashSFX, transform.position);
+        
         cam.DoFov(dashFov);
 
         Transform forwardT;

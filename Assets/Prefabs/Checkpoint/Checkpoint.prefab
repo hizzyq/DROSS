@@ -293,3 +293,4 @@ MonoBehaviour:
   visualIdle: {fileID: 1778712882570253895}
   visualActive: {fileID: 656962396922509622}
   checkpointName: BeforeEntrance
+  activateSFX: {fileID: 11400000, guid: b86d4914caeae02449b5b2bcc6633214, type: 2}

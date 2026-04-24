@@ -183,6 +183,15 @@ MonoBehaviour:
   coyoteTimer: 0.2
   coyoteTimeCounter: 0
   maxSlopeAngle: 50
+  footstepSFX:
+  - {fileID: 11400000, guid: 3f561c91f024ec74384df5f300c5e0ec, type: 2}
+  - {fileID: 11400000, guid: b6ef6a630a8a3434c80194a6d23d19cc, type: 2}
+  - {fileID: 11400000, guid: f4a885c5d72b231429d19a4dcbdfadda, type: 2}
+  jumpSFX: {fileID: 11400000, guid: a6aac69ecd7451445b42cadf98d9e605, type: 2}
+  landSFX: {fileID: 11400000, guid: 35ee2c28558c88e43b7586da9343381e, type: 2}
+  footstepMinSpeed: 1.5
+  footstepInterval: 0.35
+  wallrunFootstepMultiplier: 0.7
   state: 0
   dashing: 0
   sliding: 0
@@ -250,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 8238243823499288496}
   playerCam: {fileID: 0}
+  dashSFX: {fileID: 11400000, guid: 0f7c55ee424f22242bd2a1d182392bb2, type: 2}
   dashForce: 20
   dashUpwardForce: 0
   maxDashYSpeed: 12
@@ -288,7 +298,7 @@ MonoBehaviour:
   screenBlackout: {fileID: 8351428414113478886}
   isDead: 0
   hurtSFX: {fileID: 11400000, guid: 51fb494048f13ba2c8dcf6ff778a3219, type: 2}
-  deathSFX: {fileID: 11400000, guid: 79f62cf1db36be792b20a38b6c93746c, type: 2}
+  deathSFX: {fileID: 11400000, guid: bba03bf94c2f94d408e6cbcf052a17e2, type: 2}
 --- !u!114 &8351428414113478886
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -73,6 +73,23 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
+    // ──────────────────────────────────────────────
+    [Header("Audio")]
+    [SerializeField] private SFXEvent[] footstepSFX;   // несколько звуков шагов — назначь в инспекторе
+    [SerializeField] private SFXEvent jumpSFX;          // звук в момент прыжка
+    [SerializeField] private SFXEvent landSFX;          // звук приземления
+    [Tooltip("Минимальная скорость (XZ) для воспроизведения шагов")]
+    [SerializeField] private float footstepMinSpeed = 1.5f;
+    [Tooltip("Интервал между шагами в секундах")]
+    [SerializeField] private float footstepInterval = 0.35f;
+    [Tooltip("Множитель интервала во время wallrun (< 1 = чаще)")]
+    [SerializeField] private float wallrunFootstepMultiplier = 0.7f;
+
+    private float _footstepTimer;
+    private int   _lastFootstepIndex = -1;   // не повторять один и тот же звук дважды подряд
+    private bool  _wasGrounded;              // для определения момента приземления
+    // ──────────────────────────────────────────────
+
     //input & direction
     float horizontalInput;
     float verticalInput;
@@ -109,6 +126,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         
         cameraSpring.Initialize();
         cameraLean.Initialize();
+
+        _wasGrounded = true;
     }
 
     private void Update()
@@ -120,10 +139,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
             coyoteTimeCounter -= Time.deltaTime;
         
-        
         MyInput();
         StateHandler();
-        
+        HandleFootstepAudio();
+        HandleLandingAudio();
+
         rb.linearDamping = 0f;
     }
 
@@ -143,7 +163,77 @@ public class PlayerMovementAdvanced : MonoBehaviour
         cameraSpring.UpdateSpring(Time.deltaTime, cameraObj.up);
         cameraLean.UpdateLean(Time.deltaTime, sliding, _acceleration, cameraObj.up);
     }
-    
+
+    // ──────────────────────────────────────────────
+    // AUDIO HELPERS
+    // ──────────────────────────────────────────────
+
+    /// <summary>
+    /// Тикает таймер шагов и воспроизводит случайный (не повторяющийся) звук
+    /// когда игрок движется по земле / стене.
+    /// </summary>
+    private void HandleFootstepAudio()
+    {
+        if (footstepSFX == null || footstepSFX.Length == 0) return;
+
+        bool canStep = (grounded || wallrunning) &&
+                       !dashing &&
+                       !sliding &&
+                       GetHorizontalSpeed() > footstepMinSpeed;
+
+        if (canStep)
+        {
+            _footstepTimer -= Time.deltaTime;
+            if (_footstepTimer <= 0f)
+            {
+                PlayRandomFootstep();
+                _footstepTimer = wallrunning ? footstepInterval * wallrunFootstepMultiplier : footstepInterval;
+            }
+        }
+        else
+        {
+            // сбрасываем таймер, чтобы первый шаг после остановки не запаздывал
+            _footstepTimer = 0f;
+        }
+    }
+
+    private void PlayRandomFootstep()
+    {
+        if (footstepSFX.Length == 1)
+        {
+            AudioManager.PlayAt(footstepSFX[0], transform.position);
+            return;
+        }
+
+        // выбираем индекс, отличный от предыдущего
+        int index;
+        do { index = Random.Range(0, footstepSFX.Length); }
+        while (index == _lastFootstepIndex);
+
+        _lastFootstepIndex = index;
+        AudioManager.PlayAt(footstepSFX[index], transform.position);
+    }
+
+    /// <summary>
+    /// Фиксирует момент приземления (переход !grounded → grounded) и играет звук.
+    /// </summary>
+    private void HandleLandingAudio()
+    {
+        if (!_wasGrounded && grounded)
+        {
+            if (landSFX != null)
+                AudioManager.PlayAt(landSFX, transform.position);
+        }
+        _wasGrounded = grounded;
+    }
+
+    private float GetHorizontalSpeed()
+    {
+        return new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude;
+    }
+
+    // ──────────────────────────────────────────────
+
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -183,7 +273,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
-        
         // Mode - Wallrunning
         if (wallrunning)
         {
@@ -204,10 +293,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             state = MovementState.sliding;
 
-            // increase speed by one every second
             if (OnSlope() && rb.linearVelocity.y < 0.1f)
                 desiredMoveSpeed = slideSpeed;
-
             else
                 desiredMoveSpeed = walkSpeed;
         }
@@ -271,7 +358,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private float speedChangeFactor;
     private IEnumerator SmoothlyLerpMoveSpeed()
     {
-        // smoothly lerp movementSpeed to desired value
         float time = 0;
         float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
         float startValue = moveSpeed;
@@ -286,7 +372,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
             {
                 float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-        
                 time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
             }
             else time += Time.deltaTime * boostFactor;
@@ -301,12 +386,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void MovePlayer()
     {
-        //Extra gravity
         rb.AddForce(Vector3.down * Time.deltaTime * 10);
 
         if (state == MovementState.dashing) return;
         
-        // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (sliding) {
@@ -315,7 +398,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
             return;
         }
         
-        // on slope
         if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
@@ -323,17 +405,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
             if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
-        
-        // on ground
         else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-
-        // turn gravity off while on slope
-        //if(!wallrunning) rb.useGravity = !isSloped;
 
         ApplyHorizontalDragIfNeeded();
     }
@@ -351,19 +426,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void SpeedControl()
     {
-        // limiting speed on slope
         if (OnSlope() && !exitingSlope)
         {
             if (rb.linearVelocity.magnitude > moveSpeed)
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
         }
-
-        // limiting speed on ground or in air
         else
         {
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-            // limit velocity if needed
             if (flatVel.magnitude > moveSpeed)
             {
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
@@ -371,7 +442,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
             }
         }
         
-        // limit y vel
         if (maxYSpeed != 0 && rb.linearVelocity.y > maxYSpeed)
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
     }
@@ -379,18 +449,19 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Jump()
     {
         coyoteTimeCounter = 0f;
-        
         exitingSlope = true;
-        
-        // reset y velocity
+
+        // звук прыжка
+        if (jumpSFX != null)
+            AudioManager.PlayAt(jumpSFX, transform.position);
+
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
     private void ResetJump()
     {
         readyToJump = true;
-        
         exitingSlope = false;
     }
 
@@ -399,7 +470,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         Vector3 wallNormal = wallFront.normal;
         Vector3 forceToApply = transform.up * wallBounceUpForce + wallNormal * wallBounceSideForce;
 
-        // reset y velocity and add force
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(forceToApply, ForceMode.Impulse);
     }

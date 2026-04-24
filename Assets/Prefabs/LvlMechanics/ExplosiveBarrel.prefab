@@ -96,7 +96,7 @@ MonoBehaviour:
   blastRadius: 5
   maxDamage: 120
   damagedVFX: {fileID: 0}
-  explosionSFX: {fileID: 0}
+  explosionSFX: {fileID: 11400000, guid: ce27405880293fc47973aa273ddd5366, type: 2}
   hitSFX: {fileID: 0}
 --- !u!136 &5324134223561272042
 CapsuleCollider:

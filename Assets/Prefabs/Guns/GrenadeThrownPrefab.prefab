@@ -197,8 +197,8 @@ MonoBehaviour:
   blastRadius: 6
   maxDamage: 100
   bounceMaterial: {fileID: 13400000, guid: 1087048d1427efd4eb09f48d8ed5425b, type: 2}
-  explosionSFX: {fileID: 0}
-  pinSFX: {fileID: 0}
+  explosionSFX: {fileID: 11400000, guid: 112425b220f61b645a49df5798bee050, type: 2}
+  pinSFX: {fileID: 11400000, guid: dde766968a8124a46886e9bcb9c119cf, type: 2}
 --- !u!1 &4465547251386290999
 GameObject:
   m_ObjectHideFlags: 0

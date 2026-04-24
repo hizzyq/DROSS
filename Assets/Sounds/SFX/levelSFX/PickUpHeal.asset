@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca2a460291743db3af7e7427cec33c4, type: 3}
+  m_Name: PickUpHeal
+  m_EditorClassIdentifier: Assembly-CSharp::SFXEvent
+  clips:
+  - {fileID: 8300000, guid: 2b7033b859e95994e9bc74c8de357c29, type: 3}
+  volume: 1
+  volumeVariance: 0.05
+  pitch: 1
+  pitchVariance: 0.05
+  spatialBlend: 1
+  minDistance: 1
+  maxDistance: 30
+  mixerGroup: {fileID: 0}
+  priority: 128
+  limitOverlap: 0
+  minInterval: 0
+  maxVoices: 8

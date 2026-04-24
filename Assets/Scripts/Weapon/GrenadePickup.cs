@@ -2,27 +2,28 @@ using UnityEngine;
 
 public class GrenadePickup : MonoBehaviour
 {
-    public int amount = 1; // сколько гранат даёт предмет
+    public int amount = 1; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private GrenadeThrow playerGrenadeThrow;
     private bool canPickup;
-
+    [SerializeField] public SFXEvent pickupSFX;
     private void Update()
     {
-        // Если игрок рядом и нажал E — подбираем
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ E пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (canPickup && Input.GetKeyDown(KeyCode.E))
         {
             PickUp();
+            AudioManager.Play(pickupSFX);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Проверяем, что в триггер вошёл игрок
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         if (!other.CompareTag("Player"))
             return;
 
-        // Ищем GrenadeThrow на игроке, у детей и у родителя
+        // пїЅпїЅпїЅпїЅ GrenadeThrow пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         playerGrenadeThrow = other.GetComponent<GrenadeThrow>();
 
         if (playerGrenadeThrow == null)
@@ -34,17 +35,17 @@ public class GrenadePickup : MonoBehaviour
         if (playerGrenadeThrow != null)
         {
             canPickup = true;
-            Debug.Log("Игрок рядом с гранатой");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
         }
         else
         {
-            Debug.LogError("GrenadeThrow не найден у Player");
+            Debug.LogError("GrenadeThrow пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Player");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Когда игрок вышел из зоны подбора — запрещаем подбор
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (!other.CompareTag("Player"))
             return;
 
@@ -54,19 +55,18 @@ public class GrenadePickup : MonoBehaviour
 
     private void PickUp()
     {
-        // Если GrenadeThrow не найден — ничего не делаем
+        // пїЅпїЅпїЅпїЅ GrenadeThrow пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (playerGrenadeThrow == null)
         {
             Debug.LogError("playerGrenadeThrow == null");
             return;
         }
 
-        Debug.Log("Подбор гранаты через E");
-
-        // Добавляем гранаты игроку
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ E");
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         playerGrenadeThrow.AddGrenades(amount);
-
-        // Удаляем предмет
+        
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Destroy(gameObject);
     }
 }

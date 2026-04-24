@@ -4996,6 +4996,8 @@ MonoBehaviour:
   bulletVelocity: 1000
   bulletPrefabLifetime: 3
   muzzleEffect: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+  muzzleEffectRotationOffset: {x: 0, y: 90, z: 0}
+  muzzleEffectScale: {x: 0.05, y: 0.05, z: 0.05}
   reloadTime: 1.7
   magazineSize: 25
   bulletsLeft: 0
@@ -5004,8 +5006,8 @@ MonoBehaviour:
   spawnRotation: {x: 0, y: -90, z: 0}
   thisWeaponModel: 1
   currentShootingMode: 2
-  shotSFX: {fileID: 11400000, guid: 7125f80505c44534b838c2b8eef67780, type: 2}
-  reloadSFX: {fileID: 11400000, guid: dbd4eac52722345a08fcf8cec008c1d2, type: 2}
+  shotSFX: {fileID: 11400000, guid: fe82c1ea4a9601c48a003d7f7fa9448a, type: 2}
+  reloadSFX: {fileID: 11400000, guid: 7b4e85c13b9226f4b9654ad24389e994, type: 2}
   emptySFX: {fileID: 11400000, guid: 3164bfbabcf367441accdc6a0076f643, type: 2}
 --- !u!114 &5767046287443421482
 MonoBehaviour:

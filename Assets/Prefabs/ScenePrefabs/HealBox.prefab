@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealBox
   healAmount: 25
+  pickupSFX: {fileID: 11400000, guid: d31e7e2fc3feb594e860e13a3d484fca, type: 2}

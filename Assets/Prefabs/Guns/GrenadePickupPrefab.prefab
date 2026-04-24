@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadePickup
   amount: 1
+  pickupSFX: {fileID: 11400000, guid: a0986d8a72a5e2c42869500cb27b6e54, type: 2}
 --- !u!114 &3500185795635392109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9777,7 +9778,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
