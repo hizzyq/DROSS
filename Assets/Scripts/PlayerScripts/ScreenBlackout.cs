@@ -10,15 +10,28 @@ public class ScreenBlackout : MonoBehaviour
 
     private void Start()
     {
-        // При старте уровня автоматически осветляем экран
-        StartCoroutine(FadeIn());
+        if (fadeImage != null)
+        {
+            // Гарантируем, что при старте сцены панель включена и поверх всего
+            fadeImage.gameObject.SetActive(true);
+            fadeImage.transform.SetAsLastSibling();
+            // Выключаем блокировку кликов, чтобы после осветления можно было играть
+            fadeImage.raycastTarget = false;
+            StartCoroutine(FadeIn());
+        }
     }
 
     public void StartFade()
     {
-        // Останавливаем осветление, если оно еще шло, чтобы смерть/смена уровня сработали надежно
-        StopAllCoroutines();
-        StartCoroutine(FadeOut());
+        if (fadeImage != null)
+        {
+            StopAllCoroutines();
+            fadeImage.gameObject.SetActive(true);
+            fadeImage.transform.SetAsLastSibling();
+            // Блокируем UI на время ухода в темноту
+            fadeImage.raycastTarget = true;
+            StartCoroutine(FadeOut());
+        }
     }
 
     private IEnumerator FadeIn()
@@ -32,23 +45,25 @@ public class ScreenBlackout : MonoBehaviour
         while (timer < fadeInDuration)
         {
             fadeImage.color = Color.Lerp(startColor, endColor, timer / fadeInDuration);
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime; // Изменено здесь
             yield return null;
         }
 
         fadeImage.color = endColor;
+        // Отключаем объект, чтобы не грузил Canvas, когда прозрачный
+        fadeImage.gameObject.SetActive(false);
     }
 
     private IEnumerator FadeOut()
     {
         float timer = 0f;
         Color startColor = fadeImage.color;
-        Color endColor = new Color(0f, 0f, 0f, 1f); // Black with alpha 1.
+        Color endColor = new Color(0f, 0f, 0f, 1f);
 
         while (timer < fadeDuration)
         {
             fadeImage.color = Color.Lerp(startColor, endColor, timer / fadeDuration);
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime; // Изменено здесь
             yield return null;
         }
 
@@ -58,7 +73,11 @@ public class ScreenBlackout : MonoBehaviour
     public void ReverseFade()
     {
         StopAllCoroutines();
-        fadeImage.color = new Color(0f, 0f, 0f, 0f); // Мгновенно делаем прозрачным
+        if (fadeImage != null)
+        {
+            fadeImage.color = new Color(0f, 0f, 0f, 0f);
+            fadeImage.gameObject.SetActive(false);
+        }
     }
     
     public void KillFade()
