@@ -10,6 +10,11 @@ public class RangeAttackState : StateMachineBehaviour
     public float stopAttackingDistance = 14f;
     public float retreatDistance = 4f;
     
+    // Задержка перед ПЕРВЫМ выстрелом (время поднятия оружия)
+    public float initialDelay = 0.8f;
+    private bool _initialDelayDone;
+    private float _initialTimer;
+
     // Интервал между выстрелами (секунды)
     public float fireRate = 1.5f;
     private float _fireTimer;
@@ -33,7 +38,9 @@ public class RangeAttackState : StateMachineBehaviour
 
         agent.isStopped = true;
 
-        _fireTimer  = fireRate;   // выстрелить сразу при входе
+        _initialDelayDone = false;
+        _initialTimer  = 0f;
+        _fireTimer  = 0f;
         _soundTimer = soundRepeatInterval;
     }
 
@@ -73,8 +80,18 @@ public class RangeAttackState : StateMachineBehaviour
         }
 
         // Выстрел по таймеру, только если есть прямая видимость
-        _fireTimer += Time.deltaTime;
-        if (_fireTimer >= fireRate && HasLineOfSight(animator.transform))
+        if (!_initialDelayDone)
+        {
+            _initialTimer += Time.deltaTime;
+            if (_initialTimer >= initialDelay)
+                _initialDelayDone = true;
+        }
+        else
+        {
+            _fireTimer += Time.deltaTime;
+        }
+
+        if (_initialDelayDone && _fireTimer >= fireRate && HasLineOfSight(animator.transform))
         {
             _fireTimer = 0f;
             _weapon?.Fire();
