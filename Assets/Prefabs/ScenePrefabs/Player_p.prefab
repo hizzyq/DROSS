@@ -245,6 +245,8 @@ MonoBehaviour:
   slideYScalePlayer: 0.5
   slideYPosCamera: 0.5
   slideKey: 306
+  slideSFX: {fileID: 0}
+  slideVolume: 1
 --- !u!114 &7611465207089901687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +314,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
   fadeImage: {fileID: 0}
-  fadeDuration: 7
+  fadeDuration: 2
+  fadeInDuration: 2
 --- !u!114 &6853428344743915064
 MonoBehaviour:
   m_ObjectHideFlags: 0

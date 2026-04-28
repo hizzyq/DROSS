@@ -3,52 +3,50 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class EndGame : MonoBehaviour
 {
     public ScreenBlackout screenBlackout;
     public GameObject gameOverUI;
     public TextMeshProUGUI playerHealthUI;
-    public Image fadePanel;
-    public float fadeDuration = 1f;
     public string _sceneName;
+
+    // Убрали дублирующиеся переменные fadePanel и fadeDuration,
+    // так как теперь полагаемся на ScreenBlackout
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BodyPlayer"))
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            playerHealthUI.gameObject.SetActive(false);
-            
-            screenBlackout.enabled = true;
-            screenBlackout.StartFade();
-            StartCoroutine(ShowGameOverUI());
-            StartGame(_sceneName);
+
+            if (playerHealthUI != null)
+                playerHealthUI.gameObject.SetActive(false);
+
+            if (screenBlackout != null)
+            {
+                screenBlackout.enabled = true;
+                screenBlackout.StartFade();
+            }
+
+            StartCoroutine(ShowGameOverUIAndLoad());
         }
     }
-    
-    public void StartGame(string sceneName)
+
+    private IEnumerator ShowGameOverUIAndLoad()
     {
-        StartCoroutine(FadeAndLoad(sceneName));
-    }
-    
-    private IEnumerator ShowGameOverUI()
-    {
+        // Ждем немного перед показом UI смерти
         yield return new WaitForSeconds(1f);
-        gameOverUI.gameObject.SetActive(true);
-    }
-    
-    private IEnumerator FadeAndLoad(string sceneName)
-    {
-        float timer = 0f;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            float alpha = timer / fadeDuration;
-            fadePanel.color = new Color(0, 0, 0, alpha);
-            yield return null;
-        }
-        SceneManager.LoadScene(sceneName);
+        if (gameOverUI != null)
+            gameOverUI.gameObject.SetActive(true);
+
+        // Ждем завершения фейда (берем время из ScreenBlackout)
+        float waitTime = screenBlackout != null ? screenBlackout.fadeDuration : 2f;
+
+        // Вычитаем 1 секунду, так как мы уже прождали ее перед показом UI
+        yield return new WaitForSeconds(Mathf.Max(0, waitTime - 1f));
+
+        SceneManager.LoadScene(_sceneName);
     }
 }
