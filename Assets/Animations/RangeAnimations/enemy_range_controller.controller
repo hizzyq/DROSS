@@ -155,9 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangeAttackState
   stopAttackingDistance: 24
   retreatDistance: 4
-  fireRate: 1.5
+  initialDelay: 0.4
+  fireRate: 2.5
   attackSFX: {fileID: 0}
-  soundRepeatInterval: 1.5
+  soundRepeatInterval: 2.5
   obstacleMask:
     serializedVersion: 2
     m_Bits: 72
@@ -312,7 +313,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f89b3e5832c872644ad67aeef72f0a34, type: 2}
+  m_Motion: {fileID: -7453387558714718212, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -388,7 +389,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f89b3e5832c872644ad67aeef72f0a34, type: 2}
+  m_Motion: {fileID: -7551964380084998518, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -530,9 +531,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.0027777553
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.14212471
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -561,7 +562,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f89b3e5832c872644ad67aeef72f0a34, type: 2}
+  m_Motion: {fileID: -8945691123924629249, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -633,7 +634,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f89b3e5832c872644ad67aeef72f0a34, type: 2}
+  m_Motion: {fileID: 8349542763059015795, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
