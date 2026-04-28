@@ -74,6 +74,16 @@ public class Dashing : MonoBehaviour
                     }
                 }
             }
+            float maxStamina = maxCharges;
+            float partial = 0f;
+
+            if (curCharges < maxCharges && rechargeTime > 0f)
+                partial = 1f - (dashChargeTimer / rechargeTime);
+
+            float currentStamina = curCharges + Mathf.Clamp01(partial);
+
+            if (HUDManager.Instance != null)
+                HUDManager.Instance.UpdateStaminaBar(currentStamina, maxStamina);
         }
     }
 

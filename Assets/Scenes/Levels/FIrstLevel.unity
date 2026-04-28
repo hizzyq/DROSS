@@ -24831,7 +24831,7 @@ PrefabInstance:
     - target: {fileID: 7360414435495912557, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: pistolPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6582480477578291275}
     - target: {fileID: 7478310305607540549, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: throwOrigin
       value: 
@@ -25140,6 +25140,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 107f8274208f174dabb4023bf2a680d3, type: 3}
+--- !u!1 &6582480477578291275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 320129979746484466, guid: 107f8274208f174dabb4023bf2a680d3, type: 3}
+  m_PrefabInstance: {fileID: 6582480477578291274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &6636499791562918826
 MeshCollider:
   m_ObjectHideFlags: 0
