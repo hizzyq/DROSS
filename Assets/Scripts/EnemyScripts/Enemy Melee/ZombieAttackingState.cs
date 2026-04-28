@@ -30,7 +30,10 @@ public class ZombieAttackingState : StateMachineBehaviour
         _soundTimer = soundRepeatInterval; // сыграть сразу при входе в стейт
 
         zombieHandCollider = GameObject.Find("ZombieHand").GetComponent<SphereCollider>();
-        zombieHandCollider.enabled = true;
+        if (zombieHandCollider != null)
+        {
+            zombieHandCollider.enabled = true;
+        }
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent  = animator.GetComponent<NavMeshAgent>();
@@ -42,6 +45,7 @@ public class ZombieAttackingState : StateMachineBehaviour
         // ── БЫЛО: if (!zombieChannel.isPlaying) zombieChannel.PlayOneShot(...)
         // Теперь каждый зомби получает свой слот из пула — никакого конфликта
         if (agent == null || !agent.isOnNavMesh) return;
+        if (zombieHandCollider == null) return;
 
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)

@@ -14278,6 +14278,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: waveCounterUI
+      value: 
+      objectReference: {fileID: 4055664800485822392}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: enemyCounterUI
+      value: 
+      objectReference: {fileID: 4055664800485822391}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: cooldownCounterUI
       value: 
       objectReference: {fileID: 446082049701249952}
@@ -24333,6 +24341,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &4055664800485822391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3449689299069123694, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 4055664800485822388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &4055664800485822392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7878506678905977156, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 4055664800485822388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!33 &4167582850127988498
 MeshFilter:
   m_ObjectHideFlags: 0

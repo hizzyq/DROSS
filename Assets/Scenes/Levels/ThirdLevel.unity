@@ -21023,6 +21023,8 @@ MonoBehaviour:
   - {fileID: 1289058852}
   zombiePrefab: {fileID: 3454729515500278325, guid: 84590aaa3830ade428c611b4f659feef, type: 3}
   cooldownCounterUI: {fileID: 0}
+  waveCounterUI: {fileID: 0}
+  enemyCounterUI: {fileID: 0}
   spawnPoints:
   - {fileID: 168735721}
   - {fileID: 574145636}
@@ -22943,6 +22945,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 287af2e648345b34186877033e4df6b9, type: 3}
   m_PrefabInstance: {fileID: 771013442}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &773611134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1208829348432194220, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1209209531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &776966730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38438,6 +38451,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.95525634, y: 4.3668704, z: 2}
   m_Center: {x: -0.0000019073486, y: 0, z: -0.0000011920929}
+--- !u!114 &1326398954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3449689299069123694, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1209209531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1328252837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7878506678905977156, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1209209531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1348285631
 GameObject:
   m_ObjectHideFlags: 0
@@ -43184,7 +43219,9 @@ MonoBehaviour:
   - {fileID: 1841923181}
   - {fileID: 1289058852}
   zombiePrefab: {fileID: 855890911615679318, guid: b8468ba37de091c4f8313e0cf5ee06a4, type: 3}
-  cooldownCounterUI: {fileID: 0}
+  cooldownCounterUI: {fileID: 773611134}
+  waveCounterUI: {fileID: 1328252837}
+  enemyCounterUI: {fileID: 1326398954}
   spawnPoints:
   - {fileID: 2111025354}
   - {fileID: 561788263}

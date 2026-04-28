@@ -28,6 +28,8 @@ public class ZombieSpawnController : MonoBehaviour
     [Header("References")]
     public GameObject zombiePrefab;
     public TextMeshProUGUI cooldownCounterUI;
+    public TextMeshProUGUI waveCounterUI;
+    public TextMeshProUGUI enemyCounterUI;
 
     [Header("Spawn Points")]
     public List<Transform> spawnPoints = new List<Transform>();
@@ -47,6 +49,8 @@ public class ZombieSpawnController : MonoBehaviour
         {
             cooldownCounterUI.gameObject.SetActive(false);
         }
+        if (waveCounterUI != null) waveCounterUI.gameObject.SetActive(false);
+        if (enemyCounterUI != null) enemyCounterUI.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,6 +66,8 @@ public class ZombieSpawnController : MonoBehaviour
 
             StartNextWave();
         }
+        if (waveCounterUI != null) waveCounterUI.gameObject.SetActive(true);
+        if (enemyCounterUI != null) enemyCounterUI.gameObject.SetActive(true);
     }
 
     private void StartNextWave()
@@ -69,6 +75,8 @@ public class ZombieSpawnController : MonoBehaviour
         if (currentWave >= maxWaves)
         {
             allWavesCompleted = true;
+            if (waveCounterUI != null) waveCounterUI.gameObject.SetActive(false);
+            if (enemyCounterUI != null) enemyCounterUI.gameObject.SetActive(false);
             SetButtonsState(true); // �������� ������ �������
             Debug.Log("��� ����� ���������.");
             return;
@@ -175,6 +183,11 @@ public class ZombieSpawnController : MonoBehaviour
         {
             cooldownCounterUI.text = cooldownCounter.ToString("F1");
         }
+        if (waveCounterUI != null)
+            waveCounterUI.text = $"Wave {currentWave}/{maxWaves}";
+
+        if (enemyCounterUI != null)
+            enemyCounterUI.text = $"Enemies {currentZombiesAlive.Count}/{currentZombiesPerWave}";
     }
 
     private IEnumerator WaveCooldown()
@@ -203,6 +216,8 @@ public class ZombieSpawnController : MonoBehaviour
         else
         {
             allWavesCompleted = true;
+            if (waveCounterUI != null) waveCounterUI.gameObject.SetActive(false);
+            if (enemyCounterUI != null) enemyCounterUI.gameObject.SetActive(false);
             SetButtonsState(true); 
             Debug.Log("��� ����� ���������.");
         }
