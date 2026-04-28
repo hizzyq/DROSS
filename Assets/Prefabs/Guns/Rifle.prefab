@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3830295074054842837}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.568836, y: 0.41840914, z: -0.40174302, w: 0.5830626}
+  m_LocalRotation: {x: 0.5688334, y: 0.4184123, z: -0.40174252, w: 0.58306324}
   m_LocalPosition: {x: -24.429445, y: 12.590001, z: 36.14706}
   m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 0
@@ -5744,7 +5744,7 @@ MonoBehaviour:
   burstBulletsLeft: 0
   hipSpreadIntensity: 0.25
   bulletPrefab: {fileID: 1114468409982727598, guid: 075e5396e625b664196f6bd446727a47, type: 3}
-  bulletSpawn: {fileID: 0}
+  bulletSpawn: {fileID: 4205861799983661127}
   bulletVelocity: 1000
   bulletPrefabLifetime: 3
   muzzleEffect: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
@@ -5787,13 +5787,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8923129242405562470}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5556848, y: -0.43728077, z: -0.43728077, w: 0.5556848}
-  m_LocalPosition: {x: 13.569544, y: -1.5296149, z: 2.3721566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.9230769, y: 3.2051344, z: 3.2051346}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4205861799983661127}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &4041771393503372823
 ParticleSystem:
   m_ObjectHideFlags: 0

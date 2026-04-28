@@ -380,8 +380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointSaveSystem
   reloadSceneOnLoad: 1
   reloadDelay: 0.05
-  pistolPrefab: {fileID: 0}
-  riflePrefab: {fileID: 8274396351807507323, guid: 866faa88afee4fa3281c6d36c3b109dc, type: 3}
+  pistolPrefab: {fileID: 320129979746484466, guid: 107f8274208f174dabb4023bf2a680d3, type: 3}
+  riflePrefab: {fileID: 3830295074054842837, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
 --- !u!1 &6159070343810677627
 GameObject:
   m_ObjectHideFlags: 0

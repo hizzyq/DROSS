@@ -17324,10 +17324,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 619346977}
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: hudManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1939003684}
@@ -17355,6 +17351,10 @@ PrefabInstance:
       propertyPath: cameraSpring
       value: 
       objectReference: {fileID: 1863739464}
+    - target: {fileID: 7478310305607540549, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
+      propertyPath: throwOrigin
+      value: 
+      objectReference: {fileID: 1959798883}
     - target: {fileID: 7611465207089901687, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 
@@ -17369,7 +17369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.132
+      value: 13.88
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59636,6 +59636,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950916554}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1959798883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6725159418420002001, guid: 54c53125b64981e469163b7c8b4dcc05, type: 3}
+  m_PrefabInstance: {fileID: 2005872983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1960203915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66001,25 +66006,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1724709542163393623, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
-      propertyPath: m_Layer
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 2069858202187072450, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
-      propertyPath: m_Layer
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 2575478641366040840, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
-      propertyPath: m_Layer
-      value: 19
-      objectReference: {fileID: 0}
     - target: {fileID: 3830295074054842837, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
       propertyPath: m_Name
       value: Rifle
-      objectReference: {fileID: 0}
-    - target: {fileID: 3830295074054842837, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
-      propertyPath: m_Layer
-      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5801005150755994717, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66060,10 +66049,6 @@ PrefabInstance:
     - target: {fileID: 5801005150755994717, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 238.424
-      objectReference: {fileID: 0}
-    - target: {fileID: 8977850275523858472, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
-      propertyPath: bulletSpawn
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
