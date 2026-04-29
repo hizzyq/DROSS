@@ -16,6 +16,8 @@ public class SettingsUI : MonoBehaviour
     public TextMeshProUGUI sensXValueText;
     public TextMeshProUGUI sensYValueText;
     public TextMeshProUGUI pixelationValueText;
+    public TextMeshProUGUI brightnessValueText;
+    public TextMeshProUGUI fovValueText;
 
     [Header("— Controls —")]
     public Slider sensXSlider;
@@ -24,6 +26,8 @@ public class SettingsUI : MonoBehaviour
 
     [Header("— Graphics —")]
     public Slider pixelationSlider;
+    public Slider brightnessSlider;
+    public Slider fovSlider;
 
     [Header("— Кнопки —")]
     public Button saveButton;
@@ -52,6 +56,8 @@ public class SettingsUI : MonoBehaviour
         SetSliderSilent(sensXSlider,      _s.sensitivityX);
         SetSliderSilent(sensYSlider,      _s.sensitivityY);
         SetSliderSilent(pixelationSlider, _s.pixelation);
+        SetSliderSilent(fovSlider, _s.fov);
+        SetSliderSilent(brightnessSlider, _s.brightness);
 
         if (invertYToggle) invertYToggle.SetIsOnWithoutNotify(_s.invertY);
 
@@ -88,6 +94,17 @@ public class SettingsUI : MonoBehaviour
             if (pixelationValueText)
                 pixelationValueText.text = Mathf.RoundToInt(v).ToString();
         });
+        fovSlider?.onValueChanged.AddListener(v => {
+            _s.fov = Mathf.RoundToInt(v);
+            SettingsManager.Instance.ApplyGraphics();
+            if (fovValueText)
+                fovValueText.text = Mathf.RoundToInt(v).ToString();
+        });
+        brightnessSlider?.onValueChanged.AddListener(v => {
+            _s.brightness = v;
+            SettingsManager.Instance.ApplyGraphics();
+            UpdateText(brightnessValueText, v, "0%");
+        });
 
         invertYToggle?.onValueChanged.AddListener(v => _s.invertY = v);
 
@@ -118,6 +135,8 @@ public class SettingsUI : MonoBehaviour
         invertYToggle?.onValueChanged.RemoveAllListeners();
         saveButton?.onClick.RemoveAllListeners();
         resetButton?.onClick.RemoveAllListeners();
+        fovSlider?.onValueChanged.RemoveAllListeners();
+        brightnessSlider?.onValueChanged.RemoveAllListeners();
     }
 
     private void UpdateAllTexts()
@@ -129,6 +148,9 @@ public class SettingsUI : MonoBehaviour
         UpdateText(sensYValueText,      _s.sensitivityY,  "0");
         if (pixelationValueText)
             pixelationValueText.text = _s.pixelation.ToString();
+        if (fovValueText)
+            fovValueText.text = _s.fov.ToString();
+        UpdateText(brightnessValueText, _s.brightness, "0%");
     }
 
     private void UpdateText(TextMeshProUGUI label, float value, string format)

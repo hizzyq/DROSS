@@ -166,5 +166,12 @@ public class Player : MonoBehaviour
         {
             GetComponent<CheckpointSaveSystem>().LoadCheckpoint(this);
         }
+
+        // Много много хп для тестинга
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            maxHP = 10000000;
+            HP = 10000000;
+        }
     }
 }

@@ -6,6 +6,7 @@ public class GameSettings : ScriptableObject
 {
     [Header("Графика")]
     [Range(64, 540)] public int pixelation = 180;
+    [Range(0f, 1f)] public float brightness = 0.5f;
 
     [Header("Звук")]
     [Range(0f, 1f)] public float masterVolume = 1f;
@@ -16,6 +17,7 @@ public class GameSettings : ScriptableObject
     [Range(1f, 100f)] public float sensitivityX = 50f; // ← пользователю показываем 1-100
     [Range(1f, 100f)] public float sensitivityY = 50f;
     public bool invertY = false;
+    [Range(60, 120)] public int fov = 90;
 
     // Конвертер: 1-100 → реальное значение для PlayerCam
     public float RealSensX => sensitivityX * 6f;  // 50 × 6 = 300
@@ -31,6 +33,8 @@ public class GameSettings : ScriptableObject
         PlayerPrefs.SetFloat("s_sensX",        sensitivityX);
         PlayerPrefs.SetFloat("s_sensY",        sensitivityY);
         PlayerPrefs.SetInt  ("s_invertY",      invertY ? 1 : 0);
+        PlayerPrefs.SetInt("s_fov", fov);
+        PlayerPrefs.SetFloat("s_brightness", brightness);
         PlayerPrefs.Save();
     }
 
@@ -44,6 +48,8 @@ public class GameSettings : ScriptableObject
         sensitivityX = PlayerPrefs.GetFloat("s_sensX",        sensitivityX);
         sensitivityY = PlayerPrefs.GetFloat("s_sensY",        sensitivityY);
         invertY      = PlayerPrefs.GetInt  ("s_invertY",      0) == 1;
+        fov = PlayerPrefs.GetInt("s_fov", fov);
+        brightness = PlayerPrefs.GetFloat("s_brightness", brightness);
     }
 
     // Сброс до дефолта
@@ -56,5 +62,7 @@ public class GameSettings : ScriptableObject
         sensitivityX = 300f;
         sensitivityY = 300f;
         invertY      = false;
+        fov = 90;
+        brightness = 0.5f;
     }
 }

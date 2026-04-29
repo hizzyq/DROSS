@@ -19,7 +19,7 @@ public class Dashing : MonoBehaviour
 
     [Header("CameraEffects")]
     public PlayerCam cam;
-    public float dashFov = 95f;
+    private float originalFov;
 
     [Header("Settings")]
     public bool useCameraForward = true;
@@ -97,8 +97,14 @@ public class Dashing : MonoBehaviour
         pm.maxYSpeed = maxDashYSpeed;
 
         AudioManager.PlayAt(dashSFX, transform.position);
-        
-        cam.DoFov(dashFov);
+
+        // Сохраняем текущий FOV (из настроек) и применяем FOV дэша
+        if (SettingsManager.Instance != null)
+            originalFov = SettingsManager.Instance.Get().fov;
+        else
+            originalFov = 85f; // Фолбэк
+
+        cam.DoFov(originalFov + 10);
 
         Transform forwardT;
 
@@ -134,7 +140,7 @@ public class Dashing : MonoBehaviour
         pm.dashing = false;
         pm.maxYSpeed = 0;
 
-        cam.DoFov(85f);
+        cam.DoFov(originalFov);
 
         if (disableGravity)
             rb.useGravity = true;

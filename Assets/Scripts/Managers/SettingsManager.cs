@@ -12,6 +12,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
 
     private PixelationFeature _pixelationFeature;
+    private Camera _mainCamera;
 
     private void Awake()
     {
@@ -22,6 +23,8 @@ public class SettingsManager : MonoBehaviour
         // Находим PixelationFeature
         foreach (var f in rendererData.rendererFeatures)
             if (f is PixelationFeature pf) { _pixelationFeature = pf; break; }
+
+        _mainCamera = Camera.main;
 
         settings.Load();
     }
@@ -42,9 +45,28 @@ public class SettingsManager : MonoBehaviour
 
     public void ApplyGraphics()
     {
-        if (_pixelationFeature == null) return;
-        _pixelationFeature.settings.verticalPixels = settings.pixelation;
-        rendererData.SetDirty();
+        // Pixelation
+        if (_pixelationFeature != null)
+        {
+            _pixelationFeature.settings.verticalPixels = settings.pixelation;
+            rendererData.SetDirty();
+        }
+
+
+        // FOV
+        Camera cam = Camera.main;
+        if (cam == null) cam = FindAnyObjectByType<Camera>();
+        if (cam != null)
+        {
+            cam.fieldOfView = settings.fov;
+        }
+
+        // Вроде так легче всего для brightness
+        // Brightness — меняем цвет фона камеры и туман
+        if (cam != null)
+        {
+            cam.backgroundColor = Color.Lerp(Color.black, Color.white, settings.brightness);
+        }
     }
 
     public void ApplyAudio()

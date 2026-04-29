@@ -574,6 +574,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!114 &146530373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3827177721350925522, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
+  m_PrefabInstance: {fileID: 8271534602376601812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &232668884
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +903,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7011770765702006881, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
   m_PrefabInstance: {fileID: 8271534602376601812}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &668831193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1966446202188389080, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
+  m_PrefabInstance: {fileID: 8271534602376601812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &718108171 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3887025217268918781, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
@@ -1791,7 +1813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.347595, y: -4.8695374}
+  m_AnchoredPosition: {x: 8.347656, y: -4.869507}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159604168 stripped
@@ -2479,6 +2501,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882004511}
   m_CullTransparentMesh: 1
+--- !u!114 &1918707454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1808777228593233593, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
+  m_PrefabInstance: {fileID: 8271534602376601812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1994770620 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 501115863647251586, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
@@ -2559,6 +2592,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
+      propertyPath: fovSlider
+      value: 
+      objectReference: {fileID: 1918707454}
+    - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
       propertyPath: sfxSlider
       value: 
       objectReference: {fileID: 888762424}
@@ -2582,6 +2619,10 @@ PrefabInstance:
       propertyPath: sensYSlider
       value: 
       objectReference: {fileID: 1679582376}
+    - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
+      propertyPath: fovValueText
+      value: 
+      objectReference: {fileID: 668831193}
     - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
       propertyPath: masterSlider
       value: 
@@ -2611,9 +2652,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 810352903}
     - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
+      propertyPath: brightnessSlider
+      value: 
+      objectReference: {fileID: 146530373}
+    - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
       propertyPath: pixelationSlider
       value: 
       objectReference: {fileID: 1159604168}
+    - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
+      propertyPath: brightnessValueText
+      value: 
+      objectReference: {fileID: 8271534602376601813}
     - target: {fileID: 5131307116927356246, guid: 1081fa744764ba4fdaa00203947c268a, type: 3}
       propertyPath: pixelationValueText
       value: 
@@ -2760,6 +2809,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
+--- !u!114 &8271534602376601813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4797099009514768890, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
+  m_PrefabInstance: {fileID: 8271534602376601812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

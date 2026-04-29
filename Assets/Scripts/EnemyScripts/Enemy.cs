@@ -15,12 +15,55 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SFXEvent deathSFX;
     [SerializeField] private SFXEvent hurtSFX;
 
+    [Header("Push Settings")]
+    [SerializeField] private float pushForce = 25f;
+    [SerializeField] private float pushRadius = 2.5f;
+    [SerializeField] private float pushCooldown = 0.05f;
+
+    private float lastPushTime;
+    private Transform playerTransform;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         navAgent  = GetComponent<NavMeshAgent>();
         enemyCollider = GetComponent<Collider>();
     }
+
+
+    private void Update()
+    {
+        if (isDead) return;
+
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerTransform = player.transform;
+        }
+
+        if (playerTransform != null)
+        {
+            float distance = Vector3.Distance(transform.position, playerTransform.position);
+
+            if (distance <= pushRadius && Time.time - lastPushTime >= pushCooldown)
+            {
+                // Толкаем игрока
+                Vector3 pushDirection = (playerTransform.position - transform.position).normalized;
+                pushDirection.y = 0;
+
+                Rigidbody playerRb = playerTransform.GetComponent<Rigidbody>();
+                if (playerRb != null)
+                {
+                    Vector3 currentVelocity = playerRb.linearVelocity;
+                    playerRb.linearVelocity = new Vector3(pushDirection.x * pushForce, currentVelocity.y, pushDirection.z * pushForce);
+                }
+
+                lastPushTime = Time.time;
+            }
+        }
+    }
+
 
     public void TakeDamage(int damageAmount)
     {
@@ -72,7 +115,7 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 2.5f);
+        Gizmos.DrawWireSphere(transform.position, pushRadius);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, 18f);
