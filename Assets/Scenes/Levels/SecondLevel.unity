@@ -51643,6 +51643,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 470796218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1710219367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710219370}
+  - component: {fileID: 1710219369}
+  - component: {fileID: 1710219368}
+  m_Layer: 0
+  m_Name: MusicTrigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1710219368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710219367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22570554016da6e3b817d5102b895fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicTrigger
+  onEnterState: 1
+  onExitState: 1
+  playerTag: BodyPlayer
+--- !u!65 &1710219369
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710219367}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 100.4013, y: 40.384655, z: 120}
+  m_Center: {x: -25.85149, y: 12.14786, z: -6.873644}
+--- !u!4 &1710219370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710219367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.12609, y: 8.03149, z: 98.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1715130021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66427,6 +66496,7 @@ SceneRoots:
   - {fileID: 194835912}
   - {fileID: 1040943706}
   - {fileID: 513065133}
+  - {fileID: 1710219370}
   - {fileID: 1214484301}
   - {fileID: 1768801920}
   - {fileID: 1384781895}
