@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4205861799983661127}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: bulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2284973163469472848}
   - component: {fileID: 996474994538493891}
   - component: {fileID: 7842425726631459307}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: zatvor.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 8881049503427739870}
   - component: {fileID: 7239820441286723851}
   - component: {fileID: 5593602061106716842}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 591799790975484088}
   - component: {fileID: 8344646651501203034}
   - component: {fileID: 6132316157847944277}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 251626778183882334}
   - component: {fileID: 2871159032472619082}
   - component: {fileID: 8977850275523858472}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5772,7 +5772,7 @@ GameObject:
   - component: {fileID: 2424742164744727853}
   - component: {fileID: 4041771393503372823}
   - component: {fileID: 2269544592893407247}
-  m_Layer: 19
+  m_Layer: 10
   m_Name: MuzzleFlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

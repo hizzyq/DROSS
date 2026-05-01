@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobalPauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3527561834673899752, guid: d7451a35be818d2c190fe1defc604a8a, type: 3}
+      propertyPath: m_MaxValue
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 4999529395656608821, guid: d7451a35be818d2c190fe1defc604a8a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

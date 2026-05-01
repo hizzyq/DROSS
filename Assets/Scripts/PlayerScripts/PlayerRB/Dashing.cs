@@ -98,13 +98,9 @@ public class Dashing : MonoBehaviour
 
         AudioManager.PlayAt(dashSFX, transform.position);
 
-        // Сохраняем текущий FOV (из настроек) и применяем FOV дэша
-        if (SettingsManager.Instance != null)
-            originalFov = SettingsManager.Instance.Get().fov;
-        else
-            originalFov = 85f; // Фолбэк
+        float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
 
-        cam.DoFov(originalFov + 10);
+        cam.DoFov(baseFov + 10);
 
         Transform forwardT;
 
@@ -140,7 +136,8 @@ public class Dashing : MonoBehaviour
         pm.dashing = false;
         pm.maxYSpeed = 0;
 
-        cam.DoFov(originalFov);
+        float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
+        cam.DoFov(baseFov);
 
         if (disableGravity)
             rb.useGravity = true;

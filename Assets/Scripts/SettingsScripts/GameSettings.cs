@@ -17,7 +17,7 @@ public class GameSettings : ScriptableObject
     [Range(1f, 100f)] public float sensitivityX = 50f; // ← пользователю показываем 1-100
     [Range(1f, 100f)] public float sensitivityY = 50f;
     public bool invertY = false;
-    [Range(60, 120)] public int fov = 90;
+    [Range(60, 120)] public int fov = 85;
 
     // Конвертер: 1-100 → реальное значение для PlayerCam
     public float RealSensX => sensitivityX * 6f;  // 50 × 6 = 300
@@ -62,7 +62,7 @@ public class GameSettings : ScriptableObject
         sensitivityX = 300f;
         sensitivityY = 300f;
         invertY      = false;
-        fov = 90;
+        fov = 85;
         brightness = 0.5f;
     }
 }
