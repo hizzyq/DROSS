@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public Camera mainCamera;
     public ScreenBlackout screenBlackout;
 
+    private bool godMode = false;
+
     public bool isDead;
 
     // ← ДОБАВЛЕНО: два отдельных поля вместо несуществующего sfx
@@ -170,8 +172,18 @@ public class Player : MonoBehaviour
         // Много много хп для тестинга
         if (Input.GetKeyDown(KeyCode.P))
         {
-            maxHP = 10000000;
-            HP = 10000000;
+            if (!godMode)
+            {
+                maxHP = 10000000;
+                HP = 10000000;
+                godMode = true;
+            }
+            else
+            {
+                maxHP = 100;
+                HP = 100;
+                godMode = false;
+            }
         }
     }
 }
