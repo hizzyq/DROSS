@@ -121,7 +121,20 @@ public class SettingsUI : MonoBehaviour
     private void SetSliderSilent(Slider slider, float value)
     {
         if (slider == null) return;
-        slider.SetValueWithoutNotify(value);
+
+        // Защита от вылета за границы (о которой мы говорили ранее)
+        float clampedValue = Mathf.Clamp(value, slider.minValue, slider.maxValue);
+
+        // Хак для обхода бага Unity:
+        // Если внутреннее значение УЖЕ равно нужному, визуал не обновится.
+        // Поэтому мы принудительно немного сдвигаем его...
+        if (Mathf.Approximately(slider.value, clampedValue))
+        {
+            slider.SetValueWithoutNotify(clampedValue == slider.minValue ? clampedValue + 0.001f : clampedValue - 0.001f);
+        }
+
+        // ...и тут же ставим правильное. Это заставит Unity перерисовать ползунок на 100%!
+        slider.SetValueWithoutNotify(clampedValue);
     }
 
     private void RemoveAllListeners()
