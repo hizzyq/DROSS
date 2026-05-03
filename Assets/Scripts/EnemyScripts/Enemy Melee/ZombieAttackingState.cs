@@ -87,13 +87,15 @@ public class ZombieAttackingState : StateMachineBehaviour
 
     private void LookAtPlayer()
     {
-        // Дополнительная проверка внутри метода
         if (agent == null || !agent.isOnNavMesh) return;
 
         Vector3 direction = player.position - agent.transform.position;
-        agent.transform.rotation = Quaternion.LookRotation(direction);
-        var yRotation = agent.transform.eulerAngles.y;
-        agent.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        direction.y = 0f; // Игнорируем разницу в высоте!
+
+        if (direction != Vector3.zero)
+        {
+            agent.transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
