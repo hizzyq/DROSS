@@ -28,13 +28,16 @@ public class LevelExitTrigger : MonoBehaviour
 
         float waitTime = waitBeforeLoad;
 
-        // 1. Запускаем твой ScreenBlackout
-        if (player.screenBlackout != null)
+        // 1. Запускаем твой Fade
+        bool isFaded = false;
+        if (FadeManager.Instance != null)
         {
-            player.screenBlackout.enabled = true;
-            player.screenBlackout.StartFade();
-            // Берем длительность фейда напрямую из скрипта блэкаута
-            waitTime = player.screenBlackout.fadeDuration;
+            FadeManager.Instance.FadeOut(() => isFaded = true);
+            yield return new WaitUntil(() => isFaded); // Ждем завершения анимации фейда
+        }
+        else
+        {
+            yield return new WaitForSeconds(waitBeforeLoad);
         }
 
         // 2. Ждем, пока экран полностью потемнеет

@@ -16,8 +16,6 @@ public class MainMenuController : MonoBehaviour
     public Button continueButton;
 
     [Header("Scene Transition Settings")]
-    public Image fadePanel;
-    public float fadeDuration = 1f;
     public AudioSource uiAudio;
     public AudioClip clickSound;
 
@@ -25,6 +23,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        FadeManager.Instance.FadeIn();
         saveFilePath = Application.persistentDataPath + "/checkpoint.json";
 
         if (menuPanel != null) menuPanel.SetActive(true);
@@ -51,7 +50,10 @@ public class MainMenuController : MonoBehaviour
     {
         PlayClickSound();
         if (File.Exists(saveFilePath)) File.Delete(saveFilePath);
-        StartCoroutine(FadeAndLoad(sceneName));
+        FadeManager.Instance.FadeOut(() =>
+        {
+            SceneManager.LoadScene(sceneName);
+        });
     }
     public void ContinueGame()
     {
@@ -66,7 +68,10 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetString("TempCheckpointData", json);
             PlayerPrefs.Save();
 
-            StartCoroutine(FadeAndLoad(data.currentScene));
+            FadeManager.Instance.FadeOut(() =>
+            {
+                SceneManager.LoadScene(data.currentScene);
+            });
         }
     }
     //настройки
@@ -92,45 +97,10 @@ public class MainMenuController : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-    //зыук для кнопки
+    //звук для кнопки
     private void PlayClickSound()
     {
         if (uiAudio != null && clickSound != null)
             uiAudio.PlayOneShot(clickSound);
-    }
-    //затухание экрана при переключении сцен
-    // затухание экрана при переключении сцен
-    // затухание экрана при переключении сцен
-    private System.Collections.IEnumerator FadeAndLoad(string sceneName)
-    {
-        if (fadePanel != null)
-        {
-            // Включаем панель
-            fadePanel.gameObject.SetActive(true);
-
-            // Включаем блокировку кликов (чтобы игрок не нажал "Старт" дважды)
-            fadePanel.raycastTarget = true;
-
-            // Заставляем эту панель быть поверх всех остальных UI элементов в Canvas
-            fadePanel.transform.SetAsLastSibling();
-        }
-        else
-        {
-            Debug.LogWarning("Fade Panel не назначена в MainMenuController!");
-        }
-
-        float timer = 0f;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            float alpha = timer / fadeDuration;
-            if (fadePanel != null)
-            {
-                fadePanel.color = new Color(0, 0, 0, alpha);
-            }
-            yield return null;
-        }
-
-        SceneManager.LoadScene(sceneName);
     }
 }

@@ -12,9 +12,7 @@ public class Player : MonoBehaviour
     public HUDManager hudManager;
     public GameObject bloodyScreen;
     public PlayerDeathManager deathManager;
-    public GameObject gameOverUI;
     public Camera mainCamera;
-    public ScreenBlackout screenBlackout;
 
     private bool godMode = false;
 
@@ -77,22 +75,9 @@ public class Player : MonoBehaviour
             // Если выключить сам gameObject, менеджер перестанет работать, поэтому выключаем только нужные UI-панели
             // HUDManager.Instance.gameObject.SetActive(false);
         }
-
-        if (screenBlackout != null)
-        {
-            screenBlackout.enabled = true;
-            screenBlackout.StartFade();
-        }
-
-        StartCoroutine(ShowGameOverUI());
         
-        if (deathManager != null) deathManager.KillPlayer();
-    }
-
-    private IEnumerator ShowGameOverUI()
-    {
-        yield return new WaitForSeconds(1f);
-        gameOverUI.gameObject.SetActive(true);
+        if (deathManager != null)
+            deathManager.KillPlayer();
     }
 
     private IEnumerator BloodyScreenEffect()
@@ -154,7 +139,6 @@ public class Player : MonoBehaviour
             saveSystem.LoadCheckpoint(this);
         }
     }
-
 
     void Update()
     {

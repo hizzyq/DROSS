@@ -182,11 +182,10 @@ public class CheckpointSaveSystem : MonoBehaviour
 
         player.isDead = false;
 
-        if (player.gameOverUI != null)
-            player.gameOverUI.SetActive(false);
-
-        if (player.screenBlackout != null)
-            player.screenBlackout.enabled = false;
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeIn();
+        }
 
         // Возвращаем курсор в игровой режим после загрузки
         Cursor.lockState = CursorLockMode.Locked;

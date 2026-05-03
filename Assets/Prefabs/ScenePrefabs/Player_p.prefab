@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 5432266637431804508}
   - component: {fileID: 7611465207089901687}
   - component: {fileID: 83621525332046302}
-  - component: {fileID: 8351428414113478886}
   - component: {fileID: 6853428344743915064}
   - component: {fileID: 7478310305607540549}
   - component: {fileID: 3642011880624680526}
@@ -267,7 +266,6 @@ MonoBehaviour:
   maxDashYSpeed: 12
   dashDuration: 0.25
   cam: {fileID: 0}
-  dashFov: 95
   useCameraForward: 1
   allowAllDirections: 1
   disableGravity: 1
@@ -295,27 +293,10 @@ MonoBehaviour:
   hudManager: {fileID: 0}
   bloodyScreen: {fileID: 0}
   deathManager: {fileID: 3642011880624680526}
-  gameOverUI: {fileID: 0}
   mainCamera: {fileID: 0}
-  screenBlackout: {fileID: 8351428414113478886}
   isDead: 0
   hurtSFX: {fileID: 11400000, guid: 51fb494048f13ba2c8dcf6ff778a3219, type: 2}
   deathSFX: {fileID: 11400000, guid: bba03bf94c2f94d408e6cbcf052a17e2, type: 2}
---- !u!114 &8351428414113478886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4840510415262773233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263235d3484295c49be504b32a00e228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
-  fadeImage: {fileID: 0}
-  fadeDuration: 2
-  fadeInDuration: 2
 --- !u!114 &6853428344743915064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathManager
   player: {fileID: 83621525332046302}
   gameOverUI: {fileID: 0}
-  screenBlackout: {fileID: 8351428414113478886}
 --- !u!114 &7360414435495912557
 MonoBehaviour:
   m_ObjectHideFlags: 0
