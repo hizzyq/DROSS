@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 
@@ -13,7 +14,7 @@ public class FadeManager : MonoBehaviour
 
     private void Awake()
     {
-        // Настройка Singleton
+        // 1. Проверка на синглтон
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -21,51 +22,91 @@ public class FadeManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Объект не будет уничтожаться при смене сцен
 
-        // Убедимся, что при старте игры экран прозрачный
-        fadeImage.gameObject.SetActive(true);
-        SetAlpha(0f);
+        // 2. ОТВЯЗЫВАЕМ объект от родителей (DontDestroyOnLoad работает только в корне!)
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+
+        // 3. Делаем экран черным при создании
+        if (fadeImage != null)
+        {
+            fadeImage.gameObject.SetActive(true);
+            SetAlpha(1f);
+        }
     }
 
-    // Метод для затемнения (ухода в черный)
+    private void Start()
+    {
+        // 4. ГАРАНТИЯ выхода из тьмы при самом первом запуске игры
+        FadeIn();
+    }
+
+    private void OnEnable()
+    {
+        // Подписываемся на смену активной сцены (это надежнее, чем sceneLoaded)
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene current, Scene next)
+    {
+        // Как только сцена переключилась — выходим из темноты
+        FadeIn();
+    }
+
     public void FadeOut(Action onComplete = null)
     {
         StopAllCoroutines();
         StartCoroutine(FadeCoroutine(fadeImage.color.a, 1f, onComplete));
     }
 
-    // Метод для осветления (выхода из черного)
     public void FadeIn(Action onComplete = null)
     {
         StopAllCoroutines();
         StartCoroutine(FadeCoroutine(fadeImage.color.a, 0f, onComplete));
     }
 
-    // Мгновенное затемнение/осветление (без анимации)
     public void SetAlpha(float alpha)
     {
         StopAllCoroutines();
-        Color c = fadeImage.color;
-        c.a = alpha;
-        fadeImage.color = c;
+        if (fadeImage != null)
+        {
+            Color c = fadeImage.color;
+            c.a = alpha;
+            fadeImage.color = c;
+        }
     }
 
     private IEnumerator FadeCoroutine(float startAlpha, float targetAlpha, Action onComplete)
     {
         float timer = 0f;
-        Color color = fadeImage.color;
 
+        // Защита от зависания, если игра на паузе (Time.timeScale = 0)
         while (timer < fadeDuration)
         {
-            timer += Time.deltaTime;
-            color.a = Mathf.Lerp(startAlpha, targetAlpha, timer / fadeDuration);
-            fadeImage.color = color;
+            // Используем unscaledDeltaTime, чтобы фейд работал даже во время паузы игры!
+            timer += Time.unscaledDeltaTime;
+
+            if (fadeImage != null)
+            {
+                Color color = fadeImage.color;
+                color.a = Mathf.Lerp(startAlpha, targetAlpha, timer / fadeDuration);
+                fadeImage.color = color;
+            }
             yield return null;
         }
 
-        color.a = targetAlpha;
-        fadeImage.color = color;
-        onComplete?.Invoke(); // Вызываем действие после завершения (например, загрузку сцены)
+        if (fadeImage != null)
+        {
+            Color finalColor = fadeImage.color;
+            finalColor.a = targetAlpha;
+            fadeImage.color = finalColor;
+        }
+
+        onComplete?.Invoke();
     }
 }

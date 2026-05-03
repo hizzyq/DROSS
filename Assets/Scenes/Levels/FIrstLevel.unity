@@ -4230,10 +4230,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 477167926953251476, guid: 1c6fd2486737ce8679a6821b537dbcd5, type: 3}
-      propertyPath: priority
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2646894349526334920, guid: 1c6fd2486737ce8679a6821b537dbcd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.476
@@ -4277,10 +4273,6 @@ PrefabInstance:
     - target: {fileID: 4392679813260506112, guid: 1c6fd2486737ce8679a6821b537dbcd5, type: 3}
       propertyPath: m_Name
       value: BlurVolume
-      objectReference: {fileID: 0}
-    - target: {fileID: 4392679813260506112, guid: 1c6fd2486737ce8679a6821b537dbcd5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23053,18 +23045,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1687148512711935781, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687148512711935781, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-      propertyPath: m_Maskable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687148512711935781, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2928715788278989661, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
       propertyPath: m_Name
       value: UI
@@ -23684,10 +23664,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: gameOverUI
-      value: 
-      objectReference: {fileID: 9201550691515571139}
-    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: hudManager
       value: 
       objectReference: {fileID: 5602689029206842718}
@@ -23695,10 +23671,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 940807745650037650}
-    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: bloodyScreen
-      value: 
-      objectReference: {fileID: 8324224753160370311}
     - target: {fileID: 2557879951093909676, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 
@@ -23779,10 +23751,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8351428414113478886, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: fadeImage
-      value: 
-      objectReference: {fileID: 5995894492375605785}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23892,17 +23860,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5995894492375605785 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1687148512711935781, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 4055664800485822388}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!33 &6239809847161265543
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25051,11 +25008,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &8324224753160370311 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8470560837252941515, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 4055664800485822388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8353206060479188194
 Transform:
   m_ObjectHideFlags: 0

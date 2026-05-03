@@ -10581,10 +10581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0267917c0c84a3c40ba808e31070e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndGame
-  screenBlackout: {fileID: 1437695825}
-  gameOverUI: {fileID: 1209209535}
-  playerHealthUI: {fileID: 1209209536}
   _sceneName: MainMenu
+  playerHealthUI: {fileID: 1209209536}
 --- !u!4 &383719333
 Transform:
   m_ObjectHideFlags: 0
@@ -28433,6 +28431,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+--- !u!114 &970842454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6211321604582449877, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+  m_PrefabInstance: {fileID: 970842453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666191a57ad0b2043862b5f78302d1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &973077784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35170,30 +35179,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
---- !u!1 &1209209532 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8470560837252941515, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 1209209531}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1209209533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8417222532113977692, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 1209209531}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1209209534 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1687148512711935781, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 1209209531}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!1 &1209209535 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3279810305544083219, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
   m_PrefabInstance: {fileID: 1209209531}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1209209536 stripped
@@ -35201,7 +35189,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9005180498260634910, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
   m_PrefabInstance: {fileID: 1209209531}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209209535}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -41033,13 +41021,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: gameOverUI
-      value: 
-      objectReference: {fileID: 1209209533}
-    - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: hudManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 970842454}
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: mainCamera
       value: 
@@ -41047,7 +41031,7 @@ PrefabInstance:
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: bloodyScreen
       value: 
-      objectReference: {fileID: 1209209532}
+      objectReference: {fileID: 0}
     - target: {fileID: 2557879951093909676, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 
@@ -41124,10 +41108,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8351428414113478886, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-      propertyPath: fadeImage
-      value: 
-      objectReference: {fileID: 1209209534}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41143,17 +41123,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8238243823499288496, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
   m_PrefabInstance: {fileID: 1437695822}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1437695825 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8351428414113478886, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
-  m_PrefabInstance: {fileID: 1437695822}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263235d3484295c49be504b32a00e228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
 --- !u!1 &1445913590
 GameObject:
   m_ObjectHideFlags: 0
