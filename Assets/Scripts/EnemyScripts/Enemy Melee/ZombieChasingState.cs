@@ -41,7 +41,13 @@ public class ZombieChasingState : StateMachineBehaviour
         }
 
         agent.SetDestination(player.position);
-        animator.transform.LookAt(player);
+        Vector3 direction = player.position - animator.transform.position;
+        direction.y = 0f; // Игнорируем высоту!
+
+        if (direction != Vector3.zero)
+        {
+            animator.transform.rotation = Quaternion.LookRotation(direction);
+        }
 
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
 

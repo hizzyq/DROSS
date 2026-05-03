@@ -112,7 +112,7 @@ public class RangeAttackState : StateMachineBehaviour
     {
         Vector3 targetPos = player.position + Vector3.up * 1.2f; // Целимся в корпус
         Vector3 dir = targetPos - self.position;
-    
+        dir.y = 0;
         // Если нужно, чтобы враг НЕ падал (стоял ровно), 
         // но голова/оружие смотрели вверх:
         if (dir != Vector3.zero)
