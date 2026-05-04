@@ -12966,7 +12966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 0}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!65 &1282166535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20540,7 +20540,8 @@ GameObject:
   - component: {fileID: 2127391927}
   - component: {fileID: 2127391926}
   - component: {fileID: 2127391925}
-  m_Layer: 0
+  - component: {fileID: 2127391929}
+  m_Layer: 20
   m_Name: Buranyuu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20640,6 +20641,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &2127391929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127391924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7b91030d643b346bddbc96af167264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BURENYA
+  hit: {fileID: 11400000, guid: f36dd8e6e70650a40a6be7e022def4b1, type: 2}
+  bulletLayer: 9
 --- !u!1 &2138476782
 GameObject:
   m_ObjectHideFlags: 0
@@ -21746,7 +21761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 8390856669736089444}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!114 &1319482434087001399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21761,7 +21776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 0}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!114 &1319482434257659355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21776,7 +21791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 8390856669312654496}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!1001 &1352899235299278023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23713,7 +23728,7 @@ PrefabInstance:
       objectReference: {fileID: 7634154591473316863}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 56.73
+      value: -45.11
       objectReference: {fileID: 0}
     - target: {fileID: 8159021594781268202, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24581,7 +24596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 1860775364935346975}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!23 &8030678856156944049
 MeshRenderer:
   m_ObjectHideFlags: 0

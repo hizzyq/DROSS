@@ -15689,7 +15689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 2044064517}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!65 &515280542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39600,7 +39600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 2044064517}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!65 &1289058853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -53273,7 +53273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 1368059248}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!65 &1841923182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54069,7 +54069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 1368059248}
-  activateSFX: {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}
 --- !u!65 &1883358674
 BoxCollider:
   m_ObjectHideFlags: 0
