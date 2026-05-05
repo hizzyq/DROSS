@@ -88,9 +88,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3930571566282559517}
-  - component: {fileID: 1587321608128136792}
-  - component: {fileID: 7173291828183271357}
   - component: {fileID: 6186855156863317593}
+  - component: {fileID: 7173291828183271357}
+  - component: {fileID: 1587321608128136792}
   - component: {fileID: 6601407246584230475}
   m_Layer: 0
   m_Name: enemy_range
@@ -117,48 +117,6 @@ Transform:
   - {fileID: 4009611901379861367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1587321608128136792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3454729515500278325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e8e75f86c67fc4092a4800ab832ac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  HP: 75
-  destroyDelay: 3
-  isDead: 0
-  deathSFX: {fileID: 0}
-  hurtSFX: {fileID: 0}
-  pushForce: 20
-  pushRadius: 1.5
-  pushCooldown: 0.05
---- !u!195 &7173291828183271357
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3454729515500278325}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.57
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2.76
-  m_BaseOffset: 1.26
-  m_WalkableMask: 5
-  m_ObstacleAvoidanceType: 4
 --- !u!95 &6186855156863317593
 Animator:
   serializedVersion: 7
@@ -181,6 +139,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &7173291828183271357
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3454729515500278325}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.57
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2.76
+  m_BaseOffset: 1.26
+  m_WalkableMask: 5
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1587321608128136792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3454729515500278325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e8e75f86c67fc4092a4800ab832ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  HP: 75
+  destroyDelay: 3
+  isDead: 0
+  deathSFX: {fileID: 11400000, guid: de3c96f89a44ab564b4aec837496cc1d, type: 2}
+  hurtSFX: {fileID: 11400000, guid: 053c22d38b06faf169d75efb750cdc43, type: 2}
+  pushForce: 20
+  pushRadius: 1.5
+  pushCooldown: 0.05
 --- !u!136 &6601407246584230475
 CapsuleCollider:
   m_ObjectHideFlags: 0
