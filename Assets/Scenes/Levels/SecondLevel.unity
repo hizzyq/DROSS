@@ -29005,7 +29005,7 @@ MonoBehaviour:
     m_Bits: 8
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -71014,3 +71014,6 @@ SceneRoots:
   - {fileID: 859254634}
   - {fileID: 1391191941}
   - {fileID: 136869621}
+  - {fileID: 1990296533}
+  - {fileID: 1797945087}
+  - {fileID: 2046513608}
