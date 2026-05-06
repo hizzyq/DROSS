@@ -367,6 +367,8 @@ public class CheckpointSaveSystem : MonoBehaviour
                 newWp.transform.localPosition = w.spawnPosition;
                 newWp.transform.localRotation = Quaternion.Euler(w.spawnRotation);
                 w.isActiveWeapon = (wData.slotIndex == weaponData.activeWeaponIndex);
+                if (w.animator != null)
+                    w.animator.enabled = w.isActiveWeapon;
             }
             else
             {

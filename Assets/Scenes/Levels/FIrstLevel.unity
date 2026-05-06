@@ -13977,6 +13977,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 446082049701249952}
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: initialZombiesPerWave
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: 'spawnPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 144792365}
@@ -24234,7 +24238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a9f0a47f741da4b9455246573f16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElevatorCabin
-  moveDuration: 2
+  moveDuration: 10
   elevatorDoors: {fileID: 6922679877432464593}
   point1: {fileID: 1052163016073876719}
   point2: {fileID: 1928855652851325962}

@@ -273,6 +273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy_2(animation)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a12209d2c0a614541b18ba0a5befbf37, type: 2}
     - target: {fileID: 8417361359673230750, guid: 71870adfe38140449abf22bf2f83fe2e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

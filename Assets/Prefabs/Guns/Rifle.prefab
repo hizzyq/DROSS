@@ -5736,7 +5736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   isActiveWeapon: 0
-  weaponDamage: 15
+  weaponDamage: 20
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.145

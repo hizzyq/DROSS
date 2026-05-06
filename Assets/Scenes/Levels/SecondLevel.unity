@@ -20601,7 +20601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93ea7aa45a5254b8318f604bec20db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawnController
-  initialZombiesPerWave: 6
+  initialZombiesPerWave: 3
   currentZombiesPerWave: 0
   spawnDelay: 0.5
   maxWaves: 3
@@ -34862,7 +34862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93ea7aa45a5254b8318f604bec20db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawnController
-  initialZombiesPerWave: 4
+  initialZombiesPerWave: 3
   currentZombiesPerWave: 0
   spawnDelay: 0.5
   maxWaves: 2

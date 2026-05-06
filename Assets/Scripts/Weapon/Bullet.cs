@@ -47,6 +47,14 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+        else
+        {
+            print("hit smthing!");
+
+            CreateBulletImpactEffect(collision);
+
+            Destroy(gameObject);
+        }
     }
 
     private void CreateBloodSprayEffect(Collision collision)

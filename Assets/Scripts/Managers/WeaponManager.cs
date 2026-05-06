@@ -95,12 +95,20 @@ public class WeaponManager : MonoBehaviour
     public void SwitchActiveSlot(int slotNumber)
     {
         if (activeWeaponSlot.transform.childCount > 0)
-            activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>().isActiveWeapon = false;
+        {
+            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            currentWeapon.isActiveWeapon = false;
+            if (currentWeapon.animator != null) currentWeapon.animator.enabled = false; // Выключаем аниматор
+        }
 
         activeWeaponSlot = weaponSlots[slotNumber];
 
         if (activeWeaponSlot.transform.childCount > 0)
-            activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>().isActiveWeapon = true;
+        {
+            Weapon newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            newWeapon.isActiveWeapon = true;
+            if (newWeapon.animator != null) newWeapon.animator.enabled = true; // Включаем аниматор
+        }
     }
 
     public void PickupAmmo(AmmoBox ammoBox)
