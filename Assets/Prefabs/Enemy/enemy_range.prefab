@@ -79,6 +79,7 @@ MonoBehaviour:
   firePoint: {fileID: 8413898720959950709}
   bulletSpeed: 8
   damage: 20
+  attackSFX: {fileID: 11400000, guid: 4b9a62084b2f7544c882902d65181f32, type: 2}
 --- !u!1 &3454729515500278325
 GameObject:
   m_ObjectHideFlags: 0
