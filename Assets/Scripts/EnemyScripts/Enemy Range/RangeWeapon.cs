@@ -7,6 +7,7 @@ public class RangeWeapon : MonoBehaviour
     public Transform firePoint;
     public float bulletSpeed = 8f;
     public int damage = 20;
+    [SerializeField] public SFXEvent attackSFX;
     
     public void Fire()
     {
@@ -17,7 +18,7 @@ public class RangeWeapon : MonoBehaviour
         if (playerObj == null) return;
 
         // Вычисляем направление к центру игрока (чуть выше его ног)
-        Vector3 targetPoint = playerObj.transform.position + Vector3.up * 1.2f;
+        Vector3 targetPoint = playerObj.transform.position;
         Vector3 fireDirection = (targetPoint - firePoint.position).normalized;
 
         // Создаем пулю, направленную в сторону игрока
@@ -29,5 +30,7 @@ public class RangeWeapon : MonoBehaviour
             Collider ownerCollider = GetComponentInParent<Collider>();
             eb.Init(damage, bulletSpeed, ownerCollider);
         }
+        
+        AudioManager.Play(attackSFX);
     }
 }

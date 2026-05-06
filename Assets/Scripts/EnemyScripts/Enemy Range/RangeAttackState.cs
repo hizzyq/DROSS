@@ -22,11 +22,6 @@ public class RangeAttackState : StateMachineBehaviour
     // Компонент, который реально стреляет — ищем на том же GameObject
     private RangeWeapon _weapon;
 
-    // Звук атаки
-    public SFXEvent attackSFX;
-    public float soundRepeatInterval = 1.5f;
-    private float _soundTimer;
-
     // Проверка прямой видимости перед каждым выстрелом
     public LayerMask obstacleMask;
 
@@ -40,8 +35,7 @@ public class RangeAttackState : StateMachineBehaviour
 
         _initialDelayDone = false;
         _initialTimer  = 0f;
-        _fireTimer  = 0f;
-        _soundTimer = soundRepeatInterval;
+        _fireTimer  = fireRate;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -71,14 +65,6 @@ public class RangeAttackState : StateMachineBehaviour
             return;
         }
 
-        // Звук атаки
-        _soundTimer += Time.deltaTime;
-        if (_soundTimer >= soundRepeatInterval)
-        {
-            _soundTimer = 0f;
-            AudioManager.PlayAttached(attackSFX, animator.transform);
-        }
-
         // Выстрел по таймеру, только если есть прямая видимость
         if (!_initialDelayDone)
         {
@@ -104,7 +90,6 @@ public class RangeAttackState : StateMachineBehaviour
         {
             agent.isStopped = false;
             _fireTimer = fireRate;
-            _soundTimer = soundRepeatInterval;
         }
     }
 

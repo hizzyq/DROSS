@@ -72,7 +72,7 @@ public class PlayerDeathManager : MonoBehaviour
 
     private IEnumerator ReviveCooldown()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         Debug.Log("Revivable");
         revivable = true;
     }

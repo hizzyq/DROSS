@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangeAttackState
   stopAttackingDistance: 24
   retreatDistance: 4
-  initialDelay: 0.4
+  initialDelay: 1
   fireRate: 2.5
   attackSFX: {fileID: 0}
   soundRepeatInterval: 2.5
