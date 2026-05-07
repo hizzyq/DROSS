@@ -33,10 +33,18 @@ public class EnemyBullet : MonoBehaviour
     private void Update()
     {
         if (_playerCollider == null) return;
-
+    
         if (GetComponent<Collider>().bounds.Intersects(_playerCollider.bounds))
         {
             _playerCollider.GetComponentInParent<Player>()?.TakeDamage(_damage);
+            Destroy(gameObject);
+        }
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
+        {
             Destroy(gameObject);
         }
     }

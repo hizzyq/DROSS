@@ -49,7 +49,7 @@ public class AcidCameraEffect : MonoBehaviour
     void ApplyEffects(float t)
     {
         if (acidOverlay != null)
-            acidOverlay.alpha = t * 0.45f;
+            acidOverlay.alpha = t * 0.25f;
 
         if (_vignette != null)
             _vignette.intensity.Override(t * maxVignette);
@@ -61,7 +61,7 @@ public class AcidCameraEffect : MonoBehaviour
         {
             _colorAdj.colorFilter.Override(Color.Lerp(Color.white,
                 new Color(0.6f, 1.2f, 0.5f), t * 0.7f));
-            _colorAdj.postExposure.Override(Mathf.Lerp(0f, -0.8f, t));
+            _colorAdj.postExposure.Override(Mathf.Lerp(0f, -0.2f, t));
         }
 
         if (_dof != null)
