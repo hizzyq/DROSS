@@ -8,6 +8,7 @@ public class HealBox : MonoBehaviour
     
     private void OnDestroy()
     {
+        if (!gameObject.scene.isLoaded) return;
         AudioManager.Play(pickupSFX);
     }
 }

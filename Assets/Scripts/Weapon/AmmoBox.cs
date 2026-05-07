@@ -18,6 +18,7 @@ public class AmmoBox : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (!gameObject.scene.isLoaded) return;
         AudioManager.Play(pickupSFX);
     }
 }

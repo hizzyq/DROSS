@@ -263,21 +263,28 @@ public class SFXPool : MonoBehaviour
 
     private AudioSource Rent()
     {
-        AudioSource src;
+        AudioSource src = null;
 
-        if (_free.Count > 0)
+        // Цикл, пока не найдём живой объект или пока очередь не опустеет
+        while (_free.Count > 0)
         {
             src = _free.Dequeue();
+            if (src != null) break; 
         }
-        else if (allowGrowth)
+
+        // Если в очереди не осталось живых объектов, создаём новый (если разрешено)
+        if (src == null)
         {
-            src = CreateSource();
-            Debug.LogWarning("[SFXPool] Пул вырос. Рассмотри увеличение initialSize.");
-        }
-        else
-        {
-            Debug.LogWarning("[SFXPool] Пул исчерпан, звук пропущен.");
-            return null;
+            if (allowGrowth)
+            {
+                src = CreateSource();
+                Debug.LogWarning("[SFXPool] Пул вырос или восстановился после уничтожения объектов.");
+            }
+            else
+            {
+                Debug.LogWarning("[SFXPool] Пул исчерпан или объекты уничтожены, звук пропущен.");
+                return null;
+            }
         }
 
         src.gameObject.SetActive(true);
