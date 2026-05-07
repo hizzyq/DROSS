@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 550b2193cb5613c45acb56368757b8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadeThrow: {fileID: 0}
 --- !u!1 &654783370286742656
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   activeWeaponSlot: {fileID: 0}
   totalRifleAmmo: 0
   totalPistolAmmo: 0
+  totalShotgunAmmo: 0
 --- !u!1001 &2144256041630240868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -176,6 +178,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: rifleSprite
+      value: 
+      objectReference: {fileID: 21300044, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: pistolSprite
+      value: 
+      objectReference: {fileID: 21300022, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: rifleAmmoSprite
+      value: 
+      objectReference: {fileID: 21300012, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: pistolAmmoSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
     - target: {fileID: 8703127812090816092, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: m_Name
       value: HUDManager
