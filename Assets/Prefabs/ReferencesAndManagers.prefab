@@ -181,19 +181,23 @@ PrefabInstance:
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: rifleSprite
       value: 
-      objectReference: {fileID: 21300044, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+      objectReference: {fileID: 21300044, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: pistolSprite
       value: 
-      objectReference: {fileID: 21300022, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+      objectReference: {fileID: 21300022, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
+    - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
+      propertyPath: grenadeSprite
+      value: 
+      objectReference: {fileID: 21300020, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: rifleAmmoSprite
       value: 
-      objectReference: {fileID: 21300012, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
+      objectReference: {fileID: 21300012, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
     - target: {fileID: 5472684529254904497, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: pistolAmmoSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
+      objectReference: {fileID: 21300000, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
     - target: {fileID: 8703127812090816092, guid: 2a4051f3fe56cf0cabf8fdb0a6ddcbeb, type: 3}
       propertyPath: m_Name
       value: HUDManager

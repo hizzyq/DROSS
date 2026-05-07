@@ -30,6 +30,7 @@ public class HUDManager : MonoBehaviour
     public Sprite rifleSprite;
     public Sprite pistolAmmoSprite;
     public Sprite rifleAmmoSprite;
+    public Sprite grenadeSprite;
 
     public Sprite emptySlot;
     public GameObject middleDot;
@@ -39,6 +40,15 @@ public class HUDManager : MonoBehaviour
         // НЕ DontDestroyOnLoad — Canvas привязан к сцене
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        // Применяем спрайт гранаты к UI при старте
+        if (lethalUI != null && grenadeSprite != null)
+        {
+            lethalUI.sprite = grenadeSprite;
+        }
     }
 
     private void OnDestroy()
