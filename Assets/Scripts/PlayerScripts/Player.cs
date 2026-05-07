@@ -121,11 +121,13 @@ public class Player : MonoBehaviour
         if (other.gameObject.GetComponent<HealBox>())
         {
             var healBox = other.gameObject.GetComponent<HealBox>();
-            if (HP != 100)
+            if (HP != maxHP)
             {
-                HP = HP + healBox.gameObject.GetComponent<HealBox>().HealAmount();
-                if (HP > maxHP) HP = maxHP;
+                HP += healBox.gameObject.GetComponent<HealBox>().HealAmount();
+                if (HP > maxHP)
+                    HP = maxHP;
                 Destroy(healBox.gameObject);
+                HUDManager.Instance.UpdateHealthBar(HP, maxHP);
                 healBox = null;
             }
         }
@@ -168,6 +170,7 @@ public class Player : MonoBehaviour
                 HP = 100;
                 godMode = false;
             }
+            HUDManager.Instance.UpdateHealthBar(HP, maxHP);
         }
     }
 }
