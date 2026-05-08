@@ -722,6 +722,8 @@ MonoBehaviour:
     track: {fileID: 11400000, guid: d0fc83666a72d76608472c1930720c35, type: 2}
   - state: 1
     track: {fileID: 11400000, guid: 926aaccbd3d596870bb880160bb1681a, type: 2}
+  - state: 5
+    track: {fileID: 11400000, guid: 2fee65b3f3583da609fd2daac7c65013, type: 2}
   musicMixerGroup: {fileID: 8623529747993954607, guid: 8d5a0f141f58a3b7ea0ed151c9318f7e, type: 2}
 --- !u!1 &4982196824751577208
 GameObject:

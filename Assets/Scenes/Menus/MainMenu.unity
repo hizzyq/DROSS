@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 232668885}
   - component: {fileID: 232668886}
   - component: {fileID: 232668887}
+  - component: {fileID: 232668888}
   m_Layer: 0
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -633,8 +634,6 @@ MonoBehaviour:
   menuPanel: {fileID: 815120282}
   settingsPanel: {fileID: 660759561}
   continueButton: {fileID: 36222774}
-  fadePanel: {fileID: 1126094621}
-  fadeDuration: 1
   uiAudio: {fileID: 232668887}
   clickSound: {fileID: 8300000, guid: a1bb14b57667b0d4e89fb427f372cc97, type: 3}
 --- !u!82 &232668887
@@ -646,9 +645,9 @@ AudioSource:
   m_GameObject: {fileID: 232668884}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 984847867427519809, guid: 8d5a0f141f58a3b7ea0ed151c9318f7e, type: 2}
+  OutputAudioMixerGroup: {fileID: 8623529747993954607, guid: 8d5a0f141f58a3b7ea0ed151c9318f7e, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: a1bb14b57667b0d4e89fb427f372cc97, type: 3}
+  m_Resource: {fileID: 8300000, guid: c460d74a85b41fb41bc889334c90373b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -734,6 +733,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &232668888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232668884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e459d827fdafd9ea3ae9028ab6313a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  menuState: 5
 --- !u!114 &352025104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2121645524768881241, guid: 3e55ac9af718625c2ba9aaeb507bc9b2, type: 3}
