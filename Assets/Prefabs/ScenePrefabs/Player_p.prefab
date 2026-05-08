@@ -181,7 +181,7 @@ MonoBehaviour:
   grounded: 0
   coyoteTimer: 0.2
   coyoteTimeCounter: 0
-  maxSlopeAngle: 50
+  maxSlopeAngle: 60
   footstepSFX:
   - {fileID: 11400000, guid: 3f561c91f024ec74384df5f300c5e0ec, type: 2}
   - {fileID: 11400000, guid: b6ef6a630a8a3434c80194a6d23d19cc, type: 2}
