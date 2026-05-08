@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private Camera aimCamera;
+
     public bool isActiveWeapon;
     private bool _wasActiveWeapon; // Для отслеживания смены состояния и экономии ресурсов
 
@@ -231,14 +233,21 @@ public class Weapon : MonoBehaviour
         if (bulletSpawn == null)
             return transform.forward;
 
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit) ? hit.point : ray.GetPoint(100f);
-        Vector3 direction = targetPoint - bulletSpawn.position;
+        var cam = aimCamera != null ? aimCamera : Camera.main;
+        if (cam == null)
+            return bulletSpawn.forward;
 
-        float z = Random.Range(-spreadIntensity, spreadIntensity);
-        float y = Random.Range(-spreadIntensity, spreadIntensity);
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 1000f)
+            ? hit.point
+            : ray.GetPoint(1000f);
 
-        return direction + new Vector3(0f, y, z);
+        Vector3 direction = (targetPoint - bulletSpawn.position).normalized;
+
+        Vector2 spread = Random.insideUnitCircle * spreadIntensity;
+        Vector3 spreadOffset = cam.transform.right * spread.x + cam.transform.up * spread.y;
+
+        return (direction + spreadOffset).normalized;
     }
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)

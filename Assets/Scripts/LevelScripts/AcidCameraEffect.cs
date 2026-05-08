@@ -39,7 +39,7 @@ public class AcidCameraEffect : MonoBehaviour
 
     void Update()
     {
-        _submerged = player.position.y < acid.transform.position.y;
+        _submerged = acid.GetComponentInParent<BoxCollider>().bounds.Contains(player.transform.position);
         float target = _submerged ? 1f : 0f;
         _intensity = Mathf.MoveTowards(_intensity, target, fadeSpeed * Time.deltaTime);
 
