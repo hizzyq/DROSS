@@ -156,3 +156,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicalButton
   connectedObjects:
   - {fileID: 0}
+  activateSFX: {fileID: 11400000, guid: 17544fecdc03f0c4b87a96260cd17903, type: 2}

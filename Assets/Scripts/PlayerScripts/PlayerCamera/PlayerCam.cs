@@ -21,12 +21,14 @@ public class PlayerCam : MonoBehaviour
         Cursor.visible = false;
         
         LoadSensitivity();
+        LoadFOV();
     }
 
     private void OnEnable()
     {
         // Перечитать при возврате из паузы (если камера отключалась)
         LoadSensitivity();
+        LoadFOV();
     }
     
     private void Update()
@@ -57,6 +59,14 @@ public class PlayerCam : MonoBehaviour
         float mapped = Mathf.Lerp(10f, 600f, saved / 100f);
         sensX = mapped;
         sensY = mapped;
+    }
+
+    private void LoadFOV()
+    {
+        if (SettingsManager.Instance != null)
+        {
+            GetComponent<Camera>().fieldOfView = SettingsManager.Instance.Get().fov;
+        }
     }
     
     public void DoFov(float endValue)

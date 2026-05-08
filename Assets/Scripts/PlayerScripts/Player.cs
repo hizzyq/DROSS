@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,9 @@ public class Player : MonoBehaviour
     public HUDManager hudManager;
     public GameObject bloodyScreen;
     public PlayerDeathManager deathManager;
-    public GameObject gameOverUI;
     public Camera mainCamera;
-    public ScreenBlackout screenBlackout;
+
+    private bool godMode = false;
 
     public bool isDead;
 
@@ -74,22 +75,9 @@ public class Player : MonoBehaviour
             // Если выключить сам gameObject, менеджер перестанет работать, поэтому выключаем только нужные UI-панели
             // HUDManager.Instance.gameObject.SetActive(false);
         }
-
-        if (screenBlackout != null)
-        {
-            screenBlackout.enabled = true;
-            screenBlackout.StartFade();
-        }
-
-        StartCoroutine(ShowGameOverUI());
         
-        if (deathManager != null) deathManager.KillPlayer();
-    }
-
-    private IEnumerator ShowGameOverUI()
-    {
-        yield return new WaitForSeconds(1f);
-        gameOverUI.gameObject.SetActive(true);
+        if (deathManager != null)
+            deathManager.KillPlayer();
     }
 
     private IEnumerator BloodyScreenEffect()
@@ -129,11 +117,19 @@ public class Player : MonoBehaviour
             Destroy(ammoBox.gameObject);
             ammoBox = null;
         }
-        if (other.TryGetComponent<GrenadePickup>(out var grenadePickup))
+
+        if (other.gameObject.GetComponent<HealBox>())
         {
-            GetComponent<GrenadeThrow>().grenadeCount += grenadePickup.amount;
-            HUDManager.Instance.UpdateGrenadeCount(GetComponent<GrenadeThrow>().grenadeCount);
-            Destroy(other.gameObject);
+            var healBox = other.gameObject.GetComponent<HealBox>();
+            if (HP != maxHP)
+            {
+                HP += healBox.gameObject.GetComponent<HealBox>().HealAmount();
+                if (HP > maxHP)
+                    HP = maxHP;
+                Destroy(healBox.gameObject);
+                HUDManager.Instance.UpdateHealthBar(HP, maxHP);
+                healBox = null;
+            }
         }
     }
 
@@ -146,18 +142,35 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         // For testing - Press K to save, L to load
-        if (Input.GetKeyDown(KeyCode.K) && !isDead)
+        /*if (Input.GetKeyDown(KeyCode.K) && !isDead)
         {
             GetComponent<CheckpointSaveSystem>().SaveCheckpoint(this, "manual_save");
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             GetComponent<CheckpointSaveSystem>().LoadCheckpoint(this);
+        }
+
+        // Много много хп для тестинга
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (!godMode)
+            {
+                maxHP = 10000000;
+                HP = 10000000;
+                godMode = true;
+            }
+            else
+            {
+                maxHP = 100;
+                HP = 100;
+                godMode = false;
+            }
+            HUDManager.Instance.UpdateHealthBar(HP, maxHP);
         }
     }
 }

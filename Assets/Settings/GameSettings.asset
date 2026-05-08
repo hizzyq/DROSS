@@ -16,6 +16,6 @@ MonoBehaviour:
   masterVolume: 1
   musicVolume: 0.8
   sfxVolume: 1
-  sensitivityX: 300
-  sensitivityY: 300
+  sensitivityX: 100
+  sensitivityY: 100
   invertY: 0

@@ -276,8 +276,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7866344, y: 1, z: 1.7117891}
-  m_Center: {x: -0.015221596, y: 0, z: 0.10797739}
+  m_Size: {x: 1.98, y: 5.82, z: 6.36}
+  m_Center: {x: -0.015221596, y: 2.69, z: 0.10797739}
 --- !u!114 &1285839468192193482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,4 +292,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   visualIdle: {fileID: 1778712882570253895}
   visualActive: {fileID: 656962396922509622}
-  checkpointName: Checkpoint
+  checkpointName: BeforeEntrance
+  activateSFX: {fileID: 11400000, guid: b86d4914caeae02449b5b2bcc6633214, type: 2}

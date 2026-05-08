@@ -5,25 +5,26 @@ using UnityEngine.Rendering.Universal;
 public class AcidCameraEffect : MonoBehaviour
 {
     [Header("Ссылки")]
-    public Transform acid;
-    public Transform      player;
-    public Volume         postProcessVolume;
+    // МЕНЯЕМ ОДНУ ТРАНСФОРМУ НА МАССИВ
+    public Transform[] acids;
+    public Transform player;
+    public Volume postProcessVolume;
 
     [Header("Настройки эффекта")]
-    public float fadeSpeed     = 3f;
-    public Color overlayColor  = new Color(0.1f, 0.8f, 0.05f, 0f);
-    public float maxVignette   = 0.55f;
+    public float fadeSpeed = 3f;
+    public Color overlayColor = new Color(0.1f, 0.8f, 0.05f, 0f);
+    public float maxVignette = 0.55f;
     public float maxChromaticAb = 0.4f;
 
     ColorAdjustments _colorAdj;
-    Vignette         _vignette;
+    Vignette _vignette;
     ChromaticAberration _chromatic;
-    DepthOfField     _dof;
+    DepthOfField _dof;
 
     [Header("UI оверлей")]
     public CanvasGroup acidOverlay;
 
-    bool  _submerged;
+    bool _submerged;
     float _intensity;
 
     void Start()
@@ -39,17 +40,29 @@ public class AcidCameraEffect : MonoBehaviour
 
     void Update()
     {
-        _submerged = player.position.y < acid.transform.position.y;
+        _submerged = false;
+
+        // ПРОВЕРЯЕМ ВСЕ КИСЛОТЫ ИЗ СПИСКА
+        foreach (Transform acid in acids)
+        {
+            if (acid != null && acid.GetComponentInParent<BoxCollider>().bounds.Contains(player.position))
+            {
+                _submerged = true;
+                break; // Если нашли хотя бы одну, в которой игрок - прерываем цикл
+            }
+        }
+
         float target = _submerged ? 1f : 0f;
         _intensity = Mathf.MoveTowards(_intensity, target, fadeSpeed * Time.deltaTime);
 
         ApplyEffects(_intensity);
     }
 
+    // Метод ApplyEffects оставляете без изменений
     void ApplyEffects(float t)
     {
         if (acidOverlay != null)
-            acidOverlay.alpha = t * 0.45f;
+            acidOverlay.alpha = t * 0.25f;
 
         if (_vignette != null)
             _vignette.intensity.Override(t * maxVignette);
@@ -59,9 +72,8 @@ public class AcidCameraEffect : MonoBehaviour
 
         if (_colorAdj != null)
         {
-            _colorAdj.colorFilter.Override(Color.Lerp(Color.white,
-                new Color(0.6f, 1.2f, 0.5f), t * 0.7f));
-            _colorAdj.postExposure.Override(Mathf.Lerp(0f, -0.8f, t));
+            _colorAdj.colorFilter.Override(Color.Lerp(Color.white, new Color(0.6f, 1.2f, 0.5f), t * 0.7f));
+            _colorAdj.postExposure.Override(Mathf.Lerp(0f, -0.2f, t));
         }
 
         if (_dof != null)

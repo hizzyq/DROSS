@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2202965926957383900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.767, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 5432266637431804508}
   - component: {fileID: 7611465207089901687}
   - component: {fileID: 83621525332046302}
-  - component: {fileID: 8351428414113478886}
   - component: {fileID: 6853428344743915064}
   - component: {fileID: 7478310305607540549}
   - component: {fileID: 3642011880624680526}
@@ -134,7 +133,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &7046340929207222150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +165,7 @@ MonoBehaviour:
   jumpForce: 14
   jumpCooldown: 0.25
   airMultiplier: 0.4
+  readyToJump: 0
   wallBounceUpForce: 10
   wallBounceSideForce: 10
   wallBounceWallDetection: 1
@@ -178,8 +178,19 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 72
+  grounded: 0
   coyoteTimer: 0.2
-  maxSlopeAngle: 50
+  coyoteTimeCounter: 0
+  maxSlopeAngle: 60
+  footstepSFX:
+  - {fileID: 11400000, guid: 3f561c91f024ec74384df5f300c5e0ec, type: 2}
+  - {fileID: 11400000, guid: b6ef6a630a8a3434c80194a6d23d19cc, type: 2}
+  - {fileID: 11400000, guid: f4a885c5d72b231429d19a4dcbdfadda, type: 2}
+  jumpSFX: {fileID: 11400000, guid: a6aac69ecd7451445b42cadf98d9e605, type: 2}
+  landSFX: {fileID: 11400000, guid: 35ee2c28558c88e43b7586da9343381e, type: 2}
+  footstepMinSpeed: 1.5
+  footstepInterval: 0.35
+  wallrunFootstepMultiplier: 0.7
   state: 0
   dashing: 0
   sliding: 0
@@ -233,6 +244,8 @@ MonoBehaviour:
   slideYScalePlayer: 0.5
   slideYPosCamera: 0.5
   slideKey: 306
+  slideSFX: {fileID: 0}
+  slideVolume: 1
 --- !u!114 &7611465207089901687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,12 +260,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 8238243823499288496}
   playerCam: {fileID: 0}
+  dashSFX: {fileID: 11400000, guid: 0f7c55ee424f22242bd2a1d182392bb2, type: 2}
   dashForce: 20
   dashUpwardForce: 0
   maxDashYSpeed: 12
   dashDuration: 0.25
   cam: {fileID: 0}
-  dashFov: 95
   useCameraForward: 1
   allowAllDirections: 1
   disableGravity: 1
@@ -280,26 +293,10 @@ MonoBehaviour:
   hudManager: {fileID: 0}
   bloodyScreen: {fileID: 0}
   deathManager: {fileID: 3642011880624680526}
-  gameOverUI: {fileID: 0}
   mainCamera: {fileID: 0}
-  screenBlackout: {fileID: 8351428414113478886}
   isDead: 0
   hurtSFX: {fileID: 11400000, guid: 51fb494048f13ba2c8dcf6ff778a3219, type: 2}
-  deathSFX: {fileID: 11400000, guid: 79f62cf1db36be792b20a38b6c93746c, type: 2}
---- !u!114 &8351428414113478886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4840510415262773233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263235d3484295c49be504b32a00e228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlackout
-  fadeImage: {fileID: 0}
-  fadeDuration: 7
+  deathSFX: {fileID: 11400000, guid: bba03bf94c2f94d408e6cbcf052a17e2, type: 2}
 --- !u!114 &6853428344743915064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,10 +327,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeThrow
   grenadePrefab: {fileID: 4112929449272318432, guid: a8d7e5b258a94f78aa69e8d03cfa0108, type: 3}
-  throwOrigin: {fileID: 7704467288093954143}
+  throwOrigin: {fileID: 0}
   throwForce: 18
   throwUpAngle: 10
-  grenadeCount: 3
+  grenadeCount: 0
+  maxGrenades: 10
 --- !u!114 &3642011880624680526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathManager
   player: {fileID: 83621525332046302}
   gameOverUI: {fileID: 0}
-  screenBlackout: {fileID: 8351428414113478886}
 --- !u!114 &7360414435495912557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,8 +360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointSaveSystem
   reloadSceneOnLoad: 1
   reloadDelay: 0.05
-  pistolPrefab: {fileID: 1785540698681262601, guid: 4e516ad1bc1a95c6fae470d096da5d9f, type: 3}
-  riflePrefab: {fileID: 8274396351807507323, guid: 866faa88afee4fa3281c6d36c3b109dc, type: 3}
+  pistolPrefab: {fileID: 320129979746484466, guid: 107f8274208f174dabb4023bf2a680d3, type: 3}
+  riflePrefab: {fileID: 3830295074054842837, guid: 50cffc38736342cc0adb7c9d4b77193d, type: 3}
 --- !u!1 &6159070343810677627
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,8 +421,8 @@ Transform:
   m_GameObject: {fileID: 7261281061104520745}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.83, z: 0}
-  m_LocalScale: {x: 1, y: 1.3, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8159021594781268202}

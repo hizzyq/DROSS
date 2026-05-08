@@ -9,6 +9,7 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private Rigidbody rb;
     private PlayerMovementAdvanced pm;
+    [SerializeField] public SFXEvent dashSFX;
 
     [Header("Dashing")]
     public float dashForce = 20f;
@@ -18,7 +19,7 @@ public class Dashing : MonoBehaviour
 
     [Header("CameraEffects")]
     public PlayerCam cam;
-    public float dashFov = 95f;
+    private float originalFov;
 
     [Header("Settings")]
     public bool useCameraForward = true;
@@ -73,6 +74,16 @@ public class Dashing : MonoBehaviour
                     }
                 }
             }
+            float maxStamina = maxCharges;
+            float partial = 0f;
+
+            if (curCharges < maxCharges && rechargeTime > 0f)
+                partial = 1f - (dashChargeTimer / rechargeTime);
+
+            float currentStamina = curCharges + Mathf.Clamp01(partial);
+
+            if (HUDManager.Instance != null)
+                HUDManager.Instance.UpdateStaminaBar(currentStamina, maxStamina);
         }
     }
 
@@ -85,7 +96,11 @@ public class Dashing : MonoBehaviour
         pm.dashing = true;
         pm.maxYSpeed = maxDashYSpeed;
 
-        cam.DoFov(dashFov);
+        AudioManager.PlayAt(dashSFX, transform.position);
+
+        float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
+
+        cam.DoFov(baseFov + 10);
 
         Transform forwardT;
 
@@ -121,7 +136,8 @@ public class Dashing : MonoBehaviour
         pm.dashing = false;
         pm.maxYSpeed = 0;
 
-        cam.DoFov(85f);
+        float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
+        cam.DoFov(baseFov);
 
         if (disableGravity)
             rb.useGravity = true;

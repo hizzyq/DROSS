@@ -35,12 +35,10 @@ public class AcidControllerr : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y >= maxHeight) return;
-
         _currentSpeed = Mathf.Min(_currentSpeed + acceleration * Time.deltaTime, maxSpeed);
         transform.position += Vector3.up * _currentSpeed * Time.deltaTime;
         
-        _submerged = player.transform.position.y < acid.transform.position.y;
+        _submerged = gameObject.GetComponentInParent<BoxCollider>().bounds.Contains(player.transform.position);
         if (_submerged)
         {
             _damageTimer -= Time.deltaTime;

@@ -30,7 +30,10 @@ public class ZombieAttackingState : StateMachineBehaviour
         _soundTimer = soundRepeatInterval; // сыграть сразу при входе в стейт
 
         zombieHandCollider = GameObject.Find("ZombieHand").GetComponent<SphereCollider>();
-        zombieHandCollider.enabled = true;
+        if (zombieHandCollider != null)
+        {
+            zombieHandCollider.enabled = true;
+        }
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent  = animator.GetComponent<NavMeshAgent>();
@@ -42,6 +45,7 @@ public class ZombieAttackingState : StateMachineBehaviour
         // ── БЫЛО: if (!zombieChannel.isPlaying) zombieChannel.PlayOneShot(...)
         // Теперь каждый зомби получает свой слот из пула — никакого конфликта
         if (agent == null || !agent.isOnNavMesh) return;
+        if (zombieHandCollider == null) return;
 
         _soundTimer += Time.deltaTime;
         if (_soundTimer >= soundRepeatInterval)
@@ -83,13 +87,15 @@ public class ZombieAttackingState : StateMachineBehaviour
 
     private void LookAtPlayer()
     {
-        // Дополнительная проверка внутри метода
         if (agent == null || !agent.isOnNavMesh) return;
 
         Vector3 direction = player.position - agent.transform.position;
-        agent.transform.rotation = Quaternion.LookRotation(direction);
-        var yRotation = agent.transform.eulerAngles.y;
-        agent.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        direction.y = 0f; // Игнорируем разницу в высоте!
+
+        if (direction != Vector3.zero)
+        {
+            agent.transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

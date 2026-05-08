@@ -10,17 +10,17 @@ public class RangeAttackState : StateMachineBehaviour
     public float stopAttackingDistance = 14f;
     public float retreatDistance = 4f;
     
+    // Задержка перед ПЕРВЫМ выстрелом (время поднятия оружия)
+    public float initialDelay = 0.8f;
+    private bool _initialDelayDone;
+    private float _initialTimer;
+
     // Интервал между выстрелами (секунды)
     public float fireRate = 1.5f;
     private float _fireTimer;
 
     // Компонент, который реально стреляет — ищем на том же GameObject
     private RangeWeapon _weapon;
-
-    // Звук атаки
-    public SFXEvent attackSFX;
-    public float soundRepeatInterval = 1.5f;
-    private float _soundTimer;
 
     // Проверка прямой видимости перед каждым выстрелом
     public LayerMask obstacleMask;
@@ -33,8 +33,9 @@ public class RangeAttackState : StateMachineBehaviour
 
         agent.isStopped = true;
 
-        _fireTimer  = fireRate;   // выстрелить сразу при входе
-        _soundTimer = soundRepeatInterval;
+        _initialDelayDone = false;
+        _initialTimer  = 0f;
+        _fireTimer  = fireRate;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -64,17 +65,19 @@ public class RangeAttackState : StateMachineBehaviour
             return;
         }
 
-        // Звук атаки
-        _soundTimer += Time.deltaTime;
-        if (_soundTimer >= soundRepeatInterval)
+        // Выстрел по таймеру, только если есть прямая видимость
+        if (!_initialDelayDone)
         {
-            _soundTimer = 0f;
-            AudioManager.PlayAttached(attackSFX, animator.transform);
+            _initialTimer += Time.deltaTime;
+            if (_initialTimer >= initialDelay)
+                _initialDelayDone = true;
+        }
+        else
+        {
+            _fireTimer += Time.deltaTime;
         }
 
-        // Выстрел по таймеру, только если есть прямая видимость
-        _fireTimer += Time.deltaTime;
-        if (_fireTimer >= fireRate && HasLineOfSight(animator.transform))
+        if (_initialDelayDone && _fireTimer >= fireRate && HasLineOfSight(animator.transform))
         {
             _fireTimer = 0f;
             _weapon?.Fire();
@@ -87,7 +90,6 @@ public class RangeAttackState : StateMachineBehaviour
         {
             agent.isStopped = false;
             _fireTimer = fireRate;
-            _soundTimer = soundRepeatInterval;
         }
     }
 
@@ -95,7 +97,7 @@ public class RangeAttackState : StateMachineBehaviour
     {
         Vector3 targetPos = player.position + Vector3.up * 1.2f; // Целимся в корпус
         Vector3 dir = targetPos - self.position;
-    
+        dir.y = 0;
         // Если нужно, чтобы враг НЕ падал (стоял ровно), 
         // но голова/оружие смотрели вверх:
         if (dir != Vector3.zero)

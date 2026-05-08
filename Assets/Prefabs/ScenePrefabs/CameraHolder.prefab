@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 3501215033833173421}
   - component: {fileID: 1752493909714973139}
   - component: {fileID: 3970402313981539631}
+  - component: {fileID: 450240723980523306}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -313,6 +314,23 @@ MonoBehaviour:
   maxVignette: 0.55
   maxChromaticAb: 0.4
   acidOverlay: {fileID: 0}
+--- !u!114 &450240723980523306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388655725608949501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51c25d2bdf35de4a95bfae7dba018cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponAimOutline
+  playerCamera: {fileID: 0}
+  distance: 4
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4636598004149990865
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c568ff18839e6834daab6af21aa557d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSpring
-  halflife: 0.075
-  frequency: 18
+  halflife: 0.05
+  frequency: 25
   angularDisplacement: 2
 --- !u!1 &6926167493926903530
 GameObject:
@@ -641,10 +659,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7e720a259ca5f47b91876d1e691146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLean
-  attackDamping: 0.5
-  decayDamping: 0.3
-  walkStrength: 1
+  attackDamping: 0.3
+  decayDamping: 0.15
+  walkStrength: 0.75
   slideStrength: 0.6
-  strengthResponse: 3
-  maxLeanAcceleration: 4
-  clampSoftness: 3
+  strengthResponse: 10
+  maxLeanAcceleration: 7
+  clampSoftness: 5

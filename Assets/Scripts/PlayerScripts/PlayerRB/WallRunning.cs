@@ -81,7 +81,7 @@ public class WallRunning : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
+        if ((wallLeft || wallRight) && AboveGround() && !exitingWall)
         {
             if (!pm.wallrunning)
                 StartWallRun();
@@ -103,7 +103,8 @@ public class WallRunning : MonoBehaviour
 
         if (cam != null)
         {
-            cam.DoFov(90f);
+            float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
+            cam.DoFov(baseFov + 5f); // Немного увеличиваем FOV для ощущения бега
             if (wallLeft) cam.DoTilt(-5f);
             if (wallRight) cam.DoTilt(5f);
         }
@@ -137,7 +138,8 @@ public class WallRunning : MonoBehaviour
 
         if (cam != null)
         {
-            cam.DoFov(80f);
+            float baseFov = SettingsManager.Instance != null ? SettingsManager.Instance.Get().fov : 85f;
+            cam.DoFov(baseFov); // Сброс
             cam.DoTilt(0f);
         }
     }

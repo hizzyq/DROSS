@@ -16,6 +16,8 @@ public class SettingsUI : MonoBehaviour
     public TextMeshProUGUI sensXValueText;
     public TextMeshProUGUI sensYValueText;
     public TextMeshProUGUI pixelationValueText;
+    public TextMeshProUGUI brightnessValueText;
+    public TextMeshProUGUI fovValueText;
 
     [Header("— Controls —")]
     public Slider sensXSlider;
@@ -24,6 +26,8 @@ public class SettingsUI : MonoBehaviour
 
     [Header("— Graphics —")]
     public Slider pixelationSlider;
+    public Slider brightnessSlider;
+    public Slider fovSlider;
 
     [Header("— Кнопки —")]
     public Button saveButton;
@@ -32,6 +36,12 @@ public class SettingsUI : MonoBehaviour
     private GameSettings _s;
 
     private void OnEnable()
+    {
+        // Обновляем UI каждый раз, когда открываем меню настроек
+        RefreshUI();
+    }
+
+    private void RefreshUI()
     {
         if (SettingsManager.Instance == null) return;
         _s = SettingsManager.Instance.Get();
@@ -46,6 +56,8 @@ public class SettingsUI : MonoBehaviour
         SetSliderSilent(sensXSlider,      _s.sensitivityX);
         SetSliderSilent(sensYSlider,      _s.sensitivityY);
         SetSliderSilent(pixelationSlider, _s.pixelation);
+        SetSliderSilent(fovSlider, _s.fov);
+        SetSliderSilent(brightnessSlider, _s.brightness);
 
         if (invertYToggle) invertYToggle.SetIsOnWithoutNotify(_s.invertY);
 
@@ -82,6 +94,17 @@ public class SettingsUI : MonoBehaviour
             if (pixelationValueText)
                 pixelationValueText.text = Mathf.RoundToInt(v).ToString();
         });
+        fovSlider?.onValueChanged.AddListener(v => {
+            _s.fov = Mathf.RoundToInt(v);
+            SettingsManager.Instance.ApplyGraphics();
+            if (fovValueText)
+                fovValueText.text = Mathf.RoundToInt(v).ToString();
+        });
+        brightnessSlider?.onValueChanged.AddListener(v => {
+            _s.brightness = v;
+            SettingsManager.Instance.ApplyGraphics();
+            UpdateText(brightnessValueText, v, "0%");
+        });
 
         invertYToggle?.onValueChanged.AddListener(v => _s.invertY = v);
 
@@ -98,7 +121,20 @@ public class SettingsUI : MonoBehaviour
     private void SetSliderSilent(Slider slider, float value)
     {
         if (slider == null) return;
-        slider.SetValueWithoutNotify(value);
+
+        // Защита от вылета за границы (о которой мы говорили ранее)
+        float clampedValue = Mathf.Clamp(value, slider.minValue, slider.maxValue);
+
+        // Хак для обхода бага Unity:
+        // Если внутреннее значение УЖЕ равно нужному, визуал не обновится.
+        // Поэтому мы принудительно немного сдвигаем его...
+        if (Mathf.Approximately(slider.value, clampedValue))
+        {
+            slider.SetValueWithoutNotify(clampedValue == slider.minValue ? clampedValue + 0.001f : clampedValue - 0.001f);
+        }
+
+        // ...и тут же ставим правильное. Это заставит Unity перерисовать ползунок на 100%!
+        slider.SetValueWithoutNotify(clampedValue);
     }
 
     private void RemoveAllListeners()
@@ -112,6 +148,8 @@ public class SettingsUI : MonoBehaviour
         invertYToggle?.onValueChanged.RemoveAllListeners();
         saveButton?.onClick.RemoveAllListeners();
         resetButton?.onClick.RemoveAllListeners();
+        fovSlider?.onValueChanged.RemoveAllListeners();
+        brightnessSlider?.onValueChanged.RemoveAllListeners();
     }
 
     private void UpdateAllTexts()
@@ -123,6 +161,9 @@ public class SettingsUI : MonoBehaviour
         UpdateText(sensYValueText,      _s.sensitivityY,  "0");
         if (pixelationValueText)
             pixelationValueText.text = _s.pixelation.ToString();
+        if (fovValueText)
+            fovValueText.text = _s.fov.ToString();
+        UpdateText(brightnessValueText, _s.brightness, "0%");
     }
 
     private void UpdateText(TextMeshProUGUI label, float value, string format)
@@ -133,6 +174,12 @@ public class SettingsUI : MonoBehaviour
             label.text = Mathf.RoundToInt(value * 100f) + "%";
         else
             label.text = Mathf.RoundToInt(value).ToString();
+    }
+
+    private void Start()
+    {
+        // Гарантируем, что UI обновится при старте сцены
+        RefreshUI();
     }
 
     private void OnSave()

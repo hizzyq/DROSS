@@ -1,10 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private Camera aimCamera;
+
     public bool isActiveWeapon;
     private bool _wasActiveWeapon; // Для отслеживания смены состояния и экономии ресурсов
 
@@ -12,8 +12,8 @@ public class Weapon : MonoBehaviour
 
     [Header("Shooting")]
     public bool isShooting, readyToShoot;
-    bool allowReset = true;
-    public float shootingDelay = 2f;
+    private bool allowReset = true;
+    public float shootingDelay = 0.5f;
 
     [Header("Burst")]
     public int bulletsPerBurst = 1;
@@ -26,10 +26,13 @@ public class Weapon : MonoBehaviour
     [Header("Bullet")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletVelocity = 30;
+    public float bulletVelocity = 500f;
     public float bulletPrefabLifetime = 3f;
 
-    public GameObject muzzleEffect;
+    [Header("Muzzle Flash")]
+    public GameObject muzzleEffect; // Префаб эффекта выстрела
+    public Vector3 muzzleEffectRotationOffset = new Vector3(0f, 90f, 0f); // Поправка поворота
+    public Vector3 muzzleEffectScale = new Vector3(0.05f, 0.05f, 0.05f); // Поправка масштаба
 
     internal Animator animator;
 
@@ -42,7 +45,7 @@ public class Weapon : MonoBehaviour
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
 
-    public enum WeaponModel { Pistol1911, AK74 }
+    public enum WeaponModel { Pistol1911, AK74, Shotgun }
     public WeaponModel thisWeaponModel;
 
     public enum ShootingMode { Single, Burst, Auto }
@@ -75,59 +78,63 @@ public class Weapon : MonoBehaviour
         _wasActiveWeapon = !isActiveWeapon;
     }
 
-    void Update()
+    private void Update()
     {
         if (_player != null && _player.isDead) return;
 
-        // Обновляем слои и обводку ТОЛЬКО в момент смены оружия, а не каждый кадр
+        // Обновляем слои и обводку только в момент смены оружия
         if (isActiveWeapon != _wasActiveWeapon)
         {
             _wasActiveWeapon = isActiveWeapon;
             UpdateWeaponVisuals(isActiveWeapon);
         }
 
-        if (isActiveWeapon)
+        if (!isActiveWeapon) return;
+
+        if (currentShootingMode == ShootingMode.Auto)
+            isShooting = Input.GetKey(KeyCode.Mouse0);
+        else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+
+        if (readyToShoot && isShooting && bulletsLeft > 0 && !isReloading)
         {
-            if (currentShootingMode == ShootingMode.Auto)
-                isShooting = Input.GetKey(KeyCode.Mouse0);
-            else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
-                isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+            burstBulletsLeft = bulletsPerBurst;
+            FireWeapon();
+        }
 
-            if (readyToShoot && isShooting && bulletsLeft > 0 && !isReloading)
-            {
-                burstBulletsLeft = bulletsPerBurst;
-                FireWeapon();
-            }
+        if (Input.GetKeyDown(KeyCode.R) &&
+            bulletsLeft < magazineSize &&
+            !isReloading &&
+            WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+        {
+            Reload();
+        }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading &&
-                WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
-            {
-                Reload();
-            }
+        if (!readyToShoot &&
+            !isReloading &&
+            bulletsLeft <= 0 &&
+            WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+        {
+            Reload();
+        }
 
-            if (!readyToShoot && !isReloading && bulletsLeft <= 0 &&
-                WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
-            {
-                Reload();
-            }
-
-            // Звук пустого магазина только при клике, чтобы не спамить в режиме Auto
-            if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0) && !isReloading)
-            {
-                AudioManager.Play(emptySFX);
-            }
+        // Звук пустого магазина только при клике, чтобы не спамить в режиме Auto
+        if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0) && !isReloading)
+        {
+            AudioManager.Play(emptySFX);
         }
     }
 
     private void UpdateWeaponVisuals(bool active)
     {
         if (_outline != null)
-            _outline.enabled = !active;
+            _outline.enabled = false;
 
         string targetLayer = active ? "WeaponRender" : "Default";
         int layerIndex = LayerMask.NameToLayer(targetLayer);
 
         gameObject.layer = layerIndex;
+
         foreach (Transform child in transform)
         {
             child.gameObject.layer = layerIndex;
@@ -138,29 +145,43 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft--;
 
-        if (muzzleEffect != null)
-            muzzleEffect.GetComponent<ParticleSystem>().Play();
+        // Создаем эффект выстрела как дочерний объект точки выстрела,
+        // чтобы он был привязан к оружию
+        if (muzzleEffect != null && bulletSpawn != null)
+        {
+            GameObject fx = Instantiate(muzzleEffect, bulletSpawn);
+            fx.transform.localPosition = Vector3.zero;
+            fx.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+            fx.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Destroy(fx, 0.15f);
+        }
 
-        animator.SetTrigger("RECOIL");
+        if (animator != null)
+            animator.SetTrigger("RECOIL");
+
         AudioManager.PlayAt(shotSFX, transform.position);
 
         readyToShoot = false;
 
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
 
-        if (bullet.TryGetComponent<Bullet>(out var bulletComp))
+        if (bulletPrefab != null && bulletSpawn != null)
         {
-            bulletComp.bulletDamage = weaponDamage;
-        }
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
 
-        if (bullet.TryGetComponent<Rigidbody>(out var rb))
-        {
-            bullet.transform.forward = shootingDirection;
-            rb.AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
-        }
+            if (bullet.TryGetComponent<Bullet>(out var bulletComp))
+            {
+                bulletComp.bulletDamage = weaponDamage;
+            }
 
-        StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
+            if (bullet.TryGetComponent<Rigidbody>(out var rb))
+            {
+                bullet.transform.forward = shootingDirection;
+                rb.AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+            }
+
+            StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifetime));
+        }
 
         if (allowReset)
         {
@@ -178,7 +199,10 @@ public class Weapon : MonoBehaviour
     private void Reload()
     {
         AudioManager.PlayAt(reloadSFX, transform.position);
-        animator.SetTrigger("RELOAD");
+
+        if (animator != null)
+            animator.SetTrigger("RELOAD");
+
         isReloading = true;
         Invoke(nameof(ReloadCompleted), reloadTime);
     }
@@ -206,19 +230,34 @@ public class Weapon : MonoBehaviour
 
     private Vector3 CalculateDirectionAndSpread()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit) ? hit.point : ray.GetPoint(100);
-        Vector3 direction = targetPoint - bulletSpawn.position;
+        if (bulletSpawn == null)
+            return transform.forward;
 
-        float z = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
-        float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        var cam = aimCamera != null ? aimCamera : Camera.main;
+        if (cam == null)
+            return bulletSpawn.forward;
 
-        return direction + new Vector3(0f, y, z);
+        int ignoreMask = LayerMask.GetMask("Player", "WeaponRender", "Bullet");
+        int rayMask = ~ignoreMask; // инвертируем, чтобы НЕ попадать по этим слоям
+
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 1000f, rayMask)
+            ? hit.point
+            : ray.GetPoint(1000f);
+
+        Vector3 direction = (targetPoint - bulletSpawn.position).normalized;
+
+        Vector2 spread = Random.insideUnitCircle * spreadIntensity;
+        Vector3 spreadOffset = cam.transform.right * spread.x + cam.transform.up * spread.y;
+
+        return (direction + spreadOffset).normalized;
     }
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (bullet != null) Destroy(bullet);
+
+        if (bullet != null)
+            Destroy(bullet);
     }
 }

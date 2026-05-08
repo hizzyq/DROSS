@@ -15,14 +15,20 @@ public class Sliding : MonoBehaviour
     public float slideForce = 200f;
 
     [Header("Position")]
-    public float slideYScalePlayer = 0.5f;
-    public float slideYPosCamera = 0.5f;
+    public float slideYScalePlayer = 0.7f;
+    public float slideYPosCamera = 0.7f;
     private float startYScalePlayer;
     private float startYPosCamera;
 
     [Header("Input")]
     public KeyCode slideKey = KeyCode.LeftControl;
     private float verticalInput;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip slideSFX;
+    [Tooltip("Громкость звука скольжения")]
+    [SerializeField] [Range(0f, 1f)] private float slideVolume = 1f;
+    private AudioSource _slideAudioSource;
 
 
     private void Start()
@@ -32,6 +38,14 @@ public class Sliding : MonoBehaviour
 
         startYScalePlayer = playerObj.localScale.y;
         startYPosCamera = cameraObj.localPosition.y;
+
+        // создаём AudioSource динамически — не нужно добавлять его вручную
+        _slideAudioSource = gameObject.AddComponent<AudioSource>();
+        _slideAudioSource.clip = slideSFX;
+        _slideAudioSource.loop = true;
+        _slideAudioSource.playOnAwake = false;
+        _slideAudioSource.spatialBlend = 0f; // 2D — звук от первого лица
+        _slideAudioSource.volume = slideVolume;
     }
 
     private void Update()
@@ -60,21 +74,21 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = true;
 
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScalePlayer, playerObj.localScale.z);
-        cameraObj.localPosition = new Vector3(playerObj.localPosition.x, slideYPosCamera, playerObj.localPosition.z);
+        playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer * slideYScalePlayer, playerObj.localScale.z);
+        cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera * slideYPosCamera, playerObj.localPosition.z);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+        PlaySlideSound();
     }
 
     private void SlidingMovement()
     {
-
         Vector3 inputDirection = orientation.forward * verticalInput;
         // sliding normal
         if (!pm.OnSlope() || rb.linearVelocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
         }
-
         // sliding down a slope
         else
         {
@@ -86,6 +100,7 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = false;
         pm.crouching = true;
+        StopSlideSound();
     }
 
     private void StopSlide()
@@ -94,5 +109,20 @@ public class Sliding : MonoBehaviour
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYScalePlayer, playerObj.localScale.z);
         cameraObj.localPosition = new Vector3(playerObj.localPosition.x, startYPosCamera, playerObj.localPosition.z);
+
+        StopSlideSound();
+    }
+
+    private void PlaySlideSound()
+    {
+        if (_slideAudioSource == null || _slideAudioSource.clip == null) return;
+        if (!_slideAudioSource.isPlaying)
+            _slideAudioSource.Play();
+    }
+
+    private void StopSlideSound()
+    {
+        if (_slideAudioSource != null && _slideAudioSource.isPlaying)
+            _slideAudioSource.Stop();
     }
 }

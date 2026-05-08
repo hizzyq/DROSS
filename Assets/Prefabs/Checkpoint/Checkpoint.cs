@@ -5,7 +5,7 @@ public class Checkpoint : MonoBehaviour
     public GameObject visualIdle;
     public GameObject visualActive;
     public string checkpointName = "Checkpoint";
-
+    [SerializeField] public SFXEvent activateSFX;
     private bool isActive = false;
 
     void OnTriggerEnter(Collider other)
@@ -40,7 +40,7 @@ public class Checkpoint : MonoBehaviour
     public void SetActive(bool active)
     {
         isActive = active;
-
+        AudioManager.Play(activateSFX);
         if (visualIdle != null)
             visualIdle.SetActive(!active);
         if (visualActive != null)

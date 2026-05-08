@@ -4,9 +4,10 @@ using UnityEngine;
 public class PhysicalButton : MonoBehaviour
 {
     public GameObject[] connectedObjects;
-
+    [SerializeField] public SFXEvent activateSFX;
     public void ActivateConnectedObjects()
     {
+        AudioManager.PlayAt(activateSFX, transform.position);
         foreach (GameObject obj in connectedObjects)
         {
             if (obj != null)

@@ -182,11 +182,16 @@ public class CheckpointSaveSystem : MonoBehaviour
 
         player.isDead = false;
 
-        if (player.gameOverUI != null)
-            player.gameOverUI.SetActive(false);
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeIn();
+        }
 
-        if (player.screenBlackout != null)
-            player.screenBlackout.enabled = false;
+        // Возвращаем курсор в игровой режим после загрузки
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+        PauseMenuController.GameIsPaused = false;
 
         if (data.weaponData != null)
         {
@@ -362,6 +367,8 @@ public class CheckpointSaveSystem : MonoBehaviour
                 newWp.transform.localPosition = w.spawnPosition;
                 newWp.transform.localRotation = Quaternion.Euler(w.spawnRotation);
                 w.isActiveWeapon = (wData.slotIndex == weaponData.activeWeaponIndex);
+                if (w.animator != null)
+                    w.animator.enabled = w.isActiveWeapon;
             }
             else
             {

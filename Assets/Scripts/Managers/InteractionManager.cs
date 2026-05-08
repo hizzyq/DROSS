@@ -4,6 +4,8 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager Instance { get; private set; }
 
+    [SerializeField] private GrenadeThrow grenadeThrow;
+
     private Weapon hoveredWeapon;
     private Weapon lastHoveredWeapon;
     private AmmoBox hoveredAmmoBox;
@@ -13,6 +15,14 @@ public class InteractionManager : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    private void Start()
+    {
+   
+
+        if (grenadeThrow == null)
+            grenadeThrow = FindFirstObjectByType<GrenadeThrow>();
     }
 
     private void OnDestroy()
@@ -54,6 +64,7 @@ public class InteractionManager : MonoBehaviour
                     lastHoveredWeapon = null;
                 }
             }
+
             if (objectHitByRaycast.GetComponent<AmmoBox>())
             {
                 hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
@@ -67,6 +78,7 @@ public class InteractionManager : MonoBehaviour
                     hoveredAmmoBox = null;
                 }
             }
+
             if (objectHitByRaycast.CompareTag("GrenadePickup"))
             {
                 hoveredGrenadePickup = objectHitByRaycast.GetComponent<GrenadePickup>();
@@ -74,11 +86,19 @@ public class InteractionManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    GetComponent<GrenadeThrow>().grenadeCount += hoveredGrenadePickup.amount;
-                    HUDManager.Instance.UpdateGrenadeCount(
-                        GetComponent<GrenadeThrow>().grenadeCount);
-                    Destroy(hoveredGrenadePickup.gameObject);
-                    hoveredGrenadePickup = null;
+                    if (grenadeThrow != null)
+                    {
+                        // Добавляем гранаты игроку
+                        grenadeThrow.AddGrenades(hoveredGrenadePickup.amount);
+
+                        // Удаляем предмет
+                        Destroy(hoveredGrenadePickup.gameObject);
+                        hoveredGrenadePickup = null;
+                    }
+                    else
+                    {
+                        Debug.LogError("GrenadeThrow не найден в InteractionManager");
+                    }
                 }
             }
             else
@@ -98,7 +118,6 @@ public class InteractionManager : MonoBehaviour
                 hoveredWeapon = null;
                 lastHoveredWeapon = null;
             }
-
         }
     }
 }

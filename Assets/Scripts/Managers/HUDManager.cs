@@ -30,6 +30,7 @@ public class HUDManager : MonoBehaviour
     public Sprite rifleSprite;
     public Sprite pistolAmmoSprite;
     public Sprite rifleAmmoSprite;
+    public Sprite grenadeSprite;
 
     public Sprite emptySlot;
     public GameObject middleDot;
@@ -41,6 +42,15 @@ public class HUDManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        // Применяем спрайт гранаты к UI при старте
+        if (lethalUI != null && grenadeSprite != null)
+        {
+            lethalUI.sprite = grenadeSprite;
+        }
+    }
+
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
@@ -49,7 +59,7 @@ public class HUDManager : MonoBehaviour
     private void Update()
     {
         // Защита — WeaponManager мог ещё не создаться
-        if (WeaponManager.Instance == null) return;
+        if (WeaponManager.Instance == null || WeaponManager.Instance.activeWeaponSlot == null) return;
 
         Weapon active   = WeaponManager.Instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
         Weapon unActive = GetUnActiveWeaponSlot()?.GetComponentInChildren<Weapon>();

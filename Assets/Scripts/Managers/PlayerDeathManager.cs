@@ -1,36 +1,40 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 public class PlayerDeathManager : MonoBehaviour
 {
-    [Header("Player managment")]
+    [Header("Player management")]
     public Player player;
 
-    [Header("UI and Effects")]
+    [Header("UI")]
     public GameObject gameOverUI;
-    public ScreenBlackout screenBlackout;
 
     private bool revivable = false;
     private bool isDead = false;
 
-    
     public void KillPlayer()
     {
         if (!isDead)
         {
             isDead = true;
 
-            if (gameOverUI != null) gameOverUI.SetActive(true);
-            if (screenBlackout != null) 
+            // Используем глобальный фейд
+            if (FadeManager.Instance != null)
             {
-                screenBlackout.enabled = true;
-                // Если у экрана затемнения есть метод для обычного фейда, можете вызвать его здесь
-                // screenBlackout.Fade(); 
+                FadeManager.Instance.FadeOut(() =>
+                {
+                    // Показываем UI окончания игры только когда экран потемнел
+                    if (gameOverUI != null) gameOverUI.SetActive(true);
+                    StartCoroutine(ReviveCooldown());
+                });
             }
-
-            StartCoroutine(ReviveCooldown());
+            else
+            {
+                // Фолбэк, если FadeManager не найден
+                if (gameOverUI != null) gameOverUI.SetActive(true);
+                StartCoroutine(ReviveCooldown());
+            }
         }
     }
 
@@ -40,15 +44,16 @@ public class PlayerDeathManager : MonoBehaviour
         {
             revivable = false;
             isDead = false;
-            
+
+            if (gameOverUI != null) gameOverUI.SetActive(false);
+
+            // Осветляем экран обратно
+            if (FadeManager.Instance != null) FadeManager.Instance.FadeIn();
+
             CheckpointSaveSystem saveSystem = player.GetComponent<CheckpointSaveSystem>();
             if (saveSystem != null)
             {
                 saveSystem.LoadCheckpoint(player);
-            }
-            else
-            {
-                Debug.LogWarning("CheckpointSaveSystem not found on Player!");
             }
         }
     }
@@ -67,7 +72,7 @@ public class PlayerDeathManager : MonoBehaviour
 
     private IEnumerator ReviveCooldown()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         Debug.Log("Revivable");
         revivable = true;
     }
