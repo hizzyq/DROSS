@@ -21,7 +21,7 @@ MonoBehaviour:
   spatialBlend: 1
   minDistance: 1
   maxDistance: 30
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: -2689300550525653410, guid: 8d5a0f141f58a3b7ea0ed151c9318f7e, type: 2}
   priority: 128
   limitOverlap: 0
   minInterval: 0
