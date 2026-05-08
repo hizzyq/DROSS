@@ -38477,6 +38477,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+--- !u!1 &1209209532 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 735020136507193238, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+  m_PrefabInstance: {fileID: 1209209531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1209209533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8417222532113977692, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
@@ -45063,7 +45068,7 @@ PrefabInstance:
     - target: {fileID: 83621525332046302, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: bloodyScreen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1209209532}
     - target: {fileID: 2557879951093909676, guid: 01c11fd60c7c0b34b9c81f012917338d, type: 3}
       propertyPath: cam
       value: 

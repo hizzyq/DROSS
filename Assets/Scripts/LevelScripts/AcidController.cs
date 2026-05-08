@@ -41,7 +41,7 @@ public class AcidController : MonoBehaviour
         _currentSpeed = Mathf.Min(_currentSpeed + acceleration * Time.deltaTime, maxSpeed);
         transform.position += Vector3.up * _currentSpeed * Time.deltaTime;
         
-        _submerged = player.transform.position.y < acid.transform.position.y;
+        _submerged = gameObject.GetComponent<BoxCollider>().bounds.Contains(player.transform.position);
         if (_submerged)
         {
             _damageTimer -= Time.deltaTime;
