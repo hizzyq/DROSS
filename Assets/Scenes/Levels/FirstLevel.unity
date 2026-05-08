@@ -13991,15 +13991,19 @@ PrefabInstance:
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: waveCounterUI
       value: 
-      objectReference: {fileID: 4055664800485822392}
+      objectReference: {fileID: 0}
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: enemyCounterUI
       value: 
-      objectReference: {fileID: 4055664800485822391}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
+      propertyPath: waveHUDManager
+      value: 
+      objectReference: {fileID: 3464768984970783537}
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: cooldownCounterUI
       value: 
-      objectReference: {fileID: 446082049701249952}
+      objectReference: {fileID: 0}
     - target: {fileID: 1125427063640263838, guid: 4ef6a7a2c3c2eeb4497cb7eb2d7f7c4b, type: 3}
       propertyPath: initialZombiesPerWave
       value: 2
@@ -21845,17 +21849,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &446082049701249952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1208829348432194220, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 4055664800485822388}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &457827031266509548
 Transform:
   m_ObjectHideFlags: 0
@@ -23423,11 +23416,30 @@ PrefabInstance:
       propertyPath: unActiveWeaponUI
       value: 
       objectReference: {fileID: 8648160992889836897}
+    - target: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+      propertyPath: waveCounterUI
+      value: 
+      objectReference: {fileID: 4055664800485822392}
+    - target: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+      propertyPath: enemyCounterUI
+      value: 
+      objectReference: {fileID: 4055664800485822391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+--- !u!114 &3464768984970783537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+  m_PrefabInstance: {fileID: 3464768984970783536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e624f200178576fefa0487ab72fba844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveHUDManager
 --- !u!4 &3465018600162528094
 Transform:
   m_ObjectHideFlags: 0
@@ -23934,6 +23946,10 @@ PrefabInstance:
     - target: {fileID: 2928715788278989661, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3877198555842749339, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7830512096331566477, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
       propertyPath: m_LocalPosition.x

@@ -40,6 +40,8 @@ public class ZombieSpawnController : MonoBehaviour
     private bool isSpawningWave = false;
     private int lastSpawnIndex = -1;
 
+    public WaveHUDManager waveHUDManager;
+
     private void Start()
     {
         currentZombiesPerWave = initialZombiesPerWave;
@@ -51,6 +53,8 @@ public class ZombieSpawnController : MonoBehaviour
         }
         if (waveCounterUI != null) waveCounterUI.gameObject.SetActive(false);
         if (enemyCounterUI != null) enemyCounterUI.gameObject.SetActive(false);
+        if (waveHUDManager != null)
+            waveHUDManager.RegisterSpawner(this);
     }
 
     private void OnTriggerEnter(Collider other)

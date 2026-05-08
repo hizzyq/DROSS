@@ -20612,9 +20612,9 @@ MonoBehaviour:
   buttonsToDisable:
   - {fileID: 1369902251}
   zombiePrefab: {fileID: 3454729515500278325, guid: 84590aaa3830ade428c611b4f659feef, type: 3}
-  cooldownCounterUI: {fileID: 1169908224}
-  waveCounterUI: {fileID: 1169908223}
-  enemyCounterUI: {fileID: 1169908222}
+  cooldownCounterUI: {fileID: 0}
+  waveCounterUI: {fileID: 0}
+  enemyCounterUI: {fileID: 0}
   spawnPoints:
   - {fileID: 1202138731}
   - {fileID: 1200390899}
@@ -20623,6 +20623,7 @@ MonoBehaviour:
   - {fileID: 1656717220}
   - {fileID: 1804605047}
   currentZombiesAlive: []
+  waveHUDManager: {fileID: 1384781897}
 --- !u!4 &634699752
 Transform:
   m_ObjectHideFlags: 0
@@ -34805,15 +34806,16 @@ MonoBehaviour:
   buttonsToDisable:
   - {fileID: 539669882}
   zombiePrefab: {fileID: 855890911615679318, guid: b8468ba37de091c4f8313e0cf5ee06a4, type: 3}
-  cooldownCounterUI: {fileID: 1169908224}
-  waveCounterUI: {fileID: 1169908223}
-  enemyCounterUI: {fileID: 1169908222}
+  cooldownCounterUI: {fileID: 0}
+  waveCounterUI: {fileID: 0}
+  enemyCounterUI: {fileID: 0}
   spawnPoints:
   - {fileID: 1931863804}
   - {fileID: 719283485}
   - {fileID: 220288234}
   - {fileID: 2092871568}
   currentZombiesAlive: []
+  waveHUDManager: {fileID: 1384781897}
 --- !u!4 &1085119987
 Transform:
   m_ObjectHideFlags: 0
@@ -37804,17 +37806,6 @@ MonoBehaviour:
 --- !u!114 &1169908223 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7878506678905977156, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
-  m_PrefabInstance: {fileID: 1652684447}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &1169908224 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1208829348432194220, guid: 4c677c867daf7084ea4044f398b0209f, type: 3}
   m_PrefabInstance: {fileID: 1652684447}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -45978,6 +45969,14 @@ PrefabInstance:
       propertyPath: unActiveWeaponUI
       value: 
       objectReference: {fileID: 1652684451}
+    - target: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+      propertyPath: waveCounterUI
+      value: 
+      objectReference: {fileID: 1169908223}
+    - target: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+      propertyPath: enemyCounterUI
+      value: 
+      objectReference: {fileID: 1169908222}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -45994,6 +45993,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666191a57ad0b2043862b5f78302d1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1384781897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9074031450490636354, guid: b9c4eaab0fc90a4e8803736d484d1f32, type: 3}
+  m_PrefabInstance: {fileID: 1384781895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e624f200178576fefa0487ab72fba844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveHUDManager
 --- !u!1001 &1385756542
 PrefabInstance:
   m_ObjectHideFlags: 0
