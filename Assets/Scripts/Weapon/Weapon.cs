@@ -237,8 +237,11 @@ public class Weapon : MonoBehaviour
         if (cam == null)
             return bulletSpawn.forward;
 
+        int ignoreMask = LayerMask.GetMask("Player", "WeaponRender", "Bullet");
+        int rayMask = ~ignoreMask; // инвертируем, чтобы НЕ попадать по этим слоям
+
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 1000f)
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 1000f, rayMask)
             ? hit.point
             : ray.GetPoint(1000f);
 

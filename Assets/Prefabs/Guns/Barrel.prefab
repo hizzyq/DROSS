@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca5d0a20abd4d50930f792964a73ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBarrel
-  HP: 50
-  blastRadius: 5
+  HP: 10
+  blastRadius: 6
   maxDamage: 120
   damagedVFX: {fileID: 0}
   explosionSFX: {fileID: 11400000, guid: ce27405880293fc47973aa273ddd5366, type: 2}

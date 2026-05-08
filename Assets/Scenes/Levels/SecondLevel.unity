@@ -20604,7 +20604,7 @@ MonoBehaviour:
   initialZombiesPerWave: 3
   currentZombiesPerWave: 0
   spawnDelay: 0.5
-  maxWaves: 3
+  maxWaves: 2
   currentWave: 0
   waveCooldown: 10
   inCooldown: 0
