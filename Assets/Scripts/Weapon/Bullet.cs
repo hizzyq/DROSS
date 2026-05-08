@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else
+        else if (collision.gameObject.layer != 10)
         {
             print("hit smthing!");
 
