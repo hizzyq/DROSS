@@ -344,7 +344,6 @@ GameObject:
   m_Component:
   - component: {fileID: 12013615}
   - component: {fileID: 12013614}
-  - component: {fileID: 12013613}
   m_Layer: 0
   m_Name: acidcameffect
   m_TagString: Untagged
@@ -352,26 +351,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &12013613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12013612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4b66a3d6a50bd489f043cef3bef926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AcidCameraEffect
-  acid: {fileID: 1580950921}
-  player: {fileID: 960033630}
-  postProcessVolume: {fileID: 2005872988}
-  fadeSpeed: 3
-  overlayColor: {r: 0.1, g: 0.8, b: 0.05, a: 0}
-  maxVignette: 0.55
-  maxChromaticAb: 0.4
-  acidOverlay: {fileID: 144324290}
 --- !u!114 &12013614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4b66a3d6a50bd489f043cef3bef926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AcidCameraEffect
-  acid: {fileID: 1162028200}
+  acids:
+  - {fileID: 1162028200}
+  - {fileID: 1580950921}
   player: {fileID: 960033630}
   postProcessVolume: {fileID: 2005872988}
   fadeSpeed: 3
