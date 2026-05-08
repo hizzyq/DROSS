@@ -145,10 +145,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         // For testing - Press K to save, L to load
-        if (Input.GetKeyDown(KeyCode.K) && !isDead)
+        /*if (Input.GetKeyDown(KeyCode.K) && !isDead)
         {
             GetComponent<CheckpointSaveSystem>().SaveCheckpoint(this, "manual_save");
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.L))
         {

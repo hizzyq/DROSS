@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.gameObject.layer != 10)
+        else if (collision.gameObject.layer != 10 && !(collision.gameObject.CompareTag("Enemy")))
         {
             print("hit smthing!");
 
